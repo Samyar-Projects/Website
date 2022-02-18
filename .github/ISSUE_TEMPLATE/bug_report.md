@@ -25,7 +25,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Environment (please complete the following information):**
  - Browser: [e.g. Google Chrome]
- - Windows: [e.g. Windows 11]
+ - OS: [e.g. Windows 11]
 
 **Additional context**
 Add any other context about the problem here.
