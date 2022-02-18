@@ -2,18 +2,6 @@ blank_issues_enabled: true
 
 contact_links:
 
-  - name: Check past help requests
-    url: https://github.com/Gigawhat-net/Gigawhat-Essentials/discussions/categories/q-a
-    about: Visit the Q&A forum to search for previous help requests.
-
-  - name: Discuss features
-    url: 
-    about: Discuss features on the forum before suggesting them.
-
-  - name: Create help request
-    url: https://github.com/Gigawhat-net/Gigawhat-Essentials/discussions/new?category=q-a
-    about: Create a support ticket to get help from developers.
-
   - name: Get help on our Discord server
     url: https://discord.gg/rMq7GujUZJ
     about: Join the Gigawhat Discord server.
