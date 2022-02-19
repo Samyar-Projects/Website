@@ -45,9 +45,6 @@ Please take a look at <a href="https://github.com/Gigawhat-net/Gigawhat-Website/
 | Lead Developer | <a href="https://github.com/samyarsadat">Samyar Sadat Akhavi</a> |
 | Assets         | <a href="https://github.com/quacker2589">quacker2589</a>         |
 
-### Special Thanks :
-   - <a href="https://github.com/Wurmatron">Wurmatron</a>
-
 <br>
 <br>
 
