@@ -21,7 +21,6 @@
 The Gigawhat website,<br>
 Written in HTML 5, CSS 3, Bootstrap 5, and Python Flask.
 
-<br>
 
 ## Support :
 You can contact us via e-mail.<br>
@@ -44,9 +43,6 @@ Please take a look at <a href="https://github.com/Gigawhat-net/Gigawhat-Website/
 | -------------- | ---------------------------------------------------------------- |
 | Lead Developer | <a href="https://github.com/samyarsadat">Samyar Sadat Akhavi</a> |
 | Assets         | <a href="https://github.com/quacker2589">quacker2589</a>         |
-
-### Special Thanks :
-   - <a href="https://github.com/Wurmatron">Wurmatron</a>
 
 <br>
 <br>
