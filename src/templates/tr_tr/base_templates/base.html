@@ -35,6 +35,16 @@
 
         <!-- Custom style sheet -->
         <link rel="stylesheet" href="../../static/css/style.css"/>
+
+        <!-- Cookie alert -->
+        <script>
+            document.cookie = "checkCookie=check;";
+            
+            if (!document.cookie) 
+            {
+                alert("This website requires cookies to function properly");
+            }
+        </script>
     </head>
 
     <body>
@@ -74,7 +84,7 @@
                                 <li><a href="{{url_for('index')}}" class="dropdown-item text-primary fw-bold">Discord</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a href="{{url_for('quiz_pages.quiz_index')}}" class="nav-link">Quiz</a></li>
+                        <li class="nav-item"><a href="{{url_for('quiz_pages.index')}}" class="nav-link">Quiz</a></li>
                     </ul>
 
                     {% if logged_in %}

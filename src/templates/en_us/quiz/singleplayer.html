@@ -1,0 +1,36 @@
+{% extends "en_us/base_templates/quiz_base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block title %}Singleplayer{% endblock %}
+
+{% block body %}
+<h2 class="text-center py-4">Customize your quiz</h2>
+
+<div class="p-sm-5 p-3 container">
+    <form action="/singleplayer-quiz" method="POST">
+        <div class="form-floating mb-3">
+            <select name="category-select" class="form-select rounded-3" id="category-select">
+                <option value="math" selected>Mathematics</option>
+                <option value="sci">Science</option>
+            </select>
+            <label for="category-select">Category</label>
+        </div>
+
+        <div class="form-floating mb-5">
+            <select name="difficulty-select" class="form-select rounded-3" id="difficulty-select">
+                <option value="hard">Hard</option>
+                <option value="normal" selected>Normal</option>
+                <option value="easy">Easy</option>
+            </select>
+            <label for="difficulty-select">Difficulty</label>
+        </div>
+
+        <button class="w-100 btn btn-lg rounded-3 btn-outline-success" type="submit">Start!</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block end %}
+{% endblock %}

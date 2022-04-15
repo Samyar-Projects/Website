@@ -3,8 +3,28 @@
 {% block head %}
 {% endblock %}
 
+{% block title %}Home{% endblock %}
+
 {% block body %}
-TEST
+<div class="lead">
+    <h1 class="text-center pt-4 mt-2">Gigawhat Quiz</h1>
+
+    <div class="container">
+        <p class="text-center">
+            Test your knowledge on any subject with singleplayer or compete with your friends on multiplayer!<br>
+            The questions are randomly selected every time you start a new game.
+        </p>
+    </div>
+
+    <div class="album py-4">
+        <div class="container">
+            <div class="d-grid gap-2 px-5">
+                <a href="{{url_for('quiz_pages.singleplayer')}}" class="btn btn-lg btn-outline-secondary" role="button">Singleplayer</a>
+                <a href="{{url_for('quiz_pages.multiplayer')}}" class="btn btn-lg btn-outline-info" role="button">Multiplayer</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block end %}

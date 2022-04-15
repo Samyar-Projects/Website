@@ -1,0 +1,8 @@
+{
+    "invalid_input": "Invalid input",
+    "invalid_email": "Invalid e-mail",
+    "pass_dont_match": "Passwords don't match!",
+    "duplicate_email": "There is an account with the same e-mail address.",
+    "invalid_pass": "Password must be longer than 8 letters, and must contain at least one number and one capital letter.",
+    "signup_success": "Sign-up successful, Now you can login."
+}

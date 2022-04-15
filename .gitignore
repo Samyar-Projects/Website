@@ -1,4 +1,6 @@
 src/__pycache__
-src/quiz/__pycache__
+src/modules/__pycache__
+src/utils/__pycache__
 src/CACHE
 src/config.py
+src/storage/database/db.sqlite3

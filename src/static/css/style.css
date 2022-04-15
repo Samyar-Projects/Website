@@ -1,5 +1,6 @@
 /*
     Copyright 2022 Gigawhat Programming Team
+    Main CSS styling file.
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
     documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -40,16 +41,22 @@
 }
 
 .carousel-caption {
-    bottom: 4.5rem;
+    bottom: 8rem;
     z-index: 10;
 }
 
 .carousel-item {
-    height: 22rem;
+    height: 28rem;
 }
 
 .carousel-item > img {
     position: absolute;
-    top: 0;
     left: 0;
+    top: 0;
+    min-width: 100%;
+    height: 28rem;
+}
+
+.pixelated {
+    image-rendering: pixelated;
 }
