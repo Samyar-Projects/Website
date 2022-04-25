@@ -42,6 +42,8 @@ Please take a look at <a href="https://github.com/Gigawhat-net/Gigawhat-Website/
 | Role           | Name                                                             |
 | -------------- | ---------------------------------------------------------------- |
 | Lead Developer | <a href="https://github.com/samyarsadat">Samyar Sadat Akhavi</a> |
+| Translation    | Rüzgar Kaya                                                      |
+| Assets         | Rüzgar Kaya                                                      |
 
 <br>
 <br>
