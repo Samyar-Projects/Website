@@ -27,18 +27,28 @@ def translate(key, lang):
     return data[key]
 
 
+# --- Condition raw output from db query for quiz ---
+def quiz_query_cond(query):
+    query = query[0] 
+    query = str(query)
+    query = query.replace("<script", "")
+    query = query.replace("</script", "")
+    
+    return query
+
+
 # ------- Checkers -------
 
 # --- Check e-mail validity ---
 def check_email_validity(email):
-    if email.__contains__("@") and email.__contains__(".") and email.__len__() < 50:
+    if "@" in email and "." in email and len(email) < 50:
         return True
     
     return False
     
 # --- Check password validity ---
 def check_password_validity(password):
-    if password.__len__() > 8 and re.search(r'\d', password) and re.match(r'\w*[A-Z]\w*', password) and password < 32:
+    if len(password) > 8 and re.search(r'\d', password) and re.match(r'\w*[A-Z]\w*', password) and len(password) < 32:
         return True
     
     return False

@@ -60,3 +60,15 @@
 .pixelated {
     image-rendering: pixelated;
 }
+
+.shadow-info {
+    box-shadow: 0 0 5px #0dcaf04b, 0 0 15px #4dd5ff91, 0 0 20px #4dd5ff91;
+}
+
+.shadow-success {
+    box-shadow: 0 0 1rem #0ac442;
+}
+
+.shadow-danger {
+    box-shadow: 0 0 1rem #ff0019;
+}

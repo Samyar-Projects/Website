@@ -16,7 +16,7 @@
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
 
-{% cache 2 %}
+{% cache 5*60 %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -41,16 +41,6 @@
 
         <!-- Custom style sheet -->
         <link rel="stylesheet" href="../../static/css/style.css"/>
-
-        <!-- Cookie alert -->
-        <script>
-            document.cookie = "checkCookie=check;";
-            
-            if (!document.cookie) 
-            {
-                alert("This website requires cookies to function properly");
-            }
-        </script>
     </head>
 
     <body class="bg-light">
@@ -85,13 +75,14 @@
                         <li class="nav-item"><a href="{{url_for('blog_pages.index')}}" class="nav-link">Home</a></li>
                         <li class="nav-item"><a href="{{url_for('index')}}" class="nav-link">Back to Gigawhat</a></li>
                     </ul>
+{% endcache %}
 
                     <!-- % if current_user.is_authenticated % -->
                     {% if true %}
                     <div class="dropdown text-lg-end mt-lg-0 mb-lg-0 text-start mt-4 mb-3">
                         <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
-                            <img src="{{pp_url | safe}}" alt="{{username | safe}}" width="32" height="32" class="rounded-circle me-1 pixelated">
-                            {{username | safe}}
+                            <img src="{{pp_url}}" alt="{{username}}" width="32" height="32" class="rounded-circle me-1 pixelated">
+                            {{username}}
                         </a>
                         
                         <ul class="dropdown-menu bg-black dropdown-menu-dark mt-2">
@@ -112,7 +103,6 @@
                 </div>
             </div>
         </nav>
-{% endcache %}
 
         <!-- Flash alerts -->
         {% with messages = get_flashed_messages(with_categories = true) %}
@@ -133,12 +123,12 @@
         {% block body %}
         {% endblock %}
 
-{% cache 2 %}
+{% cache 5*60 %}
         <!-- Footer -->
         <footer class="d-flex flex-wrap py-3 bg-dark">
             <div class="container">
                 <div class="text-center text-lg-start d-lg-inline d-block">
-                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=43s" class="text-decoration-none">
+                    <a href="https://www.ugurkurs.com.tr/" class="text-decoration-none">
                         <img src="../../static/img/logos/gigawhat-symbol-transparent.svg" width="25">
                     </a>
                         

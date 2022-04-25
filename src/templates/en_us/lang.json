@@ -4,5 +4,8 @@
     "pass_dont_match": "Passwords don't match!",
     "duplicate_email": "There is an account with the same e-mail address.",
     "invalid_pass": "Password must be longer than 8 letters, and must contain at least one number and one capital letter.",
-    "signup_success": "Sign-up successful, Now you can login."
+    "signup_success": "Sign-up successful, Now you can login.",
+    "quiz_not_exist": "A quiz with these criteria does not exist.",
+    "unexpected_err": "An unexpected error occurred!",
+    "anti_cheat_det": "Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."
 }

@@ -42,7 +42,6 @@ Please take a look at <a href="https://github.com/Gigawhat-net/Gigawhat-Website/
 | Role           | Name                                                             |
 | -------------- | ---------------------------------------------------------------- |
 | Lead Developer | <a href="https://github.com/samyarsadat">Samyar Sadat Akhavi</a> |
-| Assets         | <a href="https://github.com/quacker2589">quacker2589</a>         |
 
 <br>
 <br>

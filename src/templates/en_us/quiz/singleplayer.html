@@ -6,10 +6,10 @@
 {% block title %}Singleplayer{% endblock %}
 
 {% block body %}
-<h2 class="text-center py-4">Customize your quiz</h2>
+<h2 class="text-center pb-sm-4 pt-sm-4 pb-2 pt-3">Customize your quiz</h2>
 
-<div class="p-sm-5 p-3 container">
-    <form action="/singleplayer-quiz" method="POST">
+<div class="px-sm-5 py-sm-4 py-3 px-3 container">
+    <form action="/singleplayer" method="POST">
         <div class="form-floating mb-3">
             <select name="category-select" class="form-select rounded-3" id="category-select">
                 <option value="math" selected>Mathematics</option>
@@ -18,7 +18,7 @@
             <label for="category-select">Category</label>
         </div>
 
-        <div class="form-floating mb-5">
+        <div class="form-floating mb-3">
             <select name="difficulty-select" class="form-select rounded-3" id="difficulty-select">
                 <option value="hard">Hard</option>
                 <option value="normal" selected>Normal</option>
@@ -27,8 +27,17 @@
             <label for="difficulty-select">Difficulty</label>
         </div>
 
+        <div class="form-floating mb-5">
+            <select name="level-select" class="form-select rounded-3" id="level-select">
+                <option value="7" selected>7th Grade</option>
+            </select>
+            <label for="level-select">Level</label>
+        </div>
+
         <button class="w-100 btn btn-lg rounded-3 btn-outline-success" type="submit">Start!</button>
     </form>
+
+    <p class="text-secondary mt-3">Note: The quiz consists of {{info.q_num}} questions, and there is a time limit of {{info.q_time}} minute(s) for every question.</p>
 </div>
 {% endblock %}
 

@@ -16,7 +16,7 @@
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
 
-{% cache 2 %}
+{% cache 5*60 %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -41,16 +41,6 @@
 
         <!-- Custom style sheet -->
         <link rel="stylesheet" href="../../static/css/style.css"/>
-
-        <!-- Cookie alert -->
-        <script>
-            document.cookie = "checkCookie=check;";
-            
-            if (!document.cookie) 
-            {
-                alert("This website requires cookies to function properly");
-            }
-        </script>
     </head>
 
     <body class="bg-light">
@@ -85,15 +75,16 @@
                         <li class="nav-item"><a href="{{url_for('quiz_pages.index')}}" class="nav-link">Home</a></li>
                         <li class="nav-item"><a href="{{url_for('index')}}" class="nav-link">Back to Gigawhat</a></li>
                         <li class="nav-item"><a href="{{url_for('quiz_pages.singleplayer')}}" class="nav-link">Singleplayer</a></li>
-                        <li class="nav-item"><a href="{{url_for('quiz_pages.multiplayer')}}" class="nav-link">Multiplayer</a></li>
+                        <li class="nav-item"><a href="{{url_for('quiz_pages.multiplayer')}}" class="nav-link disabled" tabindex="-1">Multiplayer</a></li>
                     </ul>
+{% endcache %}
 
                     <!-- % if current_user.is_authenticated % -->
                     {% if true %}
                     <div class="dropdown text-lg-end mt-lg-0 mb-lg-0 text-start mt-4 mb-3">
                         <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
-                            <img src="{{pp_url | safe}}" alt="{{username | safe}}" width="32" height="32" class="rounded-circle me-1 pixelated">
-                            {{username | safe}}
+                            <img src="{{pp_url}}" alt="{{username}}" width="32" height="32" class="rounded-circle me-1 pixelated">
+                            {{username}}
                         </a>
                         
                         <ul class="dropdown-menu bg-black dropdown-menu-dark mt-2">
@@ -114,7 +105,6 @@
                 </div>
             </div>
         </nav>
-{% endcache %}
         
         <!-- Flash alerts -->
         {% with messages = get_flashed_messages(with_categories = true) %}
@@ -135,19 +125,19 @@
         {% block body %}
         {% endblock %}
 
-{% cache 2 %}
+{% cache 5*60 %}
         <!-- Footer -->
         <footer class="fixed-bottom d-flex flex-wrap py-3 bg-dark">
             <div class="container">
                 <div class="text-center text-lg-start d-lg-inline d-block">
-                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=43s" class="text-decoration-none">
+                    <a href="https://www.ugurkurs.com.tr/" class="text-decoration-none">
                         <img src="../../static/img/logos/gigawhat-symbol-transparent.svg" width="25">
                     </a>
                         
                     <span class="text-white ms-2">Copyright &copy; 2022 Gigawhat. <a href="{{url_for('privacy_policy')}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">Privacy Policy</a></span>
                 </div>
             
-                <div class="float-none d-lg-inline d-block float-lg-end mt-lg-0 mt-3 text-center">
+                <div class="float-none d-lg-inline d-none float-lg-end mt-lg-0 mt-3 text-center">
                     <a href="https://twitter.com/Gigawhat_net" class="h-opacity-50"><img src="../../static/img/logos/twitter.svg" width="20"></a>
                     <a href="https://www.instagram.com/gigawhat_net/" class="ms-3 h-opacity-50"><img src="../../static/img/logos/instagram.svg" width="20"></a>
                     <a href="https://discord.gg/rMq7GujUZJ" class="ms-3 h-opacity-50"><img src="../../static/img/logos/discord.svg" width="20"></a>
@@ -155,10 +145,6 @@
                     <a href="https://www.patreon.com/gigawhat" class="ms-3 h-opacity-50"><img src="../../static/img/logos/patreon.svg" width="20"></a>
                     <a href="https://github.com/Gigawhat-net" class="ms-3 h-opacity-50"><img src="../../static/img/logos/github.svg" width="20"></a>
                     <a href="mailto:contact@gigawhat.net" class="ms-3 h-opacity-50"><img src="../../static/img/logos/gmail.svg" width="20"></a>
-                </div>
-
-                <div class="d-block d-lg-none text-center mt-3">
-                    <a href="{{url_for('privacy_policy')}}" class="text-decoration-none h-color-white">Privacy Policy</a>
                 </div>
             </div>
         </footer>

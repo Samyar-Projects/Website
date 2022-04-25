@@ -35,23 +35,25 @@ app.register_blueprint(database)
 
 
 # ------- Error handlers -------
+cache_time = 10*60
+
 @app.errorhandler(werkzeug.exceptions.NotFound)
-@cache.cached(timeout = 2)
+@cache.cached(timeout = cache_time)
 def error404(error):
     return "<h1>Error 404 - Not Found</h1>", 404
 
 @app.errorhandler(werkzeug.exceptions.InternalServerError)
-@cache.cached(timeout = 2)
+@cache.cached(timeout = cache_time)
 def error500(error):
     return "<h1>Error 500 - Internal Server Error</h1>", 500
 
 @app.errorhandler(werkzeug.exceptions.MethodNotAllowed)
-@cache.cached(timeout = 2)
+@cache.cached(timeout = cache_time)
 def error405(error):
     return "<h1>Error 405 - Method Not Allowed</h1>", 405
 
 @app.errorhandler(jinja2.exceptions.TemplateNotFound)
-@cache.cached(timeout = 2)
+@cache.cached(timeout = cache_time)
 def template_error(error):
     return "<h1>Error 500 - Internal Server Error (TemplateError)</h1>", 500
 
@@ -64,9 +66,6 @@ def before_request():
         response.set_cookie("lang", "en_us")
         
         return response
-    
-    else:
-        pass
 
 
 # ------- Cookie setters -------
@@ -98,11 +97,11 @@ def set_lang_tr():
 def index():
     posts = []
     
-    posts.append({"title" : "Test Title 1", "read_dur" : "10 mins", "thumb_url" : "static/img/carousel/placeholder.png", "url" : "#"})
-    posts.append({"title" : "Test Title 2", "read_dur" : "3 mins", "thumb_url" : "static/img/carousel/placeholder.png", "url" : "#"})
-    posts.append({"title" : "Doctor Who?", "read_dur" : "1963 mins", "thumb_url" : "static/img/carousel/placeholder.png", "url" : "#"})
+    posts.append({"title": "Placeholder post 1", "read_dur": "1963 mins", "thumb_url": "static/img/carousel/placeholder.png", "url": "#"})
+    posts.append({"title": "Placeholder post 2", "read_dur": "1980 mins", "thumb_url": "static/img/carousel/placeholder.png", "url": "#"})
+    posts.append({"title": "Placeholder post 3", "read_dur": "2001 mins", "thumb_url": "static/img/carousel/placeholder.png", "url": "#"})
     
-    return render_template(request.cookies.get("lang") + "/index.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser", page_views = 123, posts = posts)
+    return render_template(request.cookies.get("lang") + "/index.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser", page_views = 4444845, posts = posts)
 
 @app.route("/mc-server")
 def mc_server():

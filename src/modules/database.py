@@ -17,6 +17,7 @@
 
 
 # ------- Libraries and utils -------
+from turtle import st
 from flask import Blueprint
 from init import db
 
@@ -51,6 +52,8 @@ class quiz_questions(db.Model):
     
     id = db.Column(db.Integer, primary_key = True)
     category = db.Column(db.String(20))
+    lang = db.Column(db.String(5))
+    level = db.Column(db.Integer)
     difficulty = db.Column(db.String(15))
     question = db.Column(db.String(16384))
     correct_answ = db.Column(db.String(1))
@@ -58,9 +61,12 @@ class quiz_questions(db.Model):
     answ_b = db.Column(db.String(2048))
     answ_c = db.Column(db.String(2048))
     answ_d = db.Column(db.String(2048))
+    status = db.Column(db.Boolean)
     
-    def __init__(self, category, difficulty, question, correct_answ, answ_a, answ_b, answ_c, answ_d):
+    def __init__(self, category, lang, level, difficulty, question, correct_answ, answ_a, answ_b, answ_c, answ_d, status):
         self.category = category
+        self.lang = lang
+        self.level = level
         self.difficulty = difficulty
         self.question = question
         self.correct_answ = correct_answ
@@ -68,6 +74,7 @@ class quiz_questions(db.Model):
         self.answ_b = answ_b
         self.answ_c = answ_c
         self.answ_d = answ_d
+        self.status = status
         
 # ---- Quiz Result Database ----
 class quiz_results(db.Model):
@@ -77,6 +84,7 @@ class quiz_results(db.Model):
     date = db.Column(db.String(10))
     time = db.Column(db.String(8))
     multiplayer = db.Column(db.Boolean)
+    with_account = db.Column(db.Boolean)
     player_1 = db.Column(db.String(50))
     player_2 = db.Column(db.String(50))
     quiz_id = db.Column(db.String(32), unique = True)
@@ -85,9 +93,10 @@ class quiz_results(db.Model):
     player_2_false = db.Column(db.Integer)
     player_2_true = db.Column(db.Integer)
     
-    def __init__(self, date, time, player_1, player_2, quiz_id, player_1_false, player_1_true, player_2_false, player_2_true):
+    def __init__(self, date, time, with_account, player_1, player_2, quiz_id, player_1_false, player_1_true, player_2_false, player_2_true):
         self.date = date
         self.time = time
+        self.with_account = with_account
         self.player_1 = player_1
         self.player_2 = player_2
         self.quiz_id = quiz_id
