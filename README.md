@@ -14,7 +14,7 @@
 </p>
 
 ----
-### Disclaimer: Website is in early development.
+### Disclaimer: Website is still in development.
 
 <br>
 
