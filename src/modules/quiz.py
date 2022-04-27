@@ -1,19 +1,18 @@
-# Copyright 2022 Gigawhat Programming Team
-# Quiz subdomain module.
+#  Gigawhat Website quiz module.
+#  Copyright 2022 Gigawhat Programming Team
 #
-# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-# documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-# the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
-# and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-#     
-# The above copyright notice and this permission notice shall be included in all copies or substantial 
-# portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
-# LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
-# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 # ------- Libraries and utils -------
@@ -93,7 +92,7 @@ def singleplayer():
                 ids.append(rand_id)
         
         session["quiz.questions"] = final_questions
-        session["quiz.current_q"] = 0
+        session["quiz.q_track"] = 0
         session["quiz.q_left"] = 14
         session["quiz.in_quiz"] = True
         
@@ -114,91 +113,101 @@ def singleplayer_quiz():
     if in_quiz:
         lang = request.cookies.get("lang")
         
+        q_track = int(session.get("quiz.q_track"))
+        q_left = int(session.get("quiz.q_left"))
+        get_q = session.get("quiz.questions")
+        
         if request.method == "POST":
             next = request.form.get("next")
                 
-            current_q = int(session.get("quiz.current_q"))
-            q_left = int(session.get("quiz.q_left"))
-            get_q = session.get("quiz.questions")
-                
-            if not next:
-                answer = request.form.get("answ")
-                correct_answer = quiz_query_cond(db.session.query(quiz_questions.correct_answ).filter_by(id = get_q[q_left]).first())
+            if not q_left < 0:
+                # Check answer:
+                if not next:
+                    answer = request.form.get("answ")
+                    correct_answer = quiz_query_cond(db.session.query(quiz_questions.correct_answ).filter_by(id = get_q[q_left]).first())
+                        
+                    if answer.endswith(str(q_left + 1)):
+                        question = quiz_query_cond(db.session.query(quiz_questions.question).filter_by(id = get_q[q_left]).first())
+                        answ_a = quiz_query_cond(db.session.query(quiz_questions.answ_a).filter_by(id = get_q[q_left]).first())
+                        answ_b = quiz_query_cond(db.session.query(quiz_questions.answ_b).filter_by(id = get_q[q_left]).first())
+                        answ_c = quiz_query_cond(db.session.query(quiz_questions.answ_c).filter_by(id = get_q[q_left]).first())
+                        answ_d = quiz_query_cond(db.session.query(quiz_questions.answ_d).filter_by(id = get_q[q_left]).first())
+                            
+                        answ = answer.split("answ_")
+                        answ = answ[1]
+                        answ = answ.split("_")
+                        answ = answ[0]
+                            
+                        session["quiz.q_track"] = q_track + 1
+                        q_track = int(session.get("quiz.q_track"))
+                        
+                        session["quiz.q_left"] = q_left - 1
+                        q_left = int(session.get("quiz.q_left"))
+                        
+                        # Todo: Save number of right and wrong answers in temporary storage. 
+                        if answ == correct_answer:
+                            # Correct answer.
+                            send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
+                            info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer}
+                        
+                            return render_template(lang + "/quiz/singleplayer_quiz.html", question = send_question, info = info)
+                            
+                        elif answ != "a" and answ != "b" and answ != "c" and answ != "d":
+                            # Empty, don't save to storage.
+                            send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
+                            info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer}
+                        
+                            return render_template(lang + "/quiz/singleplayer_quiz.html", question = send_question, info = info)
+                        
+                        else:
+                            # Wrong answer.
+                            send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
+                            info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer, "answ": answ}
+                        
+                            return render_template(lang + "/quiz/singleplayer_quiz.html", question = send_question, info = info)
+            
+                    else:
+                        session.pop("quiz.q_track")
+                        session.pop("quiz.q_left")
+                        session.pop("quiz.questions")
+                        session.pop("quiz.in_quiz")
+                            
+                        flash(translate("anti_cheat_det", lang), "danger")
+                        return redirect(url_for("quiz_pages.singleplayer"))
                     
-                if answer.endswith(str(current_q)):
+                # Load next question:
+                elif next and next.endswith(str(q_track)):
                     question = quiz_query_cond(db.session.query(quiz_questions.question).filter_by(id = get_q[q_left]).first())
                     answ_a = quiz_query_cond(db.session.query(quiz_questions.answ_a).filter_by(id = get_q[q_left]).first())
                     answ_b = quiz_query_cond(db.session.query(quiz_questions.answ_b).filter_by(id = get_q[q_left]).first())
                     answ_c = quiz_query_cond(db.session.query(quiz_questions.answ_c).filter_by(id = get_q[q_left]).first())
                     answ_d = quiz_query_cond(db.session.query(quiz_questions.answ_d).filter_by(id = get_q[q_left]).first())
-                        
-                    answ = answer.split("answ_")
-                    answ = answ[1]
-                    answ = answ.split("_")
-                    answ = answ[0]
-                        
-                    session["quiz.current_q"] = current_q + 1
-                    current_q = int(session.get("quiz.current_q"))
-                       
-                    # Todo: Save number of right and wrong answers in temporary storage. 
-                    if answ == correct_answer:
-                        send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
-                        info = {"q_left": q_left + 1, "c_num": current_q, "correct_answ": correct_answer}
-                    
-                        return render_template(lang + "/quiz/singleplayer_quiz.html", question = send_question, info = info)
-                        
-                    else:
-                        send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
-                        info = {"q_left": q_left + 1, "c_num": current_q, "correct_answ": correct_answer, "answ": answ}
-                    
-                        return render_template(lang + "/quiz/singleplayer_quiz.html", question = send_question, info = info)
-        
+            
+                    session["quiz.q_track"] = q_track + 1
+                    q_track = int(session.get("quiz.q_track"))
+            
+                    send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
+                    info = {"q_left": q_left + 1, "t_left": q_time, "q_track": q_track}
+
+                    return render_template(lang + "/quiz/singleplayer_quiz.html", question = send_question, info = info)		
+            
                 else:
-                    session.pop("quiz.current_q")
+                    session.pop("quiz.q_track")
+                    session.pop("quiz.q_left")
                     session.pop("quiz.questions")
                     session.pop("quiz.in_quiz")
                         
                     flash(translate("anti_cheat_det", lang), "danger")
                     return redirect(url_for("quiz_pages.singleplayer"))
-                
-            elif next and next.endswith(str(current_q)):
-                if not q_left < 0:
-                    question = quiz_query_cond(db.session.query(quiz_questions.question).filter_by(id = get_q[q_left]).first())
-                    answ_a = quiz_query_cond(db.session.query(quiz_questions.answ_a).filter_by(id = get_q[q_left]).first())
-                    answ_b = quiz_query_cond(db.session.query(quiz_questions.answ_b).filter_by(id = get_q[q_left]).first())
-                    answ_c = quiz_query_cond(db.session.query(quiz_questions.answ_c).filter_by(id = get_q[q_left]).first())
-                    answ_d = quiz_query_cond(db.session.query(quiz_questions.answ_d).filter_by(id = get_q[q_left]).first())
-        
-                    session["quiz.current_q"] = current_q + 1
-                    current_q = int(session.get("quiz.current_q"))
-                        
-                    session["quiz.q_left"] = q_left - 1
-                    q_left = int(session.get("quiz.q_left"))
-        
-                    send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
-                    info = {"q_left": q_left + 1, "t_left": q_time, "c_num": current_q}
 
-                    return render_template(lang + "/quiz/singleplayer_quiz.html", question = send_question, info = info)
-                    
-                else:
-                    # Todo: Move results from temporary storage to results database.
-                    # Todo: Show quiz results.
-                    return redirect(url_for("quiz_pages.singleplayer"))		
-        
             else:
-                session.pop("quiz.current_q")
-                session.pop("quiz.questions")
-                session.pop("quiz.in_quiz")
-                    
-                flash(translate("anti_cheat_det", lang), "danger")
+                # Todo: Move results from temporary storage to results database.
+                # Todo: Show quiz results.
                 return redirect(url_for("quiz_pages.singleplayer"))
             
-        else:
-            current_q = int(session.get("quiz.current_q"))
-            q_left = int(session.get("quiz.q_left"))
-            get_q = session.get("quiz.questions")
-            
-            if current_q == 0:
+        # Load first question:
+        else:       
+            if q_track == 0:
                 question = quiz_query_cond(db.session.query(quiz_questions.question).filter_by(id = get_q[0]).first())
                 answ_a = quiz_query_cond(db.session.query(quiz_questions.answ_a).filter_by(id = get_q[0]).first())
                 answ_b = quiz_query_cond(db.session.query(quiz_questions.answ_b).filter_by(id = get_q[0]).first())
@@ -206,7 +215,7 @@ def singleplayer_quiz():
                 answ_d = quiz_query_cond(db.session.query(quiz_questions.answ_d).filter_by(id = get_q[0]).first())
 
                 send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
-                info = {"q_left": q_left + 1, "t_left": q_time, "c_num": "0"}
+                info = {"q_left": q_left + 1, "t_left": q_time, "q_track": "0"}
 
                 return render_template(lang + "/quiz/singleplayer_quiz.html", question = send_question, info = info)
 
