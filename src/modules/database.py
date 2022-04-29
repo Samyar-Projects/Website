@@ -16,7 +16,6 @@
 
 
 # ------- Libraries and utils -------
-from turtle import st
 from flask import Blueprint
 from init import db
 
@@ -28,8 +27,8 @@ database = Blueprint("database", __name__)
 # ------- Database models -------
 
 # ---- User database ----
-class users(db.Model):
-    __tablename__ = "users"
+class Users(db.Model):
+    __tablename__ = "Users"
     
     id = db.Column(db.Integer, primary_key = True)
     email = db.Column(db.String(50), unique = True)
@@ -46,8 +45,8 @@ class users(db.Model):
         self.admin = admin
         
 # ---- Quiz Question Database ----
-class quiz_questions(db.Model):
-    __tablename__ = "quiz_questions"
+class QuizQuestions(db.Model):
+    __tablename__ = "QuizQuestions"
     
     id = db.Column(db.Integer, primary_key = True)
     category = db.Column(db.String(20))
@@ -76,8 +75,8 @@ class quiz_questions(db.Model):
         self.status = status
         
 # ---- Quiz Result Database ----
-class quiz_results(db.Model):
-    __tablename__ = "quiz_results"
+class QuizResults(db.Model):
+    __tablename__ = "QuizResults"
     
     id = db.Column(db.Integer, primary_key = True)
     date = db.Column(db.String(10))
@@ -87,22 +86,22 @@ class quiz_results(db.Model):
     player_1 = db.Column(db.String(50))
     player_2 = db.Column(db.String(50))
     quiz_id = db.Column(db.String(32), unique = True)
-    player_1_false = db.Column(db.Integer)
-    player_1_true = db.Column(db.Integer)
-    player_2_false = db.Column(db.Integer)
-    player_2_true = db.Column(db.Integer)
+    player_1_wrong = db.Column(db.Integer)
+    player_1_right = db.Column(db.Integer)
+    player_2_wrong = db.Column(db.Integer)
+    player_2_right = db.Column(db.Integer)
     
-    def __init__(self, date, time, with_account, player_1, player_2, quiz_id, player_1_false, player_1_true, player_2_false, player_2_true):
+    def __init__(self, date, time, with_account, player_1, player_2, quiz_id, player_1_wrong, player_1_right, player_2_wrong, player_2_right):
         self.date = date
         self.time = time
         self.with_account = with_account
         self.player_1 = player_1
         self.player_2 = player_2
         self.quiz_id = quiz_id
-        self.player_1_false = player_1_false
-        self.player_1_true = player_1_true
-        self.player_2_false = player_2_false
-        self.player_2_true = player_2_true
+        self.player_1_wrong = player_1_wrong
+        self.player_1_right = player_1_right
+        self.player_2_wrong = player_2_wrong
+        self.player_2_right = player_2_right
         
         if(player_2):
             self.multiplayer = True

@@ -17,7 +17,6 @@
 
 # ------- Libraries and utils -------
 from flask import Blueprint, abort, make_response, redirect, render_template, request
-from init import cache
 
 
 # ------- Blueprint init -------

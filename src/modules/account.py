@@ -17,17 +17,13 @@
 
 # ------- Libraries and utils -------
 from random import randint
-import re
-import json
-from flask import Blueprint, abort, flash, make_response, redirect, render_template, request, url_for
-from werkzeug.security import generate_password_hash, check_password_hash
-from init import cache, db
-from modules.database import users
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from werkzeug.security import generate_password_hash
+from init import db
+from modules.database import Users
 from utils.helpers import check_email_validity, check_password_validity, translate
-import flask_login
 from randimage import get_random_image
 import matplotlib
-import threading
 
 
 # ------- Blueprint init -------
@@ -64,7 +60,7 @@ def signup():
             flash(translate("pass_dont_match", lang), "warning")
             return render_template(lang + "/signup.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
             
-        if users.query.filter_by(email = email).first():
+        if Users.query.filter_by(email = email).first():
             flash(translate("duplicate_email", lang), "warning")
             return render_template(lang + "/signup.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
 
@@ -75,14 +71,14 @@ def signup():
         username = email.split("@")
         username = username[0]
                     
-        while users.query.filter_by(username = username).first():
+        while Users.query.filter_by(username = username).first():
             username = username + "_" + str(randint(0, 999))
                     
         img_res = (12, 12)
         img = get_random_image(img_res)
         matplotlib.image.imsave("static/img/profile_pictures/" + username + ".png", img)
                     
-        user = users(email, generate_password_hash(password, method = "sha384"), username, "../../static/img/profile_pictures/" + username + ".png", False)
+        user = Users(email, generate_password_hash(password, method = "sha384"), username, "../../static/img/profile_pictures/" + username + ".png", False)
                     
         db.session.add(user)
         db.session.commit()

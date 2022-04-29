@@ -3,4 +3,5 @@ src/modules/__pycache__
 src/utils/__pycache__
 src/CACHE
 src/config.py
-src/storage/database/db.sqlite3
+src/data/database/db.sqlite3
+src/data/temporary/quiz_result_temp.json

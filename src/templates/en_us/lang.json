@@ -7,5 +7,7 @@
     "signup_success": "Sign-up successful, Now you can login.",
     "quiz_not_exist": "A quiz with these criteria does not exist.",
     "unexpected_err": "An unexpected error occurred!",
-    "anti_cheat_det": "Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."
+    "anti_cheat_det": "Our anti-cheat systems have detected cheating! Please don't try to refresh or F12.",
+    "already_in_quiz": "You are already in a quiz. Please finish before starting a new one or click reset to reset it.",
+    "quiz_reset_success": "Your quiz has been reset. You can now start a new quiz."
 }

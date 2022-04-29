@@ -16,7 +16,7 @@
 
 
 # ------- Libraries, utils, and modules -------
-from flask import abort, make_response, redirect, render_template, request, session
+from flask import abort, make_response, redirect, render_template, request
 import jinja2
 import werkzeug
 from init import app, cache, db
@@ -24,6 +24,7 @@ from modules.quiz import quiz_pages
 from modules.blog import blog_pages
 from modules.account import account_pages
 from modules.database import database
+from modules.temp_data import temp_data
 
 
 # ------- Blueprint registry -------
@@ -31,6 +32,7 @@ app.register_blueprint(quiz_pages, subdomain = "quiz")
 app.register_blueprint(blog_pages, subdomain = "blog")
 app.register_blueprint(account_pages)
 app.register_blueprint(database)
+app.register_blueprint(temp_data)
 
 
 # ------- Error handlers -------

@@ -27,7 +27,7 @@
             <label for="difficulty-select">Difficulty</label>
         </div>
 
-        <div class="form-floating mb-5">
+        <div class="form-floating mb-4">
             <select name="level-select" class="form-select rounded-3" id="level-select">
                 <option value="7" selected>7th Grade</option>
             </select>
@@ -37,7 +37,11 @@
         <button class="w-100 btn btn-lg rounded-3 btn-outline-success" type="submit">Start!</button>
     </form>
 
-    <p class="text-secondary mt-3">Note: The quiz consists of {{info.q_num}} questions, and there is a time limit of {{info.q_time}} minute(s) for every question.</p>
+    {% if info.reset_q %}
+    <a href="{{url_for('quiz_pages.reset_quiz')}}" class="w-100 rounded-3 btn btn-lg btn-outline-warning mt-3" role="button">Reset Quiz</a>
+    {% endif %}
+
+    <p class="text-secondary mt-3 mb-5">Note: The quiz consists of {{info.q_num}} questions, and there is a time limit of {{info.q_time}} minute(s) for every question.</p>
 </div>
 {% endblock %}
 
