@@ -41,22 +41,22 @@ cache_time = 10*60
 @app.errorhandler(werkzeug.exceptions.NotFound)
 @cache.cached(timeout = cache_time)
 def error404(error):
-    return "<h1>Error 404 - Not Found</h1>", 404
+    return render_template(request.cookies.get("lang") + "/errors/error_404.html"), 404
 
 @app.errorhandler(werkzeug.exceptions.InternalServerError)
 @cache.cached(timeout = cache_time)
 def error500(error):
-    return "<h1>Error 500 - Internal Server Error</h1>", 500
+    return render_template(request.cookies.get("lang") + "/errors/error_500.html"), 500
 
 @app.errorhandler(werkzeug.exceptions.MethodNotAllowed)
 @cache.cached(timeout = cache_time)
 def error405(error):
-    return "<h1>Error 405 - Method Not Allowed</h1>", 405
+    return render_template(request.cookies.get("lang") + "/errors/error_405.html"), 405
 
 @app.errorhandler(jinja2.exceptions.TemplateNotFound)
 @cache.cached(timeout = cache_time)
 def template_error(error):
-    return "<h1>Error 500 - Internal Server Error (TemplateError)</h1>", 500
+    return render_template(request.cookies.get("lang") + "/errors/error_500.html"), 500
 
 
 # ------- Before request -------

@@ -1,0 +1,57 @@
+{% extends "en_us/base_templates/quiz_base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block title %}Quiz Results{% endblock %}
+
+{% block body %}
+<div class="container mt-sm-4 mt-3">
+    {% if info.p2_user == "None" %}
+    <h4 class="text-center">Singleplayer Quiz Results</h4>
+
+    <div class="progress mt-5 rounded-3" style="height: 28px;">
+        {% set q_per = info.p1_r_answ | int / info.q_num | int * 100 %}
+        {% set q_per = "%.2f" | format(q_per) %}
+        
+        <div id="progress_bar" class="progress-bar progress-bar-striped progress-bar-animated bg-success shadow-dark" role="progressbar" style="width: {{q_per}}%;"></div>
+    </div>
+
+    <label for="progress_bar" class="h5 mt-1">%{{q_per}}</label>
+
+    <div class="mt-2" style="font-size: 1.2rem;">
+        Right Answers: <p class="fw-bold text-danger d-inline">{{info.p1_r_answ}}</p><br>
+        Wrong Answers: <p class="fw-bold text-danger d-inline">{{info.p1_w_answ}}</p><br>
+        {% if info.p1_w_acc == "True" %}
+        Username: <p class="fw-bold text-danger d-inline">{{info.p1_user}}</p><br>
+        {% endif %}
+        Date: <p class="fw-bold text-danger d-inline">{{info.date}}</p><br>
+        Time: <p class="fw-bold text-danger d-inline">{{info.time}}</p>
+
+        <div class="mt-4">
+            Quiz ID: <p class="fw-bold text-danger d-inline">{{info.q_id}}</p>
+            <p style="font-family: 'Libre Barcode 39', cursive; font-size: 60px;">{{info.q_id}}</p>
+        </div>
+    </div>
+    {% else %}
+    <h5 class="d-inline">Multiplayer Quiz Results (W.I.P.)</h5>
+
+    <div class="mt-3">
+        Quiz ID: <p class="fw-bold text-danger d-inline">{{info.q_id}}</p><br>
+        Right Answers (Player 1): <p class="fw-bold text-danger d-inline">{{info.p1_r_answ}}</p><br>
+        Wrong Answers (Player 1): <p class="fw-bold text-danger d-inline">{{info.p1_w_answ}}</p><br>
+        Username (Player 1): <p class="fw-bold text-danger d-inline">{{info.p1_user}}</p><br>
+        With Account (Player 1): <p class="fw-bold text-danger d-inline">{{info.p1_w_acc}}</p><br>
+        Right Answers (Player 2): <p class="fw-bold text-danger d-inline">{{info.p2_r_answ}}</p><br>
+        Wrong Answers (Player 2): <p class="fw-bold text-danger d-inline">{{info.p2_w_answ}}</p><br>
+        Username (Player 2): <p class="fw-bold text-danger d-inline">{{info.p2_user}}</p><br>
+        With Account (Player 2): <p class="fw-bold text-danger d-inline">{{info.p2_w_acc}}</p><br>
+        Date: <p class="fw-bold text-danger d-inline">{{info.date}}</p><br>
+        Time: <p class="fw-bold text-danger d-inline">{{info.time}}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block end %}
+{% endblock %}

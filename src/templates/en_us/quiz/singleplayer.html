@@ -38,7 +38,7 @@
     </form>
 
     {% if info.reset_q %}
-    <a href="{{url_for('quiz_pages.reset_quiz')}}" class="w-100 rounded-3 btn btn-lg btn-outline-warning mt-3" role="button">Reset Quiz</a>
+    <a href="{{url_for('quiz_pages.reset_quiz_singleplayer')}}" class="w-100 rounded-3 btn btn-lg btn-outline-warning mt-3" role="button">Reset Quiz</a>
     {% endif %}
 
     <p class="text-secondary mt-3 mb-5">Note: The quiz consists of {{info.q_num}} questions, and there is a time limit of {{info.q_time}} minute(s) for every question.</p>

@@ -48,6 +48,6 @@ def set_lang_tr():
         
         
 # ------- Page routes -------
-@blog_pages.route('/')
+@blog_pages.route("/")
 def index():
     return render_template(request.cookies.get("lang") + "/blog_index.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")

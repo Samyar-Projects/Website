@@ -71,3 +71,8 @@
 .shadow-danger {
     box-shadow: 0 0 1rem #ff0019;
 }
+
+.shadow-dark {
+    box-shadow: 0 0 1rem #1b1b1b70;
+}
+

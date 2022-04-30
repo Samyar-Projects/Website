@@ -23,6 +23,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 # ------- Flask and Flask plug-in init -------
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
+app.config.from_pyfile("config.py")
 cache = Cache(app)
 db = SQLAlchemy(app)

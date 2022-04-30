@@ -47,7 +47,7 @@ def check_email_validity(email):
     
 # --- Check password validity ---
 def check_password_validity(password):
-    if len(password) > 8 and re.search(r'\d', password) and re.match(r'\w*[A-Z]\w*', password) and len(password) < 32:
+    if len(password) > 8 and re.search(r"\d", password) and re.match(r"\w*[A-Z]\w*", password) and len(password) < 32:
         return True
     
     return False
