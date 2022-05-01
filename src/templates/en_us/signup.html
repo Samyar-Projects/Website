@@ -34,7 +34,7 @@
             </div>
             
             <button class="w-100 mb-2 btn btn-lg rounded-3 btn-outline-secondary" type="submit">Sign-up</button>
-            <small class="text-muted">By clicking Sign up, you agree to the <a href="{{url_for('privacy_policy')}}">privacy policy</a>.</small>
+            <small class="text-muted">By clicking Sign up, you agree to the <a href="{{url_for("privacy_policy")}}">privacy policy</a>.</small>
                     
             <hr class="my-4">
             <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
@@ -55,7 +55,9 @@
 
     <div class="p-sm-3 p-4 m-3"></div>
 </div>
+{% endblock %}
 
+{% block end %}
 <script>
     function showPass() 
     {
@@ -75,7 +77,4 @@
         }
     }
 </script>
-{% endblock %}
-
-{% block end %}
 {% endblock %}

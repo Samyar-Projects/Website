@@ -1,6 +1,7 @@
 /*
     Gigawhat Website main CSS styling file.
     Copyright 2022 Gigawhat Programming Team
+    Written by Samyar Sadat Akhavi, 2022.
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -74,5 +75,11 @@
 
 .shadow-dark {
     box-shadow: 0 0 1rem #1b1b1b70;
+}
+
+.barcode {
+    font-family: "Libre Barcode 39", cursive; 
+    font-size: 60px;
+    margin: 0;
 }
 

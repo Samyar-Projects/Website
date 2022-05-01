@@ -1,5 +1,6 @@
 #  Gigawhat Website user account login and signup module.
 #  Copyright 2022 Gigawhat Programming Team
+#  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by

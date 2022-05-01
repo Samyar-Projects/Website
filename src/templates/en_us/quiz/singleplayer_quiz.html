@@ -65,7 +65,9 @@
         {% endif %}
     </form>
 </div>
+{% endblock %}
 
+{% block end %}
 {% if not info.correct_answ %}
 <script>
     function submitNoAnsw()
@@ -125,7 +127,4 @@
     };
 </script>
 {% endif %}
-{% endblock %}
-
-{% block end %}
 {% endblock %}

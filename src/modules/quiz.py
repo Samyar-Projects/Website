@@ -1,5 +1,6 @@
 #  Gigawhat Website quiz module.
 #  Copyright 2022 Gigawhat Programming Team
+#  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -22,7 +23,8 @@ from flask import Blueprint, abort, flash, make_response, redirect, render_templ
 from modules.temp_data import QuizResultTemp, delete_quiz_res_temp, read_quiz_res_temp, write_quiz_res_temp
 from utils.helpers import quiz_query_cond, translate
 from modules.database import QuizQuestions, db, QuizResults
-from config import QUIZ_QUESTION_COUNT, QUIZ_QUESTION_TIME
+from config import QUIZ_QUESTION_COUNT, QUIZ_QUESTION_TIME, RENDER_CACHE_TIMEOUT
+from init import cache
 
 
 # ------- Blueprint init -------
@@ -69,6 +71,7 @@ def pop_sessions():
 
 # ------- Page routes -------
 @quiz_pages.route("/")
+@cache.cached(timeout = RENDER_CACHE_TIMEOUT)
 def index():
     """for i in range(0, 100):
         data = QuizQuestions("math", "en_us", 7, "normal", "This is placeholder question number " + str(i), "a", "Answer A", "Answer B", "Answer C", "Answer D", True)
@@ -110,7 +113,7 @@ def singleplayer():
             
             session["quiz.questions"] = final_questions
             session["quiz.q_track"] = 0
-            session["quiz.q_left"] = 14
+            session["quiz.q_left"] = q_num - 1
             session["quiz.in_quiz"] = True
             
             q_id = randint(0, 999999999)
@@ -261,6 +264,9 @@ def singleplayer_quiz():
 
                 send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                 info = {"q_left": q_left + 1, "t_left": q_time, "q_track": q_track}
+                
+                session["quiz.q_track"] = q_track + 1
+                q_track = int(session.get("quiz.q_track"))
 
                 return render_template(lang + "/quiz/singleplayer_quiz.html", question = send_question, info = info)
 

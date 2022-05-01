@@ -1,6 +1,9 @@
 {% extends "en_us/base_templates/quiz_base.html" %}
 
 {% block head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block title %}Quiz Results{% endblock %}
@@ -30,7 +33,7 @@
 
         <div class="mt-4">
             Quiz ID: <p class="fw-bold text-danger d-inline">{{info.q_id}}</p>
-            <p style="font-family: 'Libre Barcode 39', cursive; font-size: 60px;">{{info.q_id}}</p>
+            <p class="barcode">{{info.q_id}}</p>
         </div>
     </div>
     {% else %}
@@ -51,7 +54,56 @@
     </div>
     {% endif %}
 </div>
+
+{% if info.p1_r_answ == "0" and info.p2_user == "None" %}
+<div class="modal fade" id="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Akademik Başarı Yükseltme</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            
+            <div class="modal-body">
+                Sizin 0 doğru cevabınız var. Biz, sizin akademik başarınızı yükseltmek amaçlı Uğur Kurs"a üye olmanızı öneriyoruz.
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İSTEMİYORUM!</button>
+                <a href="https://www.ugurkurs.com.tr/" role="button" class="btn btn-primary">Uğur Kurs"a git</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block end %}
+{% if info.p1_r_answ == "0" and info.p2_user == "None" %}
+<!-- Jquery -->
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function(){
+        $("#modal").modal("show");  
+    });
+</script>
+{% endif %}
+
+{% if info.p1_r_answ | int == info.q_num or info.p2_r_answ | int == info.q_num %}
+<!-- Confetti library -->
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
+<script>
+    const jsConfetti = new JSConfetti()
+
+    jsConfetti.addConfetti({
+        confettiColors: [
+            "#ff0000", "#fff700", "#0dff00", "#00fff7", "#0800ff", "#ff00ea", "#ff8400",
+        ],
+        confettiRadius: 7,
+        confettiNumber: 1200,
+    })
+</script>
+{% endif %}
 {% endblock %}
