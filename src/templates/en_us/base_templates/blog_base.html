@@ -83,7 +83,7 @@
 {% endcache %}
 
                     <!-- % if current_user.is_authenticated % -->
-                    {% if true %}
+                    {% if false %}
                     <div class="dropdown text-lg-end mt-lg-0 mb-lg-0 text-start mt-4 mb-3">
                         <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
                             <img src="{{pp_url}}" alt="{{username}}" width="32" height="32" class="rounded-circle me-1 pixelated">
@@ -101,8 +101,8 @@
                     </div>
                     {% else %}
                     <div class="text-lg-end mt-lg-0 mb-lg-0 text-center mt-4 mb-3">
-                        <a href="{{url_for("account_pages.login")}}" role="button" class="btn btn-outline-light me-2">Login</a>
-                        <a href="{{url_for("account_pages.signup")}}" role="button" class="btn btn-warning">Sign-up</a>
+                        <a href="{{url_for("account_pages.login")}}" role="button" class="btn btn-outline-light me-2 disabled" tabindex="-1">Login</a>
+                        <a href="{{url_for("account_pages.signup")}}" role="button" class="btn btn-warning disabled" tabindex="-1">Sign-up</a>
                     </div>
                     {% endif %}
                 </div>

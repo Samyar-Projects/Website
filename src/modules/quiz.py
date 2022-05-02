@@ -32,27 +32,20 @@ quiz_pages = Blueprint("quiz_pages", __name__, template_folder = "../templates",
 
 
 # ------- Cookie setters -------
-@quiz_pages.route("/set_lang_en", methods = ["POST", "GET"])
+@quiz_pages.route("/set_lang_en", methods = ["POST"])
 def set_lang_en():
-    if request.method == "POST":
-        response = make_response(redirect(request.referrer))
-        response.set_cookie("lang", "en_us")
+    response = make_response(redirect(request.referrer))
+    response.set_cookie("lang", "en_us")
         
-        return response
+    return response
     
-    else:
-        abort(404)
-    
-@quiz_pages.route("/set_lang_tr", methods = ["POST", "GET"])
+@quiz_pages.route("/set_lang_tr", methods = ["POST"])
 def set_lang_tr():
-    if request.method == "POST":
-        response = make_response(redirect(request.referrer))
-        response.set_cookie("lang", "tr_tr")
+
+    response = make_response(redirect(request.referrer))
+    response.set_cookie("lang", "tr_tr")
         
-        return response
-    
-    else:
-        abort(404)
+    return response
 
 
 # ------- Global variables -------
@@ -78,7 +71,7 @@ def index():
         db.session.add(data)
         db.session.commit()"""
     
-    return render_template(request.cookies.get("lang") + "/quiz_index.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+    return render_template(request.cookies.get("lang") + "/quiz_index.html")
 
 @quiz_pages.route("/singleplayer", methods = ["GET", "POST"])
 def singleplayer():
@@ -94,7 +87,7 @@ def singleplayer():
                 flash(translate("invalid_input", lang), "danger")
                 return redirect(url_for("quiz_pages.singleplayer"))
 
-            questions = db.session.query(QuizQuestions.id).filter_by(lang = lang, category = category, difficulty = difficulty, level = int(level), status = True).all()
+            questions = db.session.query(QuizQuestions.id).filter_by(lang = "tr_tr", category = category, difficulty = difficulty, level = int(level), status = True).all()
             
             if len(questions) < q_num :
                 flash(translate("quiz_not_exist", lang), "warning")
@@ -104,7 +97,7 @@ def singleplayer():
             ids = []
             
             while len(final_questions) < q_num:
-                rand_id = randint(0, db.session.query(QuizQuestions).count() - 1)
+                rand_id = randint(0, len(questions) - 1)
                 question = questions[rand_id]
                 
                 if not rand_id in ids:
@@ -129,17 +122,17 @@ def singleplayer():
         
         else:
             info = {"q_num": q_num, "q_time": round(q_time / 60, 2)}
-            return render_template(lang + "/quiz/singleplayer.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser", info = info)
+            return render_template(lang + "/quiz/singleplayer.html", info = info)
 
     else:
         flash(translate("already_in_quiz", lang), "danger")
         info = {"q_num": q_num, "q_time": round(q_time / 60, 2), "reset_q": True}
-        return render_template(lang + "/quiz/singleplayer.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser", info = info)
+        return render_template(lang + "/quiz/singleplayer.html", info = info)
  
 
 @quiz_pages.route("/multiplayer")
 def multiplayer():
-    return render_template(request.cookies.get("lang") + "/quiz/multiplayer.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+    return render_template(request.cookies.get("lang") + "/quiz/multiplayer.html")
 
 @quiz_pages.route("/singleplayer-quiz", methods = ["GET", "POST"])
 def singleplayer_quiz():

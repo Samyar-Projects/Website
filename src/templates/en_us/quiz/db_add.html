@@ -1,0 +1,91 @@
+{% extends "en_us/base_templates/base.html" %}
+
+{% block title %}Add quiz question{% endblock %}
+
+{% block body %} 
+<div class="container pt-2">
+    <div class="p-sm-5 p-2">
+        <h2 class="fw-bold mb-0">Add quiz question</h2>
+    </div>
+            
+    <div class="p-sm-5 p-2 pt-sm-0">
+        <form action="/quiz-db-add" method="POST">
+            <div class="form-floating mb-3">
+                <textarea name="q" class="form-control rounded-3" rows="4" id="q" required></textarea>
+                <label for="q">Question</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input name="aa" type="text" class="form-control rounded-3" id="aa" required>
+                <label for="aa">Answer A</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input name="ab" type="text" class="form-control rounded-3" id="ab" required>
+                <label for="ab">Answer B</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input name="ac" type="text" class="form-control rounded-3" id="ac" required>
+                <label for="ac">Answer C</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input name="ad" type="text" class="form-control rounded-3" id="ad" required>
+                <label for="ad">Answer D</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <select name="ca" class="form-select rounded-3" id="ca">
+                    <option value="a" selected>A</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                    <option value="d">D</option>
+                </select>
+                
+                <label for="ca">Correct Answer</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <select name="cat" class="form-select rounded-3" id="cat">
+                    <option value="math" selected>Mathematics</option>
+                    <option value="sci">Science</option>
+                </select>
+                
+                <label for="cat">Category</label>
+            </div>
+    
+            <div class="form-floating mb-3">
+                <select name="diff" class="form-select rounded-3" id="diff">
+                    <option value="hard">Hard</option>
+                    <option value="normal" selected>Normal</option>
+                    <option value="easy">Easy</option>
+                </select>
+                
+                <label for="diff">Difficulty</label>
+            </div>
+    
+            <div class="form-floating mb-3">
+                <select name="lvl" class="form-select rounded-3" id="lvl">
+                    <option value="7" selected>7th Grade</option>
+                </select>
+                
+                <label for="lvl">Level</label>
+            </div>
+
+            <div class="form-floating mb-5">
+                <select name="lang" class="form-select rounded-3" id="lang">
+                    <option value="tr_tr" selected>TR</option>
+                    <option value="en_us">EN</option>
+                </select>
+                
+                <label for="lang">Language</label>
+            </div>
+            
+            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-outline-secondary" type="submit">Add</button>
+        </form>
+    </div>
+
+    <div class="p-sm-3 p-4 m-3"></div>
+</div>
+{% endblock %}

@@ -25,30 +25,22 @@ blog_pages = Blueprint("blog_pages", __name__, template_folder = "../templates",
 
 
 # ------- Cookie setters -------
-@blog_pages.route("/set_lang_en", methods = ["POST", "GET"])
+@blog_pages.route("/set_lang_en", methods = ["POST"])
 def set_lang_en():
-    if request.method == "POST":
-        response = make_response(redirect(request.referrer))
-        response.set_cookie("lang", "en_us")
+    response = make_response(redirect(request.referrer))
+    response.set_cookie("lang", "en_us")
         
-        return response
+    return response
     
-    else:
-        abort(404)
-    
-@blog_pages.route("/set_lang_tr", methods = ["POST", "GET"])
+@blog_pages.route("/set_lang_tr", methods = ["POST"])
 def set_lang_tr():
-    if request.method == "POST":
-        response = make_response(redirect(request.referrer))
-        response.set_cookie("lang", "tr_tr")
+    response = make_response(redirect(request.referrer))
+    response.set_cookie("lang", "tr_tr")
         
-        return response
-    
-    else:
-        abort(404)
+    return response
         
         
 # ------- Page routes -------
 @blog_pages.route("/")
 def index():
-    return render_template(request.cookies.get("lang") + "/blog_index.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+    return render_template(request.cookies.get("lang") + "/blog_index.html")

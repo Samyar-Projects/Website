@@ -17,16 +17,18 @@
 
 
 # ------- Libraries, utils, and modules -------
-from flask import abort, make_response, redirect, render_template, request
+from flask import abort, flash, make_response, redirect, render_template, request
+from flask_security import hash_password
 import jinja2
 import werkzeug
 from init import app, cache, db
 from config import RENDER_CACHE_TIMEOUT
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
-from modules.account import account_pages
+from modules.account import account_pages, user_datastore
 from modules.database import database
 from modules.temp_data import temp_data
+from utils.helpers import translate
 
 
 # ------- Blueprint registry -------
@@ -37,9 +39,11 @@ app.register_blueprint(database)
 app.register_blueprint(temp_data)
 
 
-# ------- Error handlers -------
-cache_time = 10*60
+# ------- Global Jinja env variables -------
+app.jinja_env.globals.update(translate = translate)
 
+
+# ------- Error handlers -------
 @app.errorhandler(werkzeug.exceptions.NotFound)
 @cache.cached(timeout = RENDER_CACHE_TIMEOUT)
 def error404(error):
@@ -58,10 +62,18 @@ def error405(error):
 @app.errorhandler(jinja2.exceptions.TemplateNotFound)
 @cache.cached(timeout = RENDER_CACHE_TIMEOUT)
 def template_error(error):
+    flash("gigawhat.net requires cookies to function properly.", "danger")
     return render_template("en_us/errors/error_500.html"), 500
 
 
 # ------- Before request -------
+@app.before_first_request
+def create_user():
+    if not user_datastore.find_user(email = "testme.com"):
+        user_datastore.create_user(email = "testme.com", password = hash_password("password"), pp_url = "TESTESTESTEST")
+    
+    db.session.commit()
+
 @app.before_request
 def before_request():
     if not request.cookies.get("lang"): 
@@ -72,27 +84,19 @@ def before_request():
 
 
 # ------- Cookie setters -------
-@app.route("/set_lang_en", methods = ["POST", "GET"])
+@app.route("/set_lang_en", methods = ["POST"])
 def set_lang_en():
-    if request.method == "POST":
-        response = make_response(redirect(request.referrer))
-        response.set_cookie("lang", "en_us")
+    response = make_response(redirect(request.referrer))
+    response.set_cookie("lang", "en_us")
         
-        return response
+    return response
     
-    else:
-        abort(404)
-    
-@app.route("/set_lang_tr", methods = ["POST", "GET"])
+@app.route("/set_lang_tr", methods = ["POST"])
 def set_lang_tr():
-    if request.method == "POST":
-        response = make_response(redirect(request.referrer))
-        response.set_cookie("lang", "tr_tr")
+    response = make_response(redirect(request.referrer))
+    response.set_cookie("lang", "tr_tr")
         
-        return response
-    
-    else:
-        abort(404)
+    return response
 
 
 # ------- Page routes -------
@@ -104,16 +108,16 @@ def index():
     posts.append({"title": "Placeholder post 2", "read_dur": "1980 mins", "thumb_url": "static/img/carousel/placeholder.png", "url": "#"})
     posts.append({"title": "Placeholder post 3", "read_dur": "2001 mins", "thumb_url": "static/img/carousel/placeholder.png", "url": "#"})
     
-    return render_template(request.cookies.get("lang") + "/index.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser", page_views = 4444845, posts = posts)
+    return render_template(request.cookies.get("lang") + "/index.html", page_views = 4444845, posts = posts)
 
 @app.route("/mc-server")
 def mc_server():
-    return render_template(request.cookies.get("lang") + "/mc_server.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+    return render_template(request.cookies.get("lang") + "/mc_server.html")
 
 @app.route("/privacy-policy")
 @cache.cached(timeout = RENDER_CACHE_TIMEOUT)
 def privacy_policy():
-    return render_template(request.cookies.get("lang") + "/privacy_policy.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+    return render_template(request.cookies.get("lang") + "/privacy_policy.html")
 
 
 # ------- Running the app -------

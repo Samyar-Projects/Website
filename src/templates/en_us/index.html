@@ -1,8 +1,5 @@
 {% extends "en_us/base_templates/base.html" %}
 
-{% block head %}
-{% endblock %}
-
 {% block title %}Home{% endblock %}
 
 {% block body %}
@@ -110,11 +107,8 @@
 
 <div class="container">
 	<div class="text-center mb-5 mt-3 border-light border-1 border bg-white shadow rounded-3 p-3">
-		<h4 class="d-inline">Views in the past month:</h4>
-		<h4 class="text-secondary d-inline">{{page_views}}</h4>
+		<div class="d-inline display-6" style="font-size: 30px;">Views in the past month:</div>
+		<div class="text-primary d-inline display-6" style="font-size: 25px;">{{page_views}}</div>
 	</div>
 </div>
-{% endblock %}
-
-{% block end %}
 {% endblock %}

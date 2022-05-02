@@ -17,7 +17,8 @@
 
 
 # ------- Libraries and utils -------
-from flask import Blueprint
+from flask import Blueprint, flash, render_template, request
+from flask_security import RoleMixin, UserMixin
 from init import db
 
 
@@ -25,25 +26,73 @@ from init import db
 database = Blueprint("database", __name__)
 
 
+# ------- Temporary page route -------
+@database.route("/quiz-db-add", methods = ["GET", "POST"])
+def quiz_db_add():
+    if request.method == "POST":
+        try:
+            q = request.form.get("q")
+            aa = request.form.get("aa")
+            ab = request.form.get("ab")
+            ac = request.form.get("ac")
+            ad = request.form.get("ad")
+            ca = request.form.get("ca")
+            cat = request.form.get("cat")
+            diff = request.form.get("diff")
+            lvl = request.form.get("lvl")
+            lang = request.form.get("lang")
+            
+            data = QuizQuestions(cat, lang, lvl, diff, q, ca, aa, ab, ac, ad, True)
+            db.session.add(data)
+            db.session.commit()
+
+        except:
+            flash("ERROR", "danger")
+            return render_template("en_us/quiz/db_add.html")
+        
+        else:
+            flash("SUCCESS", "success")
+            return render_template("en_us/quiz/db_add.html")
+    
+    else:
+        return render_template("en_us/quiz/db_add.html")
+
+
 # ------- Database models -------
 
 # ---- User database ----
-class Users(db.Model):
+class RolesUsers(db.Model):
+    __tablename__ = "RolesUsers"
+    
+    id = db.Column(db.Integer, primary_key = True)
+    user_id = db.Column("user_id", db.Integer, db.ForeignKey("Users.id"))
+    role_id = db.Column("role_id", db.Integer, db.ForeignKey("Role.id"))
+
+class Role(db.Model, RoleMixin):
+    __tablename__ = "Role"
+    
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(80), unique = True)
+    description = db.Column(db.String(255))
+
+class Users(db.Model, UserMixin):
     __tablename__ = "Users"
     
     id = db.Column(db.Integer, primary_key = True)
-    email = db.Column(db.String(50), unique = True)
-    password = db.Column(db.String(121))
-    username = db.Column(db.String(50), unique = True)
-    pp_url = db.Column(db.String(128))
-    admin = db.Column(db.Boolean)
+    email = db.Column(db.String(255), unique = True)
+    username = db.Column(db.String(255), unique = True)
+    pp_url = db.Column(db.String(255))
+    password = db.Column(db.String(255), nullable = False)
+    last_login_at = db.Column(db.DateTime)
+    current_login_at = db.Column(db.DateTime)
+    last_login_ip = db.Column(db.String(100))
+    current_login_ip = db.Column(db.String(100))
+    login_count = db.Column(db.Integer)
+    active = db.Column(db.Boolean)
+    fs_uniquifier = db.Column(db.String(255), unique = True, nullable = False)
+    confirmed_at = db.Column(db.DateTime)
     
-    def __init__(self, email, password, username, pp_url, admin):
-        self.email = email
-        self.password = password
-        self.username = username
-        self.pp_url = pp_url
-        self.admin = admin
+    roles = db.relationship("Role", secondary = "RolesUsers", backref = db.backref("users", lazy = "dynamic"))
         
 # ---- Quiz Question Database ----
 class QuizQuestions(db.Model):
@@ -54,7 +103,7 @@ class QuizQuestions(db.Model):
     lang = db.Column(db.String(5))
     level = db.Column(db.Integer)
     difficulty = db.Column(db.String(15))
-    question = db.Column(db.String(16384))
+    question = db.Column(db.String(16384), unique = True)
     correct_answ = db.Column(db.String(1))
     answ_a = db.Column(db.String(2048))
     answ_b = db.Column(db.String(2048))

@@ -19,12 +19,18 @@
 # ------- Libraries and utils -------
 from random import randint
 from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_security import SQLAlchemySessionUserDatastore, Security
 from werkzeug.security import generate_password_hash
-from init import db
-from modules.database import Users
+from init import db, app
+from modules.database import Role, Users
 from utils.helpers import check_email_validity, check_password_validity, translate
 from randimage import get_random_image
 import matplotlib
+
+
+# ------- Flask-Security init -------
+user_datastore = SQLAlchemySessionUserDatastore(db.session, Users, Role)
+security = Security(app, user_datastore)
 
 
 # ------- Blueprint init -------
@@ -32,16 +38,16 @@ account_pages = Blueprint("account_pages", __name__, template_folder = "../templ
 
 
 # ------- Page routes -------
-@account_pages.route("/login")
+"""@account_pages.route("/login")
 def login():
-    return render_template(request.cookies.get("lang") + "/login.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+    return render_template(request.cookies.get("lang") + "/login.html")
 
 @account_pages.route("/signup", methods = ["GET", "POST"])
 def signup():
     lang = request.cookies.get("lang")
     
     if request.method == "GET":        
-        return render_template(lang + "/signup.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+        return render_template(lang + "/signup.html")
 
     elif request.method == "POST":
 
@@ -51,23 +57,23 @@ def signup():
             
         if not email and not password and not rep_password:
             flash(translate("invalid_input", lang), "danger")
-            return render_template(lang + "/signup.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+            return render_template(lang + "/signup.html")
             
         if not check_email_validity(email):
             flash(translate("invalid_email", lang), "danger")
-            return render_template(lang + "/signup.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+            return render_template(lang + "/signup.html")
         
         if password != rep_password:
             flash(translate("pass_dont_match", lang), "warning")
-            return render_template(lang + "/signup.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+            return render_template(lang + "/signup.html")
             
         if Users.query.filter_by(email = email).first():
             flash(translate("duplicate_email", lang), "warning")
-            return render_template(lang + "/signup.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+            return render_template(lang + "/signup.html")
 
         if not check_password_validity(password):
             flash(translate("invalid_pass", lang), "danger")
-            return render_template(lang + "/signup.html", pp_url = "https://torange.biz/photofxnew/76/IMAGE/lion-profile-picture-76801.jpg", username = "TestUser")
+            return render_template(lang + "/signup.html")
 
         username = email.split("@")
         username = username[0]
@@ -85,4 +91,4 @@ def signup():
         db.session.commit()
                     
         flash(translate("signup_success", lang), "success")
-        return redirect(url_for("account_pages.login"))        
+        return redirect(url_for("account_pages.login"))"""

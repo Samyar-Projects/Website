@@ -65,12 +65,12 @@
             </div>
             
             <div class="modal-body">
-                Sizin 0 doğru cevabınız var. Biz, sizin akademik başarınızı yükseltmek amaçlı Uğur Kurs"a üye olmanızı öneriyoruz.
+                Sizin 0 doğru cevabınız var. Biz, sizin akademik başarınızı yükseltmek amaçlı Uğur Kurs'a üye olmanızı öneriyoruz.
             </div>
             
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İSTEMİYORUM!</button>
-                <a href="https://www.ugurkurs.com.tr/" role="button" class="btn btn-primary">Uğur Kurs"a git</a>
+                <a href="https://www.ugurkurs.com.tr/" role="button" class="btn btn-primary">Uğur Kurs'a git</a>
             </div>
         </div>
     </div>
@@ -96,6 +96,14 @@
 
 <script>
     const jsConfetti = new JSConfetti()
+
+    jsConfetti.addConfetti({
+        confettiColors: [
+            "#ff0000", "#fff700", "#0dff00", "#00fff7", "#0800ff", "#ff00ea", "#ff8400",
+        ],
+        confettiRadius: 7,
+        confettiNumber: 1200,
+    })
 
     jsConfetti.addConfetti({
         confettiColors: [
