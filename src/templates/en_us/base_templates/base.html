@@ -136,7 +136,7 @@
 
 {% cache BASE_CACHE_TIMEOUT %}
         <!-- Footer -->
-        <footer class="d-flex flex-wrap py-3 border-top bg-dark">
+        <footer class="d-flex flex-wrap py-3 bg-dark {% block footer %}{% endblock %}">
             <div class="container">
                 <div class="text-center text-lg-start d-lg-inline d-block">
                     <a href="https://www.ugurkurs.com.tr/" class="text-decoration-none">

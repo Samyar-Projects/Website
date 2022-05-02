@@ -21,8 +21,12 @@
     width: 40%;
 }
 
+.w-70 {
+    width: 70%;
+}
+
 .h-opacity-50:hover {
-    transition: 0.3s;  
+    transition: 0.3s;
     opacity: 50%;
 }
 
@@ -49,7 +53,7 @@
     height: 28rem;
 }
 
-.carousel-item > img {
+.carousel-item>img {
     position: absolute;
     left: 0;
     top: 0;
@@ -78,8 +82,7 @@
 }
 
 .barcode {
-    font-family: "Libre Barcode 39", cursive; 
+    font-family: "Libre Barcode 39", cursive;
     font-size: 60px;
     margin: 0;
 }
-

@@ -58,7 +58,7 @@ def error405(error):
 @app.errorhandler(jinja2.exceptions.TemplateNotFound)
 @cache.cached(timeout = RENDER_CACHE_TIMEOUT)
 def template_error(error):
-    return render_template(request.cookies.get("lang") + "/errors/error_500.html"), 500
+    return render_template("en_us/errors/error_500.html"), 500
 
 
 # ------- Before request -------
