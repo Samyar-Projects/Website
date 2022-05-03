@@ -19,8 +19,11 @@
 # ------- Libraries -------
 import os
 import pkg_resources
+
+
+# ------- Load env variables -------
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv("vars.env")
 
 
 # ------- Flask config -------
