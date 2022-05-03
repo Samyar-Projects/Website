@@ -1,0 +1,70 @@
+{% extends "base_templates/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="container pt-sm-5 pt-2 pb-5">
+    <div class="p-sm-5 p-2">
+        <h2 class="fw-bold mb-0">Login</h2>
+    </div>
+
+    <div class="p-sm-5 p-2 pt-sm-0">
+        <form action="/login" method="POST">
+            <div class="form-floating mb-3">
+                <input name="email" type="email" class="form-control rounded-3" id="email" placeholder="name@example.com" maxlength="50" required>
+                <label for="email">Email</label>
+            </div>
+
+            <div class="form-floating mb-2">
+                <input name="password" type="password" class="form-control rounded-3" id="password" placeholder="Password" maxlength="32" required>
+                <label for="password">Password</label>
+
+                <a href="" class="text-muted small">Forgot Password?</a>
+            </div>
+
+            <div class="form-check form-switch mb-2">
+                <input class="form-check-input" type="checkbox" role="switch" id="showPassword" onclick="showPass()">
+                <label class="form-check-label" for="showPassword">Show password</label>
+            </div>
+
+            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-outline-secondary" name="submit" type="submit">Login</button>
+
+            <hr class="my-4">
+            <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
+
+            <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
+                <i class="bi bi-google pe-2"></i>Login with Google
+            </button>
+
+            <button class="w-100 py-2 mb-2 btn btn-outline-info rounded-3" type="submit">
+                <i class="bi bi-twitter pe-2"></i>Login with Twitter
+            </button>
+
+            <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
+                <i class="bi bi-github pe-2"></i>Login with GitHub
+            </button>
+        </form>
+    </div>
+
+    <div class="p-4 m-3"></div>
+</div>
+{% endblock %}
+
+{% block end %}
+<script>
+    function showPass() 
+    {
+        var password = document.getElementById("password");
+
+        if (password.type === "password") 
+        {
+            password.type = "text";
+        } 
+        
+        else 
+        {
+            password.type = "password";
+        }
+    }
+</script>
+{% endblock %}

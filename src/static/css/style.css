@@ -1,0 +1,88 @@
+/*
+    Gigawhat Website main CSS styling file.
+    Copyright 2022 Gigawhat Programming Team
+    Written by Samyar Sadat Akhavi, 2022.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+.w-40 {
+    width: 40%;
+}
+
+.w-70 {
+    width: 70%;
+}
+
+.h-opacity-50:hover {
+    transition: 0.3s;
+    opacity: 50%;
+}
+
+.h-opacity-50 {
+    transition: 0.3s;
+}
+
+.h-color-white:hover {
+    transition: 0.3s;
+    color: white;
+}
+
+.h-color-white {
+    transition: 0.3s;
+    color: gray;
+}
+
+.carousel-caption {
+    bottom: 8rem;
+    z-index: 10;
+}
+
+.carousel-item {
+    height: 28rem;
+}
+
+.carousel-item>img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 100%;
+    height: 28rem;
+}
+
+.pixelated {
+    image-rendering: pixelated;
+}
+
+.shadow-info {
+    box-shadow: 0 0 5px #0dcaf04b, 0 0 15px #4dd5ff91, 0 0 20px #4dd5ff91;
+}
+
+.shadow-success {
+    box-shadow: 0 0 1rem #0ac442;
+}
+
+.shadow-danger {
+    box-shadow: 0 0 1rem #ff0019;
+}
+
+.shadow-dark {
+    box-shadow: 0 0 1rem #1b1b1b70;
+}
+
+.barcode {
+    font-family: "Libre Barcode 39", cursive;
+    font-size: 60px;
+    margin: 0;
+}

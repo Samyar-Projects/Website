@@ -14,7 +14,7 @@
 </p>
 
 ----
-### Disclaimer: Website is in early development.
+### Disclaimer: Website is still in development.
 
 <br>
 
@@ -42,7 +42,8 @@ Please take a look at <a href="https://github.com/Gigawhat-net/Gigawhat-Website/
 | Role           | Name                                                             |
 | -------------- | ---------------------------------------------------------------- |
 | Lead Developer | <a href="https://github.com/samyarsadat">Samyar Sadat Akhavi</a> |
-| Assets         | <a href="https://github.com/quacker2589">quacker2589</a>         |
+| Translation    | Rüzgar Kaya                                                      |
+| Assets         | Rüzgar Kaya                                                      |
 
 <br>
 <br>

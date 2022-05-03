@@ -1,0 +1,127 @@
+{% extends "base_templates/quiz_base.html" %}
+
+{% block title %}Singleplayer Quiz{% endblock %}
+
+{% block body %}
+<div class="container mt-sm-4 mt-3">
+    <h5 class="d-inline">Singleplayer Quiz</h5>
+
+    {% if not info.correct_answ %}
+    <div class="d-inline float-end ms-3">
+        <p class="d-inline">Time Left: </p>
+        <p class="text-primary d-inline"><span id="timer">00:00</span></p>
+    </div>
+    {% endif %}
+
+    <div class="d-inline float-end ms-3">
+        <p class="d-inline">Questions Left: </p>
+        <p class="text-success d-inline">{{info.q_left}}</p>
+    </div>
+
+    <div class="pt-3"></div>
+
+    <div class="container mt-4 rounded-3 border-2 border-info border shadow-info bg-white">
+        <div class="p-sm-3 p-2">
+            {{question.question | safe}}
+        </div>
+    </div>
+
+    <form action="/singleplayer-quiz" class="mt-4" method="POST">
+        <div class="album">
+            <div class="row row-cols-1 row-cols-md-2 g-3">
+                <div class="col">
+                    <{% if not info.correct_answ %}button{% else %}a{% endif %} class="btn-outline-primary btn w-100 shadow{% if info.correct_answ == "a" %}-success bg-success text-white{% endif %}{% if info.answ == "a" %}-danger bg-danger text-white{% endif %} border border-1 border-secondary p-2 {% if info.correct_answ %}disabled{% endif %}" {% if not info.correct_answ %}value="answ_a_{{info.q_left}}" type="submit" name="answ"{% endif %}>
+                        {{question.answ_a | safe}}
+                    </{% if not info.correct_answ %}button{% else %}a{% endif %}>
+                </div>
+
+                <div class="col">
+                    <{% if not info.correct_answ %}button{% else %}a{% endif %} class="btn-outline-warning btn w-100 shadow{% if info.correct_answ == "b" %}-success bg-success text-white{% endif %}{% if info.answ == "b" %}-danger bg-danger text-white{% endif %} border border-1 border-secondary p-2 {% if info.correct_answ %}disabled{% endif %}" {% if not info.correct_answ %}value="answ_b_{{info.q_left}}" type="submit" name="answ"{% endif %}>
+                        {{question.answ_b | safe}}
+                    </{% if not info.correct_answ %}button{% else %}a{% endif %}>
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 g-3 mt-1">
+                <div class="col">
+                    <{% if not info.correct_answ %}button{% else %}a{% endif %} class="btn-outline-danger btn w-100 shadow{% if info.correct_answ == "c" %}-success bg-success text-white{% endif %}{% if info.answ == "c" %}-danger bg-danger text-white{% endif %} border border-1 border-secondary p-2 {% if info.correct_answ %}disabled{% endif %}" {% if not info.correct_answ %}value="answ_c_{{info.q_left}}" type="submit" name="answ"{% endif %}>
+                        {{question.answ_c | safe}}
+                    </{% if not info.correct_answ %}button{% else %}a{% endif %}>
+                </div>
+
+                <div class="col">
+                    <{% if not info.correct_answ %}button{% else %}a{% endif %} class="btn-outline-success btn w-100 shadow{% if info.correct_answ == "d" %}-success bg-success text-white{% endif %}{% if info.answ == "d" %}-danger bg-danger text-white{% endif %} border border-1 border-secondary p-2 {% if info.correct_answ %}disabled{% endif %}" {% if not info.correct_answ %}value="answ_d_{{info.q_left}}" type="submit" name="answ"{% endif %}>
+                        {{question.answ_d | safe}}
+                    </{% if not info.correct_answ %}button{% else %}a{% endif %}>
+                </div>
+            </div>
+        </div>
+
+        {% if info.correct_answ %}
+        <button class="w-100 mb-2 btn btn-lg rounded-3 shadow btn-outline-dark mt-4" value="next_qstn_{{info.q_track}}" type="submit" name="next">{% if info.q_left == 0 %}Show Results{% else %}Next Question{% endif %}</button>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
+
+{% block end %}
+{% if not info.correct_answ %}
+<script>
+    function submitNoAnsw()
+    {
+        var form = document.createElement("FORM");
+        form.setAttribute("id", "submitOnEnd");
+        document.body.appendChild(form);
+        
+        var button = document.createElement("INPUT");
+        button.setAttribute("name", "answ");
+        button.setAttribute("type", "text");
+        button.setAttribute("value", "answ_NA_{{info.q_left}}");
+        document.getElementById("submitOnEnd").appendChild(button);
+
+        form.method = "POST";
+        form.action = "/singleplayer-quiz";
+        form.submit();
+    }
+    
+    window.onload = function () 
+    {
+        duration = {{info.t_left}};
+        display = document.getElementById("timer");
+
+        var start = Date.now(), diff, minutes, seconds;
+        
+        function timer() 
+        {
+            diff = duration - (((Date.now() - start) / 1000) | 0);
+    
+            minutes = (diff / 60) | 0;
+            seconds = (diff % 60) | 0;
+    
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+    
+            display.textContent = minutes + ":" + seconds; 
+    
+            if (diff <= 0) 
+            {
+                start = Date.now() + 1000;
+            }
+
+            if (minutes === "00" && seconds < "11" && display.style.color !== "red")
+            {
+                display.style.color = "red";
+            }
+
+            if (minutes === "00" && seconds === "00")
+            {
+                submitNoAnsw();
+            }
+        };
+
+        timer();
+        setInterval(timer, 1000);
+    };
+</script>
+{% endif %}
+{% endblock %}
