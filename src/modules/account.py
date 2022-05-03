@@ -18,12 +18,10 @@
 
 # ------- Libraries and utils -------
 from random import randint
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint
 from flask_security import SQLAlchemySessionUserDatastore, Security
-from werkzeug.security import generate_password_hash
 from init import db, app
 from modules.database import Role, Users
-from utils.helpers import check_email_validity, check_password_validity, translate
 from randimage import get_random_image
 import matplotlib
 

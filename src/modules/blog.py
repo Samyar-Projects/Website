@@ -17,30 +17,14 @@
 
 
 # ------- Libraries and utils -------
-from flask import Blueprint, abort, make_response, redirect, render_template, request
+from flask import Blueprint, render_template
 
 
 # ------- Blueprint init -------
 blog_pages = Blueprint("blog_pages", __name__, template_folder = "../templates", static_folder = "../static")
-
-
-# ------- Cookie setters -------
-@blog_pages.route("/set_lang_en", methods = ["POST"])
-def set_lang_en():
-    response = make_response(redirect(request.referrer))
-    response.set_cookie("lang", "en_us")
-        
-    return response
-    
-@blog_pages.route("/set_lang_tr", methods = ["POST"])
-def set_lang_tr():
-    response = make_response(redirect(request.referrer))
-    response.set_cookie("lang", "tr_tr")
-        
-    return response
         
         
 # ------- Page routes -------
 @blog_pages.route("/")
 def index():
-    return render_template(request.cookies.get("lang") + "/blog_index.html")
+    return render_template("blog_index.html")

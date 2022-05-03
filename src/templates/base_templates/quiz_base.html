@@ -1,5 +1,5 @@
 <!-- 
-    Gigawhat Website blog HTML template file.
+    Gigawhat Website quiz HTML template file.
     Copyright 2022 Gigawhat Programming Team
     Written by Samyar Sadat Akhavi, 2022.
 
@@ -16,9 +16,9 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
-{% from "config.jinja" import BLOG_CACHE_TIMEOUT %}
+{% from "config.jinja" import QUIZ_CACHE_TIMEOUT %}
 
-{% cache BLOG_CACHE_TIMEOUT %}
+{% cache QUIZ_CACHE_TIMEOUT %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,7 +30,7 @@
         <!-- Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
-           
+
         <!-- Favicon -->
         <link rel="icon" href="../../static/img/logos/gigawhat-symbol-transparent.svg">
 
@@ -43,9 +43,9 @@
         {% endblock %}
 
         <!-- Page title block -->
-        <title>{% block title %}{% endblock %} | Gigawhat</title>
+        <title>{% block title %}{% endblock %} | Gigawhat Quiz</title>
 
-{% cache BLOG_CACHE_TIMEOUT %}
+{% cache QUIZ_CACHE_TIMEOUT %}
     </head>
 
     <body class="bg-light">
@@ -53,20 +53,20 @@
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2">
             <div class="container">
                 <div class="navbar-brand">
-                    <a href="{{url_for("blog_pages.index")}}" class="text-decoration-none">
+                    <a href="{{url_for("quiz_pages.index")}}" class="text-decoration-none">
                         <img src="../../static/img/logos/gigawhat-logo-transparent.svg" width="150" alt="Never gonna give you up">
                     </a>
 
                     <div class="d-inline">
-                        <a href="{{url_for("blog_pages.index")}}" class="link-light text-decoration-none small fw-bold">BLOG</a>
+                        <a href="{{url_for("quiz_pages.index")}}" class="link-light text-decoration-none small fw-bold">QUIZ</a>
                     </div>
 
                     <div class="dropdown d-inline ms-1">
                         <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">EN</a>
                         
                         <ul class="dropdown-menu bg-black dropdown-menu-dark">
-                            <li><form action="{{url_for("blog_pages.set_lang_en")}}" method="POST"><input class="dropdown-item text-primary" type="submit" value="EN"></form></li>
-                            <li><form action="{{url_for("blog_pages.set_lang_tr")}}" method="POST"><input class="dropdown-item" type="submit" value="TR"></form></li>
+                            <li><form action="{{url_for("set_lang_en")}}" method="POST"><input class="dropdown-item text-primary" type="submit" value="EN"></form></li>
+                            <li><form action="{{url_for("set_lang_tr")}}" method="POST"><input class="dropdown-item" type="submit" value="TR"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -77,8 +77,10 @@
 
                 <div class="collapse navbar-collapse" id="navmenu">
                     <ul class="navbar-nav ms-auto me-4">
-                        <li class="nav-item"><a href="{{url_for("blog_pages.index")}}" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="{{url_for("quiz_pages.index")}}" class="nav-link">Home</a></li>
                         <li class="nav-item"><a href="{{url_for("index")}}" class="nav-link">Back to Gigawhat</a></li>
+                        <li class="nav-item"><a href="{{url_for("quiz_pages.singleplayer")}}" class="nav-link">Singleplayer</a></li>
+                        <li class="nav-item"><a href="{{url_for("quiz_pages.multiplayer")}}" class="nav-link disabled" tabindex="-1">Multiplayer</a></li>
                     </ul>
 {% endcache %}
 
@@ -101,14 +103,14 @@
                     </div>
                     {% else %}
                     <div class="text-lg-end mt-lg-0 mb-lg-0 text-center mt-4 mb-3">
-                        <a href="{{url_for("account_pages.login")}}" role="button" class="btn btn-outline-light me-2 disabled" tabindex="-1">Login</a>
-                        <a href="{{url_for("account_pages.signup")}}" role="button" class="btn btn-warning disabled" tabindex="-1">Sign-up</a>
+                        <a href="{{url_for("index")}}" role="button" class="btn btn-outline-light me-2 disabled" tabindex="-1">Login</a>
+                        <a href="{{url_for("index")}}" role="button" class="btn btn-warning disabled" tabindex="-1">Sign-up</a>
                     </div>
                     {% endif %}
                 </div>
             </div>
         </nav>
-
+        
         <!-- Flash alerts -->
         {% with messages = get_flashed_messages(with_categories = true) %}
             {% if messages %}
@@ -123,14 +125,14 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        
+
         <!-- Body block -->
         {% block body %}
         {% endblock %}
 
-{% cache BLOG_CACHE_TIMEOUT %}
+{% cache QUIZ_CACHE_TIMEOUT %}
         <!-- Footer -->
-        <footer class="d-flex flex-wrap py-3 bg-dark {% block footer %}{% endblock %}">
+        <footer class="fixed-bottom d-flex flex-wrap py-3 bg-dark {% block footer %}{% endblock %}">
             <div class="container">
                 <div class="text-center text-lg-start d-lg-inline d-block">
                     <a href="https://www.ugurkurs.com.tr/" class="text-decoration-none">
@@ -140,7 +142,7 @@
                     <span class="text-white ms-2">Copyright &copy; 2022 Gigawhat. <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">Privacy Policy</a></span>
                 </div>
             
-                <div class="float-none d-lg-inline d-block float-lg-end mt-lg-0 mt-3 text-center">
+                <div class="float-none d-lg-inline d-none float-lg-end mt-lg-0 mt-3 text-center">
                     <a href="https://twitter.com/Gigawhat_net" class="h-opacity-50"><img src="../../static/img/logos/twitter.svg" width="20"></a>
                     <a href="https://www.instagram.com/gigawhat_net/" class="ms-3 h-opacity-50"><img src="../../static/img/logos/instagram.svg" width="20"></a>
                     <a href="https://discord.gg/rMq7GujUZJ" class="ms-3 h-opacity-50"><img src="../../static/img/logos/discord.svg" width="20"></a>
@@ -148,10 +150,6 @@
                     <a href="https://www.patreon.com/gigawhat" class="ms-3 h-opacity-50"><img src="../../static/img/logos/patreon.svg" width="20"></a>
                     <a href="https://github.com/Gigawhat-net" class="ms-3 h-opacity-50"><img src="../../static/img/logos/github.svg" width="20"></a>
                     <a href="mailto:contact@gigawhat.net" class="ms-3 h-opacity-50"><img src="../../static/img/logos/gmail.svg" width="20"></a>
-                </div>
-
-                <div class="d-block d-lg-none text-center mt-3">
-                    <a href="{{url_for("privacy_policy")}}" class="text-decoration-none h-color-white">Privacy Policy</a>
                 </div>
             </div>
         </footer>

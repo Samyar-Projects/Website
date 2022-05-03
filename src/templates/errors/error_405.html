@@ -1,23 +1,23 @@
-{% extends "en_us/base_templates/base.html" %}
+{% extends "base_templates/base.html" %}
 
 {% block head %}
 {% endblock %}
 
-{% block title %}500 Internal Server Error{% endblock %}
+{% block title %}405 Method Not Allowed{% endblock %}
 
 {% block body %}
 <div class="album text-light">
 	<div class="row row-cols-1 row-cols-sm-2 w-100 m-0">
 		<div class="col p-0 my-sm-5 mt-5 mb-3 text-center">
-			<img class="card-img rounded-0 w-70" src="../../static/img/error_pages/500.png"></img>
+			<img class="card-img rounded-0 w-70" src="../../static/img/error_pages/405.png"></img>
 		</div>
 	
 		<div class="col p-0 mt-sm-5 mt-2 mb-5">
 			<div class="card-body text-sm-start text-center">
-                <div class="display-2">Error 500</div>
-                <div class="display-2">Internal Server Error</div>
-                <div class="display-6 d-sm-block d-none w-75" style="font-size: 26px;">Something went wrong with our servers! Please try again later.</div>
-                <div class="display-6 d-sm-none d-block" style="font-size: 26px;">Something went wrong with our servers! Please try again later.</div>
+                <div class="display-2">Error 405</div>
+                <div class="display-2">Method Not Allowed</div>
+                <div class="display-6 d-sm-block d-none w-75" style="font-size: 26px;">This page does not support the type of request that you sent.</div>
+                <div class="display-6 d-sm-none d-block" style="font-size: 26px;">This page does not support the type of request that you sent.</div>
 
                 <a href="{{url_for("index")}}" role="button" class="btn btn-outline-light mt-4">Back to Home</a>
 			</div>
@@ -27,6 +27,8 @@
 
 <canvas class="w-100 h-100" id="canvas" style="position: fixed; top: 0px; left: 0px; z-index: -1; pointer-events: none;"></canvas>
 {% endblock %}
+
+{% block footer %}fixed-bottom{% endblock %}
 
 {% block end %}
 <script>
@@ -116,7 +118,7 @@
         let elapsed = time - prevTime;
         prevTime = time;
 
-        moveStars(elapsed * 0.5);
+        moveStars(elapsed * 0.3);
 
         clear();
 

@@ -20,6 +20,9 @@
 from flask import Flask
 from flask_caching import Cache
 from flask_sqlalchemy import SQLAlchemy
+from flask_babel import Babel
+from flask_wtf.csrf import CSRFProtect
+from flask_mail import Mail
 
 
 # ------- Flask and Flask plug-in init -------
@@ -27,3 +30,6 @@ app = Flask(__name__)
 app.config.from_pyfile("config.py")
 cache = Cache(app)
 db = SQLAlchemy(app)
+babel = Babel(app)
+csrf = CSRFProtect(app)
+mail = Mail(app)
