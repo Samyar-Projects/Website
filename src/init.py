@@ -27,7 +27,6 @@ from flask_mail import Mail
 
 # ------- Flask and Flask plug-in init -------
 app = Flask(__name__)
-application = app
 app.config.from_pyfile("config.py")
 cache = Cache(app)
 db = SQLAlchemy(app)

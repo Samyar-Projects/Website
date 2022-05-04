@@ -10,3 +10,4 @@ cryptography==37.0.2
 PyQRCode==1.2.1
 phonenumberslite==8.12.46
 zxcvbn==4.4.28
+Flask-Mail==0.9.1
