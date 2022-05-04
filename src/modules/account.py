@@ -22,8 +22,6 @@ from flask import Blueprint
 from flask_security import SQLAlchemySessionUserDatastore, Security
 from init import db, app
 from modules.database import Role, Users
-from randimage import get_random_image
-import matplotlib
 
 
 # ------- Flask-Security init -------
