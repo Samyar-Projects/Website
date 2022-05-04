@@ -4,7 +4,6 @@ Flask-Caching==1.10.1
 python-dotenv==0.20.0
 Flask-SQLAlchemy==2.5.1
 Flask-Babel==2.0.0
-randimage==1.2
 email-validator==1.2.1
 bcrypt==3.2.2
 cryptography==37.0.2
