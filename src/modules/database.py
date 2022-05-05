@@ -55,7 +55,7 @@ def quiz_db_add():
             return render_template("en_us/quiz/db_add.html")
     
     else:
-        return render_template("en_us/quiz/db_add.html")
+        return render_template("quiz/db_add.html")
 
 
 # ------- Database models -------
