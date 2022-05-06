@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <form action="/singleplayer-quiz" class="mt-4" method="POST">
+    <form action="{{url_for("quiz_pages.singleplayer_quiz")}}" class="mt-4" method="POST">
         <div class="album">
             <div class="row row-cols-1 row-cols-md-2 g-3">
                 <div class="col">
@@ -80,7 +80,7 @@
         document.getElementById("submitOnEnd").appendChild(button);
 
         form.method = "POST";
-        form.action = "/singleplayer-quiz";
+        form.action = "{{url_for("quiz_pages.singleplayer_quiz")}}";
         form.submit();
     }
     

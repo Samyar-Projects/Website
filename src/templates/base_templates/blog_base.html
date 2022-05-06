@@ -32,10 +32,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
            
         <!-- Favicon -->
-        <link rel="icon" href="../../static/img/logos/gigawhat-symbol-transparent.svg">
+        <link rel="icon" href="{{url_for("static", filename = "img/logos/gigawhat-symbol-transparent.svg")}}">
 
         <!-- Custom style sheet -->
-        <link rel="stylesheet" href="../../static/css/style.css"/>
+        <link rel="stylesheet" href="{{url_for("static", filename = "css/style.css")}}"/>
 {% endcache %}
 
         <!-- Head block -->
@@ -54,7 +54,7 @@
             <div class="container">
                 <div class="navbar-brand">
                     <a href="{{url_for("blog_pages.index")}}" class="text-decoration-none">
-                        <img src="../../static/img/logos/gigawhat-logo-transparent.svg" width="150" alt="Gigawhat">
+                        <img src="{{url_for("static", filename = "img/logos/gigawhat-logo-transparent.svg")}}" width="150" alt="Gigawhat">
                     </a>
 
                     <div class="d-inline">
@@ -134,20 +134,20 @@
             <div class="container">
                 <div class="text-center text-lg-start d-lg-inline d-block">
                     <a href="https://www.ugurkurs.com.tr/" class="text-decoration-none">
-                        <img src="../../static/img/logos/gigawhat-symbol-transparent.svg" width="25">
+                        <img src="{{url_for("static", filename = "img/logos/gigawhat-symbol-transparent.svg")}}" width="25">
                     </a>
                         
                     <span class="text-white ms-2">{{gettext("Copyright")}} &copy; 2022 Gigawhat. <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">{{gettext("Privacy Policy")}}</a></span>
                 </div>
             
                 <div class="float-none d-lg-inline d-block float-lg-end mt-lg-0 mt-3 text-center">
-                    <a href="https://twitter.com/Gigawhat_net" class="h-opacity-50"><img src="../../static/img/logos/twitter.svg" width="20"></a>
-                    <a href="https://www.instagram.com/gigawhat_net/" class="ms-3 h-opacity-50"><img src="../../static/img/logos/instagram.svg" width="20"></a>
-                    <a href="https://discord.gg/rMq7GujUZJ" class="ms-3 h-opacity-50"><img src="../../static/img/logos/discord.svg" width="20"></a>
-                    <a href="https://www.youtube.com/channel/UCgjkgNz1MbhzIzhOOHfrxiw" class="ms-3 h-opacity-50"><img src="../../static/img/logos/youtube.svg" width="20"></a>
-                    <a href="https://www.patreon.com/gigawhat" class="ms-3 h-opacity-50"><img src="../../static/img/logos/patreon.svg" width="20"></a>
-                    <a href="https://github.com/Gigawhat-net" class="ms-3 h-opacity-50"><img src="../../static/img/logos/github.svg" width="20"></a>
-                    <a href="mailto:contact@gigawhat.net" class="ms-3 h-opacity-50"><img src="../../static/img/logos/gmail.svg" width="20"></a>
+                    <a href="https://twitter.com/Gigawhat_net" class="h-opacity-50"><img src="{{url_for("static", filename = "img/logos/twitter.svg")}}" width="20"></a>
+                    <a href="https://www.instagram.com/gigawhat_net/" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/instagram.svg")}}" width="20"></a>
+                    <a href="https://discord.gg/rMq7GujUZJ" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/discord.svg")}}" width="20"></a>
+                    <a href="https://www.youtube.com/channel/UCgjkgNz1MbhzIzhOOHfrxiw" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/youtube.svg")}}" width="20"></a>
+                    <a href="https://www.patreon.com/gigawhat" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/patreon.svg")}}" width="20"></a>
+                    <a href="https://github.com/Gigawhat-net" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/github.svg")}}" width="20"></a>
+                    <a href="mailto:contact@gigawhat.net" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/gmail.svg")}}" width="20"></a>
                 </div>
 
                 <div class="d-block d-lg-none text-center mt-3">

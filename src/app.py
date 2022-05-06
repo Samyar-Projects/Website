@@ -106,9 +106,9 @@ def remove_www():
 def index():
     posts = []
     
-    posts.append({"title": "Placeholder post 1", "read_dur": "1963 mins", "thumb_url": "static/img/carousel/placeholder.png", "url": "#"})
-    posts.append({"title": "Placeholder post 2", "read_dur": "1980 mins", "thumb_url": "static/img/carousel/placeholder.png", "url": "#"})
-    posts.append({"title": "Placeholder post 3", "read_dur": "2001 mins", "thumb_url": "static/img/carousel/placeholder.png", "url": "#"})
+    posts.append({"title": "Placeholder post 1", "read_dur": "1963 mins", "thumb_url": "img/carousel/placeholder.png", "url": "#"})
+    posts.append({"title": "Placeholder post 2", "read_dur": "1980 mins", "thumb_url": "img/carousel/placeholder.png", "url": "#"})
+    posts.append({"title": "Placeholder post 3", "read_dur": "2001 mins", "thumb_url": "img/carousel/placeholder.png", "url": "#"})
     
     return render_template("index.html", page_views = 4444845, posts = posts)
 
