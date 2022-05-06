@@ -1,6 +1,6 @@
 {% extends "base_templates/quiz_base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{gettext("Home")}}{% endblock %}
 
 {% block body %}
 <div class="lead">
@@ -8,16 +8,16 @@
 
     <div class="container">
         <p class="text-center">
-            Test your knowledge on any subject with singleplayer or compete with your friends on multiplayer!<br>
-            The questions are randomly selected every time you start a new game.
+            {{gettext("Test your knowledge on any subject with singleplayer or compete with your friends on multiplayer!")}}<br>
+            {{gettext("The questions are randomly selected every time you start a new game")}}.
         </p>
     </div>
 
     <div class="album py-4">
         <div class="container">
             <div class="d-grid gap-2 px-5">
-                <a href="{{url_for("quiz_pages.singleplayer")}}" class="btn btn-lg btn-outline-secondary" role="button">Singleplayer</a>
-                <a href="{{url_for("quiz_pages.multiplayer")}}" class="btn btn-lg btn-outline-info disabled" role="button" tabindex="-1">Multiplayer (W.I.P.)</a>
+                <a href="{{url_for("quiz_pages.singleplayer")}}" class="btn btn-lg btn-outline-secondary" role="button">{{gettext("Singleplayer")}}</a>
+                <a href="{{url_for("quiz_pages.multiplayer")}}" class="btn btn-lg btn-outline-info disabled" role="button" tabindex="-1">{{gettext("Multiplayer (W.I.P.)")}}</a>
             </div>
         </div>
     </div>

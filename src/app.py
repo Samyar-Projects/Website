@@ -17,7 +17,7 @@
 
 
 # ------- Libraries, utils, and modules -------
-from flask import abort, flash, make_response, redirect, render_template, request
+from flask import abort, flash, make_response, redirect, render_template, request, url_for
 from flask_security import hash_password
 import jinja2
 import werkzeug
@@ -63,10 +63,6 @@ def get_locale():
     return request.accept_languages.best_match(["en_US", "tr_TR"])
 
 
-# ------- Global Jinja env variables -------
-
-
-
 # ------- Error handlers -------
 @app.errorhandler(werkzeug.exceptions.NotFound)
 @cache.cached(timeout = RENDER_CACHE_TIMEOUT)
@@ -93,14 +89,16 @@ def template_error(error):
 # ------- Before request -------
 @app.before_first_request
 def create_user():
-    if not user_datastore.find_user(email = "testme.com"):
-        user_datastore.create_user(email = "testme.com", password = hash_password("password"), pp_url = "TESTESTESTEST")
+    if not user_datastore.find_user(email = "test@me.com"):
+        user_datastore.create_user(email = "test@me.com", password = hash_password("password"), pp_url = "TESTESTESTEST")
     
     db.session.commit()
 
 @app.before_request
-def before_request():
-    pass
+def remove_www():
+    if "://www." in request.url.lower():
+        request_url = request.url.lower()
+        return redirect(request_url.replace("www.", ""))
 
 
 # ------- Page routes -------
@@ -122,6 +120,14 @@ def mc_server():
 @cache.cached(timeout = RENDER_CACHE_TIMEOUT)
 def privacy_policy():
     return render_template("privacy_policy.html")
+
+@app.route("/quiz")
+def quiz_redirect():
+    return redirect(url_for("quiz_pages.index"))
+
+@app.route("/blog")
+def blog_redirect():
+    return redirect(url_for("blog_pages.index"))
 
 
 # ------- Running the app -------

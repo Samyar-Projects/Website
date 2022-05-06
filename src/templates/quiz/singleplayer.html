@@ -1,46 +1,46 @@
 {% extends "base_templates/quiz_base.html" %}
 
-{% block title %}Singleplayer{% endblock %}
+{% block title %}{{gettext("Singleplayer")}}{% endblock %}
 
 {% block body %}
-<h2 class="text-center pb-sm-4 pt-sm-4 pb-2 pt-3">Customize your quiz</h2>
+<h2 class="text-center pb-sm-4 pt-sm-4 pb-2 pt-3">{{gettext("Customize your quiz")}}</h2>
 
 <div class="px-sm-5 py-sm-4 py-3 px-3 container">
     <form action="/singleplayer" method="POST">
         <div class="form-floating mb-3">
             <select name="category-select" class="form-select rounded-3" id="category-select">
-                <option value="math" selected>Mathematics</option>
-                <option value="sci">Science</option>
+                <option value="math" selected>{{gettext("Mathematics")}}</option>
+                <option value="sci">{{gettext("Science")}}</option>
             </select>
             
-            <label for="category-select">Category</label>
+            <label for="category-select">{{gettext("Category")}}</label>
         </div>
 
         <div class="form-floating mb-3">
             <select name="difficulty-select" class="form-select rounded-3" id="difficulty-select">
-                <option value="hard">Hard</option>
-                <option value="normal" selected>Normal</option>
-                <option value="easy">Easy</option>
+                <option value="hard">{{gettext("Hard")}}</option>
+                <option value="normal" selected>{{gettext("Normal")}}</option>
+                <option value="easy">{{gettext("Easy")}}</option>
             </select>
             
-            <label for="difficulty-select">Difficulty</label>
+            <label for="difficulty-select">{{gettext("Difficulty")}}</label>
         </div>
 
         <div class="form-floating mb-4">
             <select name="level-select" class="form-select rounded-3" id="level-select">
-                <option value="7" selected>7th Grade</option>
+                <option value="7" selected>{{gettext("7th Grade")}}</option>
             </select>
             
-            <label for="level-select">Level</label>
+            <label for="level-select">{{gettext("Level")}}</label>
         </div>
 
-        <button class="w-100 btn btn-lg rounded-3 btn-outline-success" type="submit"{% if info.reset_q %} disabled{% endif %}>Start!</button>
+        <button class="w-100 btn btn-lg rounded-3 btn-outline-success" type="submit"{% if info.reset_q %} disabled{% endif %}>{{gettext("Start!")}}</button>
     </form>
 
     {% if info.reset_q %}
-    <a href="{{url_for("quiz_pages.reset_quiz_singleplayer")}}" class="w-100 rounded-3 btn btn-lg btn-outline-warning mt-3" role="button">Reset Quiz</a>
+    <a href="{{url_for("quiz_pages.reset_quiz_singleplayer")}}" class="w-100 rounded-3 btn btn-lg btn-outline-warning mt-3" role="button">{{gettext("Reset Quiz")}}</a>
     {% endif %}
 
-    <p class="text-secondary mt-3 mb-5">Note: The quiz consists of {{info.q_num}} questions, and there is a time limit of {{info.q_time}} minute(s) for every question.</p>
+    <p class="text-secondary mt-3 mb-5">{{gettext("Note: The quiz consists of %(q_num)s questions, and there is a time limit of %(time)s minute for every question.", q_num = info.q_num, time = info.q_time)}}</p>
 </div>
 {% endblock %}
