@@ -8,13 +8,13 @@
 
     {% if not info.correct_answ %}
     <div class="d-inline float-end ms-3">
-        <p class="d-inline">{{gettext("Time Left")}}: </p>
+        <p class="d-inline">{{gettext("Time Left:")}} </p>
         <p class="text-primary d-inline"><span id="timer">00:00</span></p>
     </div>
     {% endif %}
 
     <div class="d-inline float-end ms-3">
-        <p class="d-inline">{{gettext("Questions Left")}}: </p>
+        <p class="d-inline">{{gettext("Questions Left:")}} </p>
         <p class="text-success d-inline">{{info.q_left}}</p>
     </div>
 

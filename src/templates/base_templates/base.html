@@ -43,7 +43,7 @@
         {% endblock %}
 
         <!-- Page title block -->
-        <title>{% block title %}{% endblock %} | Gigawhat</title>
+        <title>{% block title %}{% endblock %} | {{gettext("Gigawhat")}}</title>
 
 {% cache BASE_CACHE_TIMEOUT %}
     </head>
@@ -58,11 +58,11 @@
                     </a>
 
                     <div class="dropdown d-inline ms-1">
-                        <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">EN</a>
+                        <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">{{gettext("EN")}}</a>
                         
                         <ul class="dropdown-menu bg-black dropdown-menu-dark">
-                            <li><form action="{{url_for("set_lang_en")}}" method="POST"><input class="dropdown-item text-primary" type="submit" value="EN"></form></li>
-                            <li><form action="{{url_for("set_lang_tr")}}" method="POST"><input class="dropdown-item" type="submit" value="TR"></form></li>
+                            <li><form action="{{url_for("set_lang_en")}}" method="POST"><input class="dropdown-item {% if gettext("EN") == "EN" %}text-primary{% endif %}" type="submit" value="EN"></form></li>
+                            <li><form action="{{url_for("set_lang_tr")}}" method="POST"><input class="dropdown-item {% if gettext("EN") == "TR" %}text-primary{% endif %}" type="submit" value="TR"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -80,11 +80,11 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{gettext("Servers")}}</a>
 
                             <ul class="dropdown-menu bg-black dropdown-menu-dark w-25">
-                                <li><a href="{{url_for("mc_server")}}" class="dropdown-item text-success fw-bold">Minecraft</a></li>
-                                <li><a href="https://discord.gg/rMq7GujUZJ" class="dropdown-item text-primary fw-bold">Discord</a></li>
+                                <li><a href="{{url_for("mc_server")}}" class="dropdown-item text-success fw-bold">{{gettext("Minecraft")}}</a></li>
+                                <li><a href="https://discord.gg/rMq7GujUZJ" class="dropdown-item text-primary fw-bold">{{gettext("Discord")}}</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a href="{{url_for("quiz_pages.index")}}" class="nav-link">Quiz</a></li>
+                        <li class="nav-item"><a href="{{url_for("quiz_pages.index")}}" class="nav-link">{{gettext("Quiz")}}</a></li>
                     </ul>
 {% endcache %}
 
@@ -142,7 +142,7 @@
                         <img src="{{url_for("static", filename = "img/logos/gigawhat-symbol-transparent.svg")}}" width="25">
                     </a>
                         
-                    <span class="text-white ms-2">{{gettext("Copyright")}} &copy; 2022 Gigawhat. <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">{{gettext("Privacy Policy")}}</a></span>
+                    <span class="text-white ms-2">{{gettext("Copyright &copy; 2022 Gigawhat.")}} <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">{{gettext("Privacy Policy")}}</a></span>
                 </div>
             
                 <div class="float-none d-lg-inline d-block float-lg-end mt-lg-0 mt-3 text-center">
