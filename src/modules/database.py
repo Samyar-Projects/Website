@@ -18,7 +18,7 @@
 
 # ------- Libraries and utils -------
 from flask import Blueprint, flash, render_template, request
-from flask_security import RoleMixin, UserMixin
+from flask_security import RoleMixin, SQLAlchemySessionUserDatastore, UserMixin
 from init import db
 
 
@@ -81,7 +81,7 @@ class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
     email = db.Column(db.String(255), unique = True)
     username = db.Column(db.String(255), unique = True)
-    pp_url = db.Column(db.String(255))
+    pp_url = db.Column(db.String(255), default = "img/logos/default_pp.png")
     password = db.Column(db.String(255), nullable = False)
     last_login_at = db.Column(db.DateTime)
     current_login_at = db.Column(db.DateTime)
@@ -93,7 +93,8 @@ class Users(db.Model, UserMixin):
     confirmed_at = db.Column(db.DateTime)
     
     roles = db.relationship("Role", secondary = "RolesUsers", backref = db.backref("users", lazy = "dynamic"))
-        
+
+
 # ---- Quiz Question Database ----
 class QuizQuestions(db.Model):
     __tablename__ = "QuizQuestions"
@@ -160,3 +161,7 @@ class QuizResults(db.Model):
             
         else:
             self.multiplayer = False
+
+
+# ------- Flask-Security user datastore -------
+user_datastore = SQLAlchemySessionUserDatastore(db.session, Users, Role)

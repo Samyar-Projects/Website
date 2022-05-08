@@ -17,15 +17,13 @@
 
 
 # ------- Libraries and utils -------
-from random import randint
-from flask import Blueprint
-from flask_security import SQLAlchemySessionUserDatastore, Security
-from init import db, app
-from modules.database import Role, Users
-
+from flask import Blueprint, redirect, url_for
+from flask_security import Security
+from init import app
+from modules.database import user_datastore
+    
 
 # ------- Flask-Security init -------
-user_datastore = SQLAlchemySessionUserDatastore(db.session, Users, Role)
 security = Security(app, user_datastore)
 
 
@@ -34,6 +32,10 @@ account_pages = Blueprint("account_pages", __name__, template_folder = "../templ
 
 
 # ------- Page routes -------
+@account_pages.route("/")
+def index():
+    return redirect(url_for("index"))
+
 """@account_pages.route("/login")
 def login():
     return render_template(request.cookies.get("lang") + "/login.html")

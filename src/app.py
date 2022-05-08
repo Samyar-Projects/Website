@@ -17,23 +17,23 @@
 
 
 # ------- Libraries, utils, and modules -------
-from flask import abort, flash, make_response, redirect, render_template, request, url_for
-from flask_security import hash_password
+from flask import flash, make_response, redirect, render_template, request, url_for
+from flask_security import hash_password, url_for_security
 import jinja2
 import werkzeug
 from init import app, cache, db, babel
 from config import RENDER_CACHE_TIMEOUT
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
-from modules.account import account_pages, user_datastore
-from modules.database import database
+from modules.account import account_pages
+from modules.database import database, user_datastore
 from modules.temp_data import temp_data
 
 
 # ------- Blueprint registry -------
 app.register_blueprint(quiz_pages, subdomain = "quiz")
 app.register_blueprint(blog_pages, subdomain = "blog")
-app.register_blueprint(account_pages)
+app.register_blueprint(account_pages, subdomain = "account")
 app.register_blueprint(database)
 app.register_blueprint(temp_data)
 
@@ -90,7 +90,7 @@ def template_error(error):
 @app.before_first_request
 def create_user():
     if not user_datastore.find_user(email = "test@me.com"):
-        user_datastore.create_user(email = "test@me.com", password = hash_password("password"), pp_url = "TESTESTESTEST")
+        user_datastore.create_user(email = "test@me.com", password = hash_password("password"))
     
     db.session.commit()
 
@@ -121,6 +121,8 @@ def mc_server():
 def privacy_policy():
     return render_template("privacy_policy.html")
 
+
+# ------- Page redirects -------
 @app.route("/quiz")
 def quiz_redirect():
     return redirect(url_for("quiz_pages.index"))
@@ -128,6 +130,18 @@ def quiz_redirect():
 @app.route("/blog")
 def blog_redirect():
     return redirect(url_for("blog_pages.index"))
+
+@app.route("/login")
+def login_redirect():
+    return redirect(url_for_security("login"))
+
+@app.route("/register")
+def register_redirect():
+    return redirect(url_for_security("register"))
+
+@app.route("/signup")
+def signup_redirect():
+    return redirect(url_for_security("signup"))
 
 
 # ------- Running the app -------

@@ -1,5 +1,5 @@
 <!-- 
-    Gigawhat Website base HTML template file.
+    Gigawhat Website account HTML template file.
     Copyright 2022 Gigawhat Programming Team
     Written by Samyar Sadat Akhavi, 2022.
 
@@ -16,9 +16,9 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
-{% from "config.jinja" import BASE_CACHE_TIMEOUT %}
+{% from "config.jinja" import ACCOUNT_CACHE_TIMEOUT %}
 
-{% cache BASE_CACHE_TIMEOUT %}
+{% cache ACCOUNT_CACHE_TIMEOUT %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,9 +43,9 @@
         {% endblock %}
 
         <!-- Page title block -->
-        <title>{% block title %}{% endblock %} | Gigawhat</title>
+        <title>{% block title %}{% endblock %} | Gigawhat {{gettext("Account")}}</title>
 
-{% cache BASE_CACHE_TIMEOUT %}
+{% cache ACCOUNT_CACHE_TIMEOUT %}
     </head>
 
     <body class="bg-light">
@@ -53,9 +53,13 @@
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2">
             <div class="container">
                 <div class="navbar-brand">
-                    <a href="{{url_for("index")}}" class="text-decoration-none">
-                        <img src="{{url_for("static", filename = "img/logos/gigawhat-logo-transparent.svg")}}" width="150" alt="Gigawhat">
+                    <a href="{{url_for("account_pages.index")}}" class="text-decoration-none">
+                        <img src="{{url_for("static", filename = "img/logos/gigawhat-logo-transparent.svg")}}" width="150" alt="Gigawhat Account">
                     </a>
+
+                    <div class="d-inline">
+                        <a href="{{url_for("account_pages.index")}}" class="link-light text-decoration-none small fw-bold">{{gettext("ACC.")}}</a>
+                    </div>
 
                     <div class="dropdown d-inline ms-1">
                         <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">EN</a>
@@ -133,7 +137,7 @@
         {% block body %}
         {% endblock %}
 
-{% cache BASE_CACHE_TIMEOUT %}
+{% cache ACCOUNT_CACHE_TIMEOUT %}
         <!-- Footer -->
         <footer class="d-flex flex-wrap py-3 bg-dark {% block footer %}{% endblock %}">
             <div class="container">

@@ -1,4 +1,4 @@
-{#  Gigawhat Website jinja template config file.                            #}
+{#  Gigawhat Website jinja macros file.                                     #}
 {#  Copyright 2022 Gigawhat Programming Team                                #}
 {#  Written by Samyar Sadat Akhavi, 2022.                                   #}
 {#                                                                          #}
@@ -16,8 +16,38 @@
 {#  along with this program.  If not, see <https://www.gnu.org/licenses/>.  #}
 
 
-{# Cache config #}
-{% set BASE_CACHE_TIMEOUT = 1 %}
-{% set BLOG_CACHE_TIMEOUT = 1 %}
-{% set QUIZ_CACHE_TIMEOUT = 1 %}
-{% set ACCOUNT_CACHE_TIMEOUT = 1 %}
+{# Render form field with errors (If any errors exist) #}
+{% macro render_field_with_errors(field, spacing, div_type, l_class) %}
+    <div class="form-{{div_type}} mb-{{spacing}}">
+        {{field(**kwargs) | safe}}
+        {{field.label(class = l_class) | safe}} 
+        
+        {% if field.errors %}
+        <ul class="mt-{{spacing + 1}}">
+        {% for error in field.errors %}
+            <li>{{error}}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+
+{# Render form field errors (If any errors exist) #}
+{% macro render_field_errors(field, spacing) %}
+    {% if field and field.errors %}
+    <ul class="mb-{{spacing}}">
+    {% for error in field.errors %}
+        <li>{{error}}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+{% endmacro %}
+
+
+{# Render form field without errors #}
+{% macro render_field(field, div_type) %}
+    <div class="form-{{div_type}}">
+        {{field(**kwargs) | safe}}
+    </div>
+{% endmacro %}

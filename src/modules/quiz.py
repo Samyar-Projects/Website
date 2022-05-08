@@ -19,7 +19,7 @@
 # ------- Libraries and utils -------
 import datetime
 from random import randint
-from flask import Blueprint, abort, flash, make_response, redirect, render_template, request, url_for, session
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for, session
 from modules.temp_data import QuizResultTemp, delete_quiz_res_temp, read_quiz_res_temp, write_quiz_res_temp
 from utils.helpers import quiz_query_cond
 from modules.database import QuizQuestions, db, QuizResults
