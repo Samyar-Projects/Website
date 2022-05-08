@@ -6,12 +6,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
 {% endblock %}
 
-{% block title %}{{gettext("Quiz Results")}}{% endblock %}
+{% block title %}{{_("Quiz Results")}}{% endblock %}
 
 {% block body %}
 <div class="container mt-sm-4 mt-3">
     {% if info.p2_user == "None" %}
-    <h4 class="text-center">{{gettext("Singleplayer Quiz Results")}}</h4>
+    <h4 class="text-center">{{_("Singleplayer Quiz Results")}}</h4>
 
     <div class="progress mt-5 rounded-3" style="height: 28px;">
         {% set q_per = info.p1_r_answ | int / info.q_num | int * 100 %}
@@ -23,16 +23,16 @@
     <label for="progress_bar" class="h5 mt-1">%{{q_per}}</label>
 
     <div class="mt-2" style="font-size: 1.2rem;">
-        {{gettext("Right Answers")}}: <p class="fw-bold text-danger d-inline">{{info.p1_r_answ}}</p><br>
-        {{gettext("Wrong Answers")}}: <p class="fw-bold text-danger d-inline">{{info.p1_w_answ}}</p><br>
+        {{_("Right Answers")}}: <p class="fw-bold text-danger d-inline">{{info.p1_r_answ}}</p><br>
+        {{_("Wrong Answers")}}: <p class="fw-bold text-danger d-inline">{{info.p1_w_answ}}</p><br>
         {% if info.p1_w_acc == "True" %}
-        {{gettext("Username")}}: <p class="fw-bold text-danger d-inline">{{info.p1_user}}</p><br>
+        {{_("Username")}}: <p class="fw-bold text-danger d-inline">{{info.p1_user}}</p><br>
         {% endif %}
-        {{gettext("Date")}}: <p class="fw-bold text-danger d-inline">{{info.date}}</p><br>
-        {{gettext("Time")}}: <p class="fw-bold text-danger d-inline">{{info.time}}</p>
+        {{_("Date")}}: <p class="fw-bold text-danger d-inline">{{info.date}}</p><br>
+        {{_("Time")}}: <p class="fw-bold text-danger d-inline">{{info.time}}</p>
 
         <div class="mt-4">
-            {{gettext("Quiz ID")}}: <p class="fw-bold text-danger d-inline">{{info.q_id}}</p>
+            {{_("Quiz ID")}}: <p class="fw-bold text-danger d-inline">{{info.q_id}}</p>
             <p class="barcode">{{info.q_id}}</p>
         </div>
     </div>

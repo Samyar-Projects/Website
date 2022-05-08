@@ -43,7 +43,7 @@
         {% endblock %}
 
         <!-- Page title block -->
-        <title>{% block title %}{% endblock %} | {{gettext("Gigawhat Quiz")}}</title>
+        <title>{% block title %}{% endblock %} | {{_("Gigawhat Quiz")}}</title>
 
 {% cache QUIZ_CACHE_TIMEOUT %}
     </head>
@@ -58,15 +58,15 @@
                     </a>
 
                     <div class="d-inline">
-                        <a href="{{url_for("quiz_pages.index")}}" class="link-light text-decoration-none small fw-bold">{{gettext("QUIZ")}}</a>
+                        <a href="{{url_for("quiz_pages.index")}}" class="link-light text-decoration-none small fw-bold">{{_("QUIZ")}}</a>
                     </div>
 
                     <div class="dropdown d-inline ms-1">
-                        <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">{{gettext("EN")}}</a>
+                        <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">{{_("EN")}}</a>
                         
                         <ul class="dropdown-menu bg-black dropdown-menu-dark">
-                            <li><form action="{{url_for("set_lang_en")}}" method="POST"><input class="dropdown-item {% if gettext("EN") == "EN" %}text-primary{% endif %}" type="submit" value="EN"></form></li>
-                            <li><form action="{{url_for("set_lang_tr")}}" method="POST"><input class="dropdown-item {% if gettext("EN") == "TR" %}text-primary{% endif %}" type="submit" value="TR"></form></li>
+                            <li><form action="{{url_for("set_lang_en")}}" method="POST"><input class="dropdown-item {% if _("EN") == "EN" %}text-primary{% endif %}" type="submit" value="EN"></form></li>
+                            <li><form action="{{url_for("set_lang_tr")}}" method="POST"><input class="dropdown-item {% if _("EN") == "TR" %}text-primary{% endif %}" type="submit" value="TR"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -77,10 +77,10 @@
 
                 <div class="collapse navbar-collapse" id="navmenu">
                     <ul class="navbar-nav ms-auto me-4">
-                        <li class="nav-item"><a href="{{url_for("quiz_pages.index")}}" class="nav-link">{{gettext("Home")}}</a></li>
-                        <li class="nav-item"><a href="{{url_for("index")}}" class="nav-link">{{gettext("Back to Gigawhat")}}</a></li>
-                        <li class="nav-item"><a href="{{url_for("quiz_pages.singleplayer")}}" class="nav-link">{{gettext("Singleplayer")}}</a></li>
-                        <li class="nav-item"><a href="{{url_for("quiz_pages.multiplayer")}}" class="nav-link disabled" tabindex="-1">{{gettext("Multiplayer")}}</a></li>
+                        <li class="nav-item"><a href="{{url_for("quiz_pages.index")}}" class="nav-link">{{_("Home")}}</a></li>
+                        <li class="nav-item"><a href="{{url_for("index")}}" class="nav-link">{{_("Back to Gigawhat")}}</a></li>
+                        <li class="nav-item"><a href="{{url_for("quiz_pages.singleplayer")}}" class="nav-link">{{_("Singleplayer")}}</a></li>
+                        <li class="nav-item"><a href="{{url_for("quiz_pages.multiplayer")}}" class="nav-link disabled" tabindex="-1">{{_("Multiplayer")}}</a></li>
                     </ul>
 {% endcache %}
 
@@ -92,18 +92,18 @@
                         </a>
                         
                         <ul class="dropdown-menu bg-black dropdown-menu-dark mt-2">
-                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-person pe-2"></i>{{gettext("Profile")}}</a></li>
-                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-gear pe-2"></i>{{gettext("Settings")}}</a></li>
-                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-award pe-2"></i>{{gettext("Quiz Stats")}}</a></li>
-                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-bar-chart-line pe-2"></i>{{gettext("MC Server")}}</a></li>
+                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-person pe-2"></i>{{_("Profile")}}</a></li>
+                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-gear pe-2"></i>{{_("Settings")}}</a></li>
+                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-award pe-2"></i>{{_("Quiz Stats")}}</a></li>
+                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-bar-chart-line pe-2"></i>{{_("MC Server")}}</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a href="{{url_for_security("logout")}}" class="dropdown-item text-warning"><i class="bi bi-box-arrow-left pe-2"></i>{{gettext("Logout")}}</a></li>
+                            <li><a href="{{url_for_security("logout")}}" class="dropdown-item text-warning"><i class="bi bi-box-arrow-left pe-2"></i>{{_("Logout")}}</a></li>
                         </ul>
                     </div>
                     {% else %}
                     <div class="text-lg-end mt-lg-0 mb-lg-0 text-center mt-4 mb-3">
-                        <a href="{{url_for_security("login")}}" role="button" class="btn btn-outline-light me-2 disabled" tabindex="-1">{{gettext("Login")}}</a>
-                        <a href="{{url_for_security("register")}}" role="button" class="btn btn-warning disabled" tabindex="-1">{{gettext("Sign-up")}}</a>
+                        <a href="{{url_for_security("login")}}" role="button" class="btn btn-outline-light me-2 disabled" tabindex="-1">{{_("Login")}}</a>
+                        <a href="{{url_for_security("register")}}" role="button" class="btn btn-warning disabled" tabindex="-1">{{_("Sign-up")}}</a>
                     </div>
                     {% endif %}
                 </div>
@@ -138,7 +138,7 @@
                         <img src="{{url_for("static", filename = "img/logos/gigawhat-symbol-transparent.svg")}}" width="25">
                     </a>
                         
-                    <span class="text-white ms-2">{{gettext("Copyright &copy; 2022 Gigawhat.")}} <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">{{gettext("Privacy Policy")}}</a></span>
+                    <span class="text-white ms-2">{{_("Copyright &copy; 2022 Gigawhat.")}} <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">{{_("Privacy Policy")}}</a></span>
                 </div>
             
                 <div class="float-none d-lg-inline d-none float-lg-end mt-lg-0 mt-3 text-center">
