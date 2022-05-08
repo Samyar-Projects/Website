@@ -1,6 +1,6 @@
 {% extends "base_templates/base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{gettext("Home")}}{% endblock %}
 
 {% block body %}
 <div id="imgCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -12,64 +12,62 @@
 	
 	<div class="carousel-inner">
 	    <div class="carousel-item active">
-			<img src="../../static/img/carousel/placeholder2.png">
+			<img src="{{url_for("static", filename = "img/carousel/placeholder2.png")}}">
 
 			<div class="carousel-caption">
-				<h1>Lorem ipsum dolor sit amet</h1>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque.</p>
-				<p><a class="btn btn-md btn-outline-light" href="#">Learn more</a></p>
+				<h1>{{gettext("Lorem ipsum dolor sit amet")}}</h1>
+				<p>{{gettext("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque.")}}</p>
+				<p><a class="btn btn-md btn-outline-light" href="#">{{gettext("Learn more")}}</a></p>
 			</div>
 	    </div>
 	    
 		<div class="carousel-item">
-			<img src="../../static/img/carousel/placeholder2.png">
+			<img src="{{url_for("static", filename = "img/carousel/placeholder2.png")}}">
 
 			<div class="carousel-caption">
-				<h1>Lorem ipsum dolor sit amet</h1>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque.</p>
-				<p><a class="btn btn-md btn-outline-light" href="#">Learn more</a></p>
+				<h1>{{gettext("Lorem ipsum dolor sit amet")}}</h1>
+				<p>{{gettext("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque.")}}</p>
+				<p><a class="btn btn-md btn-outline-light" href="#">{{gettext("Learn more")}}</a></p>
 			</div>
 	    </div>
 	    
 		<div class="carousel-item">
-			<img src="../../static/img/carousel/placeholder2.png">
+			<img src="{{url_for("static", filename = "img/carousel/placeholder2.png")}}">
 
 			<div class="carousel-caption">
-				<h1>Lorem ipsum dolor sit amet</h1>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque.</p>
-				<p><a class="btn btn-md btn-outline-light" href="#">Learn more</a></p>
+				<h1>{{gettext("Lorem ipsum dolor sit amet")}}</h1>
+				<p>{{gettext("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque.")}}</p>
+				<p><a class="btn btn-md btn-outline-light" href="#">{{gettext("Learn more")}}</a></p>
 			</div>
 	    </div>
 	</div>
 	
 	<button class="carousel-control-prev" type="button" data-bs-target="#imgCarousel" data-bs-slide="prev">
 	    <span class="carousel-control-prev-icon"></span>
-	    <span class="visually-hidden">Previous</span>
 	</button>
 	
 	<button class="carousel-control-next" type="button" data-bs-target="#imgCarousel" data-bs-slide="next">
 	    <span class="carousel-control-next-icon"></span>
-	    <span class="visually-hidden">Next</span>
 	</button>
 </div>
 
 <div class="bg-dark text-light shadow" id="about">
-	<h1 class="text-center pt-5">About Gigawhat</h1>
+	<h1 class="text-center pt-5">{{gettext("About Gigawhat")}}</h1>
 
 	<div class="album pb-sm-5 pt-5 pb-4">
 		<div class="container">
 			<div class="row row-cols-1 row-cols-sm-2 g-3">
 				<div class="col">
-					<img class="card-img rounded-3 shadow w-100" src="../../static/img/carousel/placeholder.png">
+					<img class="card-img rounded-3 shadow w-100" src="{{url_for("static", filename = "img/carousel/placeholder.png")}}">
 				</div>
 	
 				<div class="col m-0">
 					<div class="card-body">
 						<p class="card-text">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque. 
+							{{gettext("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque. 
 							Donec mauris urna, suscipit in dignissim non, dignissim ut enim. Pellentesque eget consequat magna. Nam feugiat imperdiet velit, 
 							non imperdiet ante accumsan a. Nam enim erat, congue nec fringilla ut, rhoncus in mauris. Praesent fringilla nunc ac bibendum porttitor. 
-							Quisque ultricies cursus eros vitae sodales.
+							Quisque ultricies cursus eros vitae sodales.")}}
 						</p>
 					</div>
 				</div>
@@ -78,7 +76,7 @@
 	</div>
 </div>
 
-<h1 class="text-center pt-4">News</h1>
+<h1 class="text-center pt-4">{{gettext("News")}}</h1>
 
 <div class="album pt-sm-5 pb-sm-5 pt-5 pb-4">
 	<div class="container">
@@ -86,13 +84,13 @@
 			{% for post in posts %}
 			<div class="col">
 				<div class="card shadow">
-					<img class="card-img-top w-100" src="{{post.thumb_url}}">
+					<img class="card-img-top w-100" src="{{url_for("static", filename = post.thumb_url)}}">
 
 					<div class="card-body">
 						<p class="card-text">{{post.title}}</p>
 							
 						<div class="d-flex justify-content-between align-items-center">
-							<a href="{{post.url}}" class="btn btn-sm btn-outline-secondary">Read More</a>
+							<a href="{{post.url}}" class="btn btn-sm btn-outline-secondary">{{gettext("Read More")}}</a>
 							<small class="text-muted">{{post.read_dur}}</small>
 						</div>
 					</div>
@@ -107,7 +105,7 @@
 
 <div class="container">
 	<div class="text-center mb-5 mt-3 border-light border-1 border bg-white shadow rounded-3 p-3">
-		<div class="d-inline display-6" style="font-size: 30px;">Views in the past month:</div>
+		<div class="d-inline display-6" style="font-size: 30px;">{{gettext("Views in the past month:")}}</div>
 		<div class="text-primary d-inline display-6" style="font-size: 25px;">{{page_views}}</div>
 	</div>
 </div>

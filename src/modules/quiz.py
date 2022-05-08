@@ -19,12 +19,12 @@
 # ------- Libraries and utils -------
 import datetime
 from random import randint
-from flask import Blueprint, abort, flash, make_response, redirect, render_template, request, url_for, session
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for, session
 from modules.temp_data import QuizResultTemp, delete_quiz_res_temp, read_quiz_res_temp, write_quiz_res_temp
 from utils.helpers import quiz_query_cond
 from modules.database import QuizQuestions, db, QuizResults
 from config import QUIZ_QUESTION_COUNT, QUIZ_QUESTION_TIME, RENDER_CACHE_TIMEOUT
-from init import cache
+from init import cache, babel
 from flask_babel import gettext
 
 
@@ -281,9 +281,9 @@ def show_results(q_id):
     
     else:
         if not is_multiplayer:
-            info = {"p1_r_answ": p1_r_answ, "p1_w_answ": p1_w_answ, "p1_user": p1_user, "p1_w_acc": p1_w_acc, "date": date, "time": time, "q_id": q_id, "q_num": q_num}
-            return render_template("quiz/singleplayer_result.html", info = info)
+            info = {"p1_r_answ": p1_r_answ, "p1_w_answ": p1_w_answ, "p1_user": p1_user, "p1_w_acc": p1_w_acc, "date": date, "time": time, "q_id": q_id, "q_num": q_num, "show_modal": (babel.get_locale() == "tr_TR")}
+            return render_template("quiz/result.html", info = info)
         
         else:
-            info = {"p1_r_answ": p1_r_answ, "p1_w_answ": p1_w_answ, "p1_user": p1_user, "p1_w_acc": p1_w_acc, "p2_r_answ": p2_r_answ, "p2_w_answ": p2_w_answ, "p2_user": p2_user, "p2_w_acc": p2_w_acc, "date": date, "time": time, "q_id": q_id, "q_num": q_num}
-            return render_template("quiz/singleplayer_result.html", info = info)
+            info = {"p1_r_answ": p1_r_answ, "p1_w_answ": p1_w_answ, "p1_user": p1_user, "p1_w_acc": p1_w_acc, "p2_r_answ": p2_r_answ, "p2_w_answ": p2_w_answ, "p2_user": p2_user, "p2_w_acc": p2_w_acc, "date": date, "time": time, "q_id": q_id, "q_num": q_num, "show_modal": False}
+            return render_template("quiz/result.html", info = info)

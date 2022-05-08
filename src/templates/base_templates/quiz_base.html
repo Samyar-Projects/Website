@@ -32,10 +32,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
 
         <!-- Favicon -->
-        <link rel="icon" href="../../static/img/logos/gigawhat-symbol-transparent.svg">
+        <link rel="icon" href="{{url_for("static", filename = "img/logos/gigawhat-symbol-transparent.svg")}}">
 
         <!-- Custom style sheet -->
-        <link rel="stylesheet" href="../../static/css/style.css"/>
+        <link rel="stylesheet" href="{{url_for("static", filename = "css/style.css")}}"/>
 {% endcache %}
 
         <!-- Head block -->
@@ -54,7 +54,7 @@
             <div class="container">
                 <div class="navbar-brand">
                     <a href="{{url_for("quiz_pages.index")}}" class="text-decoration-none">
-                        <img src="../../static/img/logos/gigawhat-logo-transparent.svg" width="150" alt="Never gonna give you up">
+                        <img src="{{url_for("static", filename = "img/logos/gigawhat-logo-transparent.svg")}}" width="150" alt="Gigawhat Quiz">
                     </a>
 
                     <div class="d-inline">
@@ -77,34 +77,33 @@
 
                 <div class="collapse navbar-collapse" id="navmenu">
                     <ul class="navbar-nav ms-auto me-4">
-                        <li class="nav-item"><a href="{{url_for("quiz_pages.index")}}" class="nav-link">Home</a></li>
-                        <li class="nav-item"><a href="{{url_for("index")}}" class="nav-link">Back to Gigawhat</a></li>
-                        <li class="nav-item"><a href="{{url_for("quiz_pages.singleplayer")}}" class="nav-link">Singleplayer</a></li>
-                        <li class="nav-item"><a href="{{url_for("quiz_pages.multiplayer")}}" class="nav-link disabled" tabindex="-1">Multiplayer</a></li>
+                        <li class="nav-item"><a href="{{url_for("quiz_pages.index")}}" class="nav-link">{{gettext("Home")}}</a></li>
+                        <li class="nav-item"><a href="{{url_for("index")}}" class="nav-link">{{gettext("Back to Gigawhat")}}</a></li>
+                        <li class="nav-item"><a href="{{url_for("quiz_pages.singleplayer")}}" class="nav-link">{{gettext("Singleplayer")}}</a></li>
+                        <li class="nav-item"><a href="{{url_for("quiz_pages.multiplayer")}}" class="nav-link disabled" tabindex="-1">{{gettext("Multiplayer")}}</a></li>
                     </ul>
 {% endcache %}
 
-                    <!-- % if current_user.is_authenticated % -->
-                    {% if false %}
+                    {% if current_user.username %}
                     <div class="dropdown text-lg-end mt-lg-0 mb-lg-0 text-start mt-4 mb-3">
                         <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
-                            <img src="{{pp_url}}" alt="{{username}}" width="32" height="32" class="rounded-circle me-1 pixelated">
-                            {{username}}
+                            <img src="{{url_for("static", filename = current_user.pp_url)}}" alt="{{current_user.username}}" width="32" height="32" class="rounded-circle me-1 pixelated">
+                            {{current_user.username}}
                         </a>
                         
                         <ul class="dropdown-menu bg-black dropdown-menu-dark mt-2">
-                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-person pe-2"></i>Profile</a></li>
-                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-gear pe-2"></i>Settings</a></li>
-                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-award pe-2"></i>Quiz Stats</a></li>
-                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-bar-chart-line pe-2"></i>MC Server</a></li>
+                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-person pe-2"></i>{{gettext("Profile")}}</a></li>
+                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-gear pe-2"></i>{{gettext("Settings")}}</a></li>
+                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-award pe-2"></i>{{gettext("Quiz Stats")}}</a></li>
+                            <li><a href="{{url_for("index")}}" class="dropdown-item"><i class="bi bi-bar-chart-line pe-2"></i>{{gettext("MC Server")}}</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a href="{{url_for("index")}}" class="dropdown-item text-warning"><i class="bi bi-box-arrow-left pe-2"></i>Logout</a></li>
+                            <li><a href="{{url_for_security("logout")}}" class="dropdown-item text-warning"><i class="bi bi-box-arrow-left pe-2"></i>{{gettext("Logout")}}</a></li>
                         </ul>
                     </div>
                     {% else %}
                     <div class="text-lg-end mt-lg-0 mb-lg-0 text-center mt-4 mb-3">
-                        <a href="{{url_for("index")}}" role="button" class="btn btn-outline-light me-2 disabled" tabindex="-1">Login</a>
-                        <a href="{{url_for("index")}}" role="button" class="btn btn-warning disabled" tabindex="-1">Sign-up</a>
+                        <a href="{{url_for_security("login")}}" role="button" class="btn btn-outline-light me-2 disabled" tabindex="-1">{{gettext("Login")}}</a>
+                        <a href="{{url_for_security("register")}}" role="button" class="btn btn-warning disabled" tabindex="-1">{{gettext("Sign-up")}}</a>
                     </div>
                     {% endif %}
                 </div>
@@ -136,20 +135,20 @@
             <div class="container">
                 <div class="text-center text-lg-start d-lg-inline d-block">
                     <a href="https://www.ugurkurs.com.tr/" class="text-decoration-none">
-                        <img src="../../static/img/logos/gigawhat-symbol-transparent.svg" width="25">
+                        <img src="{{url_for("static", filename = "img/logos/gigawhat-symbol-transparent.svg")}}" width="25">
                     </a>
                         
-                    <span class="text-white ms-2">Copyright &copy; 2022 Gigawhat. <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">Privacy Policy</a></span>
+                    <span class="text-white ms-2">{{gettext("Copyright")}} &copy; 2022 Gigawhat. <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">{{gettext("Privacy Policy")}}</a></span>
                 </div>
             
                 <div class="float-none d-lg-inline d-none float-lg-end mt-lg-0 mt-3 text-center">
-                    <a href="https://twitter.com/Gigawhat_net" class="h-opacity-50"><img src="../../static/img/logos/twitter.svg" width="20"></a>
-                    <a href="https://www.instagram.com/gigawhat_net/" class="ms-3 h-opacity-50"><img src="../../static/img/logos/instagram.svg" width="20"></a>
-                    <a href="https://discord.gg/rMq7GujUZJ" class="ms-3 h-opacity-50"><img src="../../static/img/logos/discord.svg" width="20"></a>
-                    <a href="https://www.youtube.com/channel/UCgjkgNz1MbhzIzhOOHfrxiw" class="ms-3 h-opacity-50"><img src="../../static/img/logos/youtube.svg" width="20"></a>
-                    <a href="https://www.patreon.com/gigawhat" class="ms-3 h-opacity-50"><img src="../../static/img/logos/patreon.svg" width="20"></a>
-                    <a href="https://github.com/Gigawhat-net" class="ms-3 h-opacity-50"><img src="../../static/img/logos/github.svg" width="20"></a>
-                    <a href="mailto:contact@gigawhat.net" class="ms-3 h-opacity-50"><img src="../../static/img/logos/gmail.svg" width="20"></a>
+                    <a href="https://twitter.com/Gigawhat_net" class="h-opacity-50"><img src="{{url_for("static", filename = "img/logos/twitter.svg")}}" width="20"></a>
+                    <a href="https://www.instagram.com/gigawhat_net/" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/instagram.svg")}}" width="20"></a>
+                    <a href="https://discord.gg/rMq7GujUZJ" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/discord.svg")}}" width="20"></a>
+                    <a href="https://www.youtube.com/channel/UCgjkgNz1MbhzIzhOOHfrxiw" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/youtube.svg")}}" width="20"></a>
+                    <a href="https://www.patreon.com/gigawhat" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/patreon.svg")}}" width="20"></a>
+                    <a href="https://github.com/Gigawhat-net" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/github.svg")}}" width="20"></a>
+                    <a href="mailto:contact@gigawhat.net" class="ms-3 h-opacity-50"><img src="{{url_for("static", filename = "img/logos/gmail.svg")}}" width="20"></a>
                 </div>
             </div>
         </footer>

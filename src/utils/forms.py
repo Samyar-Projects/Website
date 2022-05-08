@@ -1,4 +1,4 @@
-#  Gigawhat Website helper functions.
+#  Gigawhat Website forms file.
 #  Copyright 2022 Gigawhat Programming Team
 #  Written by Samyar Sadat Akhavi, 2022.
 #
@@ -14,13 +14,3 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
-# --- Condition raw output from db query for quiz ---
-def quiz_query_cond(query):
-    query = query[0] 
-    query = str(query)
-    query = query.replace("<script", "")
-    query = query.replace("</script", "")
-    
-    return query

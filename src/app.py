@@ -17,23 +17,23 @@
 
 
 # ------- Libraries, utils, and modules -------
-from flask import abort, flash, make_response, redirect, render_template, request
-from flask_security import hash_password
+from flask import flash, make_response, redirect, render_template, request, url_for
+from flask_security import hash_password, url_for_security
 import jinja2
 import werkzeug
 from init import app, cache, db, babel
 from config import RENDER_CACHE_TIMEOUT
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
-from modules.account import account_pages, user_datastore
-from modules.database import database
+from modules.account import account_pages
+from modules.database import database, user_datastore
 from modules.temp_data import temp_data
 
 
 # ------- Blueprint registry -------
 app.register_blueprint(quiz_pages, subdomain = "quiz")
 app.register_blueprint(blog_pages, subdomain = "blog")
-app.register_blueprint(account_pages)
+app.register_blueprint(account_pages, subdomain = "account")
 app.register_blueprint(database)
 app.register_blueprint(temp_data)
 
@@ -63,10 +63,6 @@ def get_locale():
     return request.accept_languages.best_match(["en_US", "tr_TR"])
 
 
-# ------- Global Jinja env variables -------
-
-
-
 # ------- Error handlers -------
 @app.errorhandler(werkzeug.exceptions.NotFound)
 @cache.cached(timeout = RENDER_CACHE_TIMEOUT)
@@ -93,14 +89,16 @@ def template_error(error):
 # ------- Before request -------
 @app.before_first_request
 def create_user():
-    if not user_datastore.find_user(email = "testme.com"):
-        user_datastore.create_user(email = "testme.com", password = hash_password("password"), pp_url = "TESTESTESTEST")
+    if not user_datastore.find_user(email = "test@me.com"):
+        user_datastore.create_user(email = "test@me.com", password = hash_password("password"))
     
     db.session.commit()
 
 @app.before_request
-def before_request():
-    pass
+def remove_www():
+    if "://www." in request.url.lower():
+        request_url = request.url.lower()
+        return redirect(request_url.replace("www.", ""))
 
 
 # ------- Page routes -------
@@ -108,9 +106,9 @@ def before_request():
 def index():
     posts = []
     
-    posts.append({"title": "Placeholder post 1", "read_dur": "1963 mins", "thumb_url": "static/img/carousel/placeholder.png", "url": "#"})
-    posts.append({"title": "Placeholder post 2", "read_dur": "1980 mins", "thumb_url": "static/img/carousel/placeholder.png", "url": "#"})
-    posts.append({"title": "Placeholder post 3", "read_dur": "2001 mins", "thumb_url": "static/img/carousel/placeholder.png", "url": "#"})
+    posts.append({"title": "Placeholder post 1", "read_dur": "1963 mins", "thumb_url": "img/carousel/placeholder.png", "url": "#"})
+    posts.append({"title": "Placeholder post 2", "read_dur": "1980 mins", "thumb_url": "img/carousel/placeholder.png", "url": "#"})
+    posts.append({"title": "Placeholder post 3", "read_dur": "2001 mins", "thumb_url": "img/carousel/placeholder.png", "url": "#"})
     
     return render_template("index.html", page_views = 4444845, posts = posts)
 
@@ -122,6 +120,28 @@ def mc_server():
 @cache.cached(timeout = RENDER_CACHE_TIMEOUT)
 def privacy_policy():
     return render_template("privacy_policy.html")
+
+
+# ------- Page redirects -------
+@app.route("/quiz")
+def quiz_redirect():
+    return redirect(url_for("quiz_pages.index"))
+
+@app.route("/blog")
+def blog_redirect():
+    return redirect(url_for("blog_pages.index"))
+
+@app.route("/login")
+def login_redirect():
+    return redirect(url_for_security("login"))
+
+@app.route("/register")
+def register_redirect():
+    return redirect(url_for_security("register"))
+
+@app.route("/signup")
+def signup_redirect():
+    return redirect(url_for_security("signup"))
 
 
 # ------- Running the app -------
