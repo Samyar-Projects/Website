@@ -1,0 +1,25 @@
+name: Deploy application to live website
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  app-deploy:
+    name: Deploy via FTP
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get latest code
+      uses: actions/checkout@v2
+
+    - name: Deploy application (Sync files with server)
+      uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
+      with:
+        ftp_host: ${{ secrets.FTP_HOST }}
+        ftp_username: ${{ secrets.FTP_USERNAME }}
+        ftp_password: ${{ secrets.FTP_PASSWORD }}
+        local_source_dir: "src"
+        dist_target_dir: "GigawhatApp"
+        exclude: "'^vars.env'"
+        delete: "true"

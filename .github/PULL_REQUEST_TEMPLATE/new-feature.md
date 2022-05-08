@@ -31,7 +31,7 @@ This PR closes #gggg.
 **Demonstration:**    
 
 <!--
-    Include screenshots/log snippets from before and after as necessary. If you have created a test case mod, please link to a
-    download of the mod, source code, and exact version used where possible.
+    Include screenshots/log snippets from before and after as necessary. If you have created a test website, please link to the
+    website, source code, and exact version used where possible.
 -->
 
