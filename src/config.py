@@ -27,10 +27,10 @@ load_dotenv("vars.env")
 
 
 # ------- Flask config -------
-SERVER_NAME = "gigawhat-local.gtw:5000"
-# SERVER_NAME = "gigawhat.net"
+# SERVER_NAME = "gigawhat-local.gtw:5000"
+SERVER_NAME = "gigawhat.net"
 SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
-DEBUG = True
+# DEBUG = True
 
 
 # ------- Flask-Caching config -------
@@ -72,7 +72,7 @@ MAIL_USE_SSL = True
 MAIL_USE_TLS = False
 MAIL_USERNAME = os.getenv("FLASK_MAIL_USERNAME")
 MAIL_PASSWORD = os.getenv("FLASK_MAIL_PASSWORD")
-MAIL_DEFAULT_SENDER = "contact@gigawhat.net"
+MAIL_DEFAULT_SENDER = "account@gigawhat.net"
 
 
 # ------- Flask-WTF config -------
