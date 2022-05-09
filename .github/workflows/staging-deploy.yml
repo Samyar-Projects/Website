@@ -1,0 +1,24 @@
+name: Deploy application to staging website
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  app-deploy:
+    name: Deploy using Heroku API
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v2
+
+      - name: Deploy application (Sync files with Heroku)
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: gigawhat-website
+          heroku_email: ${{ secrets.HEROKU_EMAIL_ADD }}
+          appdir: src
+          branch: dev
+          env_file: vars.env
