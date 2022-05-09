@@ -21,4 +21,3 @@ jobs:
           heroku_email: ${{ secrets.HEROKU_EMAIL_ADD }}
           appdir: src
           branch: dev
-          env_file: vars.env
