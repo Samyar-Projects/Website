@@ -27,8 +27,8 @@ load_dotenv("vars.env")
 
 
 # ------- Flask config -------
-SERVER_NAME = "gigawhat-local.gtw:5000"
-# SERVER_NAME = "gigawhat.net"
+# SERVER_NAME = "gigawhat-local.gtw:5000"
+SERVER_NAME = "gigawhat.net"
 SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
 DEBUG = True
 
