@@ -10,6 +10,8 @@
 	<a href="https://github.com/Gigawhat-net/Gigawhat-Website/blob/dev/LICENSE"><img src="https://img.shields.io/github/license/Gigawhat-net/Gigawhat-Website?color=blue"></a>
 	|
 	<a href="https://github.com/Gigawhat-net/Gigawhat-Website/issues"><img src="https://img.shields.io/github/issues/Gigawhat-net/Gigawhat-Website"></a>
+	|
+	<a href="https://github.com/SamKirkland/FTP-Deploy-Action"><img src="https://img.shields.io/badge/Deployed With-FTP DEPLOY ACTION-%3CCOLOR%3E?style=flat&color=d00000"></a>
 	<br><br>
 </p>
 
