@@ -3,7 +3,7 @@
 {% block head %}
 {% endblock %}
 
-{% block title %}500 {{gettext("Internal Server Error")}}{% endblock %}
+{% block title %}{{_("500 Internal Server Error")}}{% endblock %}
 
 {% block body %}
 <div class="album text-light">
@@ -14,12 +14,12 @@
 	
 		<div class="col p-0 mt-sm-5 mt-2 mb-5">
 			<div class="card-body text-sm-start text-center">
-                <div class="display-2">{{gettext("Error")}} 500</div>
-                <div class="display-2">{{gettext("Internal Server Error")}}</div>
-                <div class="display-6 d-sm-block d-none w-75" style="font-size: 26px;">{{gettext("Something went wrong with our servers! Please try again later.")}}</div>
-                <div class="display-6 d-sm-none d-block" style="font-size: 26px;">{{gettext("Something went wrong with our servers! Please try again later.")}}</div>
+                <div class="display-2">{{_("Error 500")}}</div>
+                <div class="display-2">{{_("Internal Server Error")}}</div>
+                <div class="display-6 d-sm-block d-none w-75" style="font-size: 26px;">{{_("Something went wrong with our servers! Please try again later.")}}</div>
+                <div class="display-6 d-sm-none d-block" style="font-size: 26px;">{{_("Something went wrong with our servers! Please try again later.")}}</div>
 
-                <a href="{{url_for("index")}}" role="button" class="btn btn-outline-light mt-4">{{gettext("Back to Home")}}</a>
+                <a href="{{url_for("index")}}" role="button" class="btn btn-outline-light mt-4">{{_("Back to Home")}}</a>
 			</div>
 		</div>
 	</div>

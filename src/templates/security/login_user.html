@@ -1,12 +1,12 @@
 {% extends "base_templates/acc_base.html" %}
 {% from "macros.jinja" import render_field_with_errors, render_field_errors, render_field %}
 
-{% block title %}{{gettext("Login")}}{% endblock %}
+{% block title %}{{_("Login")}}{% endblock %}
 
 {% block body %}
 <div class="container pt-sm-5 pt-2 pb-4">
     <div class="p-sm-5 p-2">
-        <h2 class="fw-bold mb-0">{{gettext("Login")}}</h2>
+        <h2 class="fw-bold mb-0">{{_("Login")}}</h2>
     </div>
 
     <div class="p-sm-5 p-2 pt-sm-0">
@@ -16,32 +16,32 @@
             {{render_field_with_errors(login_user_form.password, 1, "floating", class = "form-control rounded-3", placeholder = "Password")}}
             
             <div class="mb-2">
-                <a href="{{url_for_security("forgot_password")}}" class="text-muted small mb-5">{{gettext("Forgot Password?")}}</a>
+                <a href="{{url_for_security("forgot_password")}}" class="text-muted small mb-5">{{_("Forgot Password?")}}</a>
             </div>
 
             {{render_field_with_errors(login_user_form.remember, 2, "check", l_class = "form-check-label", class = "form-check-input")}}
 
             <div class="form-check form-switch mb-4">
                 <input class="form-check-input" type="checkbox" role="switch" id="showPassword" onclick="showPass()">
-                <label class="form-check-label" for="showPassword">{{gettext("Show password")}}</label>
+                <label class="form-check-label" for="showPassword">{{_("Show password")}}</label>
             </div>
 
             {{render_field_errors(login_user_form.csrf_token, 3)}}
             {{render_field(login_user_form.submit, "floating", class = "w-100 mt-2 mb-2 btn btn-lg rounded-3 btn-outline-secondary")}}
 
             <hr class="my-4">
-            <h2 class="fs-5 fw-bold mb-3">{{gettext("Or use a third-party")}}</h2>
+            <h2 class="fs-5 fw-bold mb-3">{{_("Or use a third-party")}}</h2>
 
             <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit" disabled>
-                <i class="bi bi-google pe-2"></i>{{gettext("Login with Google")}}
+                <i class="bi bi-google pe-2"></i>{{_("Login with Google")}}
             </button>
 
             <button class="w-100 py-2 mb-2 btn btn-outline-info rounded-3" type="submit" disabled>
-                <i class="bi bi-twitter pe-2"></i>{{gettext("Login with Twitter")}}
+                <i class="bi bi-twitter pe-2"></i>{{_("Login with Twitter")}}
             </button>
 
             <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit" disabled>
-                <i class="bi bi-github pe-2"></i>{{gettext("Login with GitHub")}}
+                <i class="bi bi-github pe-2"></i>{{_("Login with GitHub")}}
             </button>
         </form>
     </div>

@@ -1,20 +1,20 @@
 {% extends "base_templates/quiz_base.html" %}
 
-{% block title %}{{gettext("Singleplayer Quiz")}}{% endblock %}
+{% block title %}{{_("Singleplayer Quiz")}}{% endblock %}
 
 {% block body %}
 <div class="container mt-sm-4 mt-3">
-    <h5 class="d-inline">{{gettext("Singleplayer Quiz")}}</h5>
+    <h5 class="d-inline">{{_("Singleplayer Quiz")}}</h5>
 
     {% if not info.correct_answ %}
     <div class="d-inline float-end ms-3">
-        <p class="d-inline">{{gettext("Time Left")}}: </p>
+        <p class="d-inline">{{_("Time Left:")}} </p>
         <p class="text-primary d-inline"><span id="timer">00:00</span></p>
     </div>
     {% endif %}
 
     <div class="d-inline float-end ms-3">
-        <p class="d-inline">{{gettext("Questions Left")}}: </p>
+        <p class="d-inline">{{_("Questions Left:")}} </p>
         <p class="text-success d-inline">{{info.q_left}}</p>
     </div>
 
@@ -58,7 +58,7 @@
         </div>
 
         {% if info.correct_answ %}
-        <button class="w-100 mb-2 btn btn-lg rounded-3 shadow btn-outline-dark mt-4" value="next_qstn_{{info.q_track}}" type="submit" name="next">{% if info.q_left == 0 %}{{gettext("Show Results")}}{% else %}{{gettext("Next Question")}}{% endif %}</button>
+        <button class="w-100 mb-2 btn btn-lg rounded-3 shadow btn-outline-dark mt-4" value="next_qstn_{{info.q_track}}" type="submit" name="next">{% if info.q_left == 0 %}{{_("Show Results")}}{% else %}{{_("Next Question")}}{% endif %}</button>
         {% endif %}
     </form>
 </div>
