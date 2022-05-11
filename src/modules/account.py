@@ -28,7 +28,7 @@ security = Security(app, user_datastore)
 
 
 # ------- Blueprint init -------
-account_pages = Blueprint("account_pages", __name__, template_folder = "../templates", static_folder = "../static")
+account_pages = Blueprint("account_pages", __name__, template_folder="../templates", static_folder="../static")
 
 
 # ------- Page routes -------

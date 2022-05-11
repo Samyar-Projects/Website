@@ -29,7 +29,7 @@ from flask_babel import gettext, get_locale
 
 
 # ------- Blueprint init -------
-quiz_pages = Blueprint("quiz_pages", __name__, template_folder = "../templates", static_folder = "../static")
+quiz_pages = Blueprint("quiz_pages", __name__, template_folder="../templates", static_folder="../static")
 
 
 # ------- Global variables -------
@@ -48,7 +48,7 @@ def pop_sessions():
 
 # ------- Page routes -------
 @quiz_pages.route("/")
-@cache.cached(timeout = RENDER_CACHE_TIMEOUT)
+@cache.cached(timeout=RENDER_CACHE_TIMEOUT)
 def index():
     """for i in range(0, 100):
         data = QuizQuestions("math", "en_us", 7, "normal", "This is placeholder question number " + str(i), "a", "Answer A", "Answer B", "Answer C", "Answer D", True)
@@ -57,7 +57,7 @@ def index():
     
     return render_template("quiz_index.html")
 
-@quiz_pages.route("/singleplayer", methods = ["GET", "POST"])
+@quiz_pages.route("/singleplayer", methods=["GET", "POST"])
 def singleplayer():
     lang = str(get_locale())
     
@@ -73,7 +73,7 @@ def singleplayer():
                 flash(gettext(u"Invalid input"), "danger")
                 return redirect(url_for("quiz_pages.singleplayer"))
 
-            questions = db.session.query(QuizQuestions.id).filter_by(lang = lang, category = category, difficulty = difficulty, level = int(level), status = True).all()
+            questions = db.session.query(QuizQuestions.id).filter_by(lang=lang, category=category, difficulty=difficulty, level=int(level), status=True).all()
             
             if len(questions) < q_num :
                 log.debug(f"[{request.remote_addr}] Tried to start a quiz that does not exist.")
@@ -88,7 +88,7 @@ def singleplayer():
                 rand_id = randint(0, len(questions) - 1)
                 question = questions[rand_id]
                 
-                if not rand_id in ids:
+                if rand_id not in ids:
                     final_questions.append(question[0])
                     ids.append(rand_id)
             
@@ -99,7 +99,7 @@ def singleplayer():
             
             q_id = randint(0, 999999999)
             
-            while db.session.query(QuizResults).filter_by(quiz_id = q_id).first():
+            while db.session.query(QuizResults).filter_by(quiz_id=q_id).first():
                 q_id = randint(0, 999999999)
                 
             session["quiz.quiz_id"] = q_id
@@ -112,19 +112,19 @@ def singleplayer():
         
         else:
             info = {"q_num": q_num, "q_time": round(q_time / 60, 2)}
-            return render_template("quiz/singleplayer.html", info = info)
+            return render_template("quiz/singleplayer.html", info=info)
 
     else:
         flash(gettext(u"You are already in a quiz. Please finish before starting a new one or click reset to reset it."), "danger")
         info = {"q_num": q_num, "q_time": round(q_time / 60, 2), "reset_q": True}
-        return render_template("quiz/singleplayer.html", info = info)
+        return render_template("quiz/singleplayer.html", info=info)
  
 
 @quiz_pages.route("/multiplayer")
 def multiplayer():
     return render_template("quiz/multiplayer.html")
 
-@quiz_pages.route("/singleplayer-quiz", methods = ["GET", "POST"])
+@quiz_pages.route("/singleplayer-quiz", methods=["GET", "POST"])
 def singleplayer_quiz():
     in_quiz = session.get("quiz.in_quiz")
     
@@ -141,16 +141,16 @@ def singleplayer_quiz():
                 # Check answer:
                 if not next:
                     answer = request.form.get("answ")
-                    correct_answer = quiz_query_cond(db.session.query(QuizQuestions.correct_answ).filter_by(id = get_q[q_left]).first())
+                    correct_answer = quiz_query_cond(db.session.query(QuizQuestions.correct_answ).filter_by(id=get_q[q_left]).first())
                     
                     log.debug(f"[{request.remote_addr}] Sent answer [{answer}] for Quiz ID: [{session.get('quiz.quiz_id')}] with q_left [{q_left}]")
                     
                     if answer.endswith(str(q_left + 1)):
-                        question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id = get_q[q_left]).first())
-                        answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id = get_q[q_left]).first())
-                        answ_b = quiz_query_cond(db.session.query(QuizQuestions.answ_b).filter_by(id = get_q[q_left]).first())
-                        answ_c = quiz_query_cond(db.session.query(QuizQuestions.answ_c).filter_by(id = get_q[q_left]).first())
-                        answ_d = quiz_query_cond(db.session.query(QuizQuestions.answ_d).filter_by(id = get_q[q_left]).first())
+                        question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id=get_q[q_left]).first())
+                        answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id=get_q[q_left]).first())
+                        answ_b = quiz_query_cond(db.session.query(QuizQuestions.answ_b).filter_by(id=get_q[q_left]).first())
+                        answ_c = quiz_query_cond(db.session.query(QuizQuestions.answ_c).filter_by(id=get_q[q_left]).first())
+                        answ_d = quiz_query_cond(db.session.query(QuizQuestions.answ_d).filter_by(id=get_q[q_left]).first())
                             
                         answ = answer.split("answ_")
                         answ = answ[1]
@@ -171,13 +171,13 @@ def singleplayer_quiz():
                             send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                             info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer}
                         
-                            return render_template("quiz/singleplayer_quiz.html", question = send_question, info = info)
+                            return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)
                             
                         elif answ != "a" and answ != "b" and answ != "c" and answ != "d":
                             send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                             info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer}
                         
-                            return render_template("quiz/singleplayer_quiz.html", question = send_question, info = info)
+                            return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)
                         
                         else:
                             data = read_quiz_res_temp(q_id)
@@ -187,7 +187,7 @@ def singleplayer_quiz():
                             send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                             info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer, "answ": answ}
                         
-                            return render_template("quiz/singleplayer_quiz.html", question = send_question, info = info)
+                            return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)
             
                     else:
                         pop_sessions()
@@ -200,11 +200,11 @@ def singleplayer_quiz():
                 elif next and next.endswith(str(q_track)):
                     log.debug(f"[{request.remote_addr}] Requested next question for Quiz ID: [{session.get('quiz.quiz_id')}]")
                     
-                    question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id = get_q[q_left]).first())
-                    answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id = get_q[q_left]).first())
-                    answ_b = quiz_query_cond(db.session.query(QuizQuestions.answ_b).filter_by(id = get_q[q_left]).first())
-                    answ_c = quiz_query_cond(db.session.query(QuizQuestions.answ_c).filter_by(id = get_q[q_left]).first())
-                    answ_d = quiz_query_cond(db.session.query(QuizQuestions.answ_d).filter_by(id = get_q[q_left]).first())
+                    question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id=get_q[q_left]).first())
+                    answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id=get_q[q_left]).first())
+                    answ_b = quiz_query_cond(db.session.query(QuizQuestions.answ_b).filter_by(id=get_q[q_left]).first())
+                    answ_c = quiz_query_cond(db.session.query(QuizQuestions.answ_c).filter_by(id=get_q[q_left]).first())
+                    answ_d = quiz_query_cond(db.session.query(QuizQuestions.answ_d).filter_by(id=get_q[q_left]).first())
             
                     session["quiz.q_track"] = q_track + 1
                     q_track = int(session.get("quiz.q_track"))
@@ -212,7 +212,7 @@ def singleplayer_quiz():
                     send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                     info = {"q_left": q_left + 1, "t_left": q_time, "q_track": q_track}
 
-                    return render_template("quiz/singleplayer_quiz.html", question = send_question, info = info)		
+                    return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)		
             
                 else:
                     log.info(f"[{request.remote_addr}] Cheating detected for Quiz ID: [{session.get('quiz.quiz_id')}]")
@@ -239,18 +239,18 @@ def singleplayer_quiz():
                 delete_quiz_res_temp(q_id)
                 pop_sessions()
                 
-                return redirect(url_for("quiz_pages.show_results", q_id = q_id))
+                return redirect(url_for("quiz_pages.show_results", q_id=q_id))
             
         # Load first question:
         else:       
             if q_track == 0:
                 log.debug(f"[{request.remote_addr}] Loaded first question with Quiz ID: [{session.get('quiz.quiz_id')}]")
                 
-                question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id = get_q[q_left]).first())
-                answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id = get_q[q_left]).first())
-                answ_b = quiz_query_cond(db.session.query(QuizQuestions.answ_b).filter_by(id = get_q[q_left]).first())
-                answ_c = quiz_query_cond(db.session.query(QuizQuestions.answ_c).filter_by(id = get_q[q_left]).first())
-                answ_d = quiz_query_cond(db.session.query(QuizQuestions.answ_d).filter_by(id = get_q[q_left]).first())
+                question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id=get_q[q_left]).first())
+                answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id=get_q[q_left]).first())
+                answ_b = quiz_query_cond(db.session.query(QuizQuestions.answ_b).filter_by(id=get_q[q_left]).first())
+                answ_c = quiz_query_cond(db.session.query(QuizQuestions.answ_c).filter_by(id=get_q[q_left]).first())
+                answ_d = quiz_query_cond(db.session.query(QuizQuestions.answ_d).filter_by(id=get_q[q_left]).first())
 
                 send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                 info = {"q_left": q_left + 1, "t_left": q_time, "q_track": q_track}
@@ -258,7 +258,7 @@ def singleplayer_quiz():
                 session["quiz.q_track"] = q_track + 1
                 q_track = int(session.get("quiz.q_track"))
 
-                return render_template("quiz/singleplayer_quiz.html", question = send_question, info = info)
+                return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)
 
             else:
                 return redirect(url_for("quiz_pages.singleplayer"))
@@ -281,21 +281,21 @@ def show_results(q_id):
     log.debug(f"[{request.remote_addr}] Requested quiz results for Quiz ID: [{q_id}]")
     
     try:
-        p1_r_answ = quiz_query_cond(db.session.query(QuizResults.player_1_right).filter_by(quiz_id = q_id).first())
-        p1_w_answ = quiz_query_cond(db.session.query(QuizResults.player_1_wrong).filter_by(quiz_id = q_id).first())
-        p1_user = quiz_query_cond(db.session.query(QuizResults.player_1).filter_by(quiz_id = q_id).first())
-        p1_w_acc = quiz_query_cond(db.session.query(QuizResults.player_1_with_account).filter_by(quiz_id = q_id).first())
+        p1_r_answ = quiz_query_cond(db.session.query(QuizResults.player_1_right).filter_by(quiz_id=q_id).first())
+        p1_w_answ = quiz_query_cond(db.session.query(QuizResults.player_1_wrong).filter_by(quiz_id=q_id).first())
+        p1_user = quiz_query_cond(db.session.query(QuizResults.player_1).filter_by(quiz_id=q_id).first())
+        p1_w_acc = quiz_query_cond(db.session.query(QuizResults.player_1_with_account).filter_by(quiz_id=q_id).first())
+    
+        p2_r_answ = quiz_query_cond(db.session.query(QuizResults.player_2_right).filter_by(quiz_id=q_id).first())
+        p2_w_answ = quiz_query_cond(db.session.query(QuizResults.player_2_wrong).filter_by(quiz_id=q_id).first())
+        p2_user = quiz_query_cond(db.session.query(QuizResults.player_2).filter_by(quiz_id=q_id).first())
+        p2_w_acc = quiz_query_cond(db.session.query(QuizResults.player_2_with_account).filter_by(quiz_id=q_id).first())
         
-        p2_r_answ = quiz_query_cond(db.session.query(QuizResults.player_2_right).filter_by(quiz_id = q_id).first())
-        p2_w_answ = quiz_query_cond(db.session.query(QuizResults.player_2_wrong).filter_by(quiz_id = q_id).first())
-        p2_user = quiz_query_cond(db.session.query(QuizResults.player_2).filter_by(quiz_id = q_id).first())
-        p2_w_acc = quiz_query_cond(db.session.query(QuizResults.player_2_with_account).filter_by(quiz_id = q_id).first())
-        
-        is_multiplayer = quiz_query_cond(db.session.query(QuizResults.multiplayer).filter_by(quiz_id = q_id).first())
-        date = quiz_query_cond(db.session.query(QuizResults.date).filter_by(quiz_id = q_id).first())
-        time = quiz_query_cond(db.session.query(QuizResults.time).filter_by(quiz_id = q_id).first())
+        is_multiplayer = quiz_query_cond(db.session.query(QuizResults.multiplayer).filter_by(quiz_id=q_id).first())
+        date = quiz_query_cond(db.session.query(QuizResults.date).filter_by(quiz_id=q_id).first())
+        time = quiz_query_cond(db.session.query(QuizResults.time).filter_by(quiz_id=q_id).first())
             
-    except:
+    except Exception:
         log.debug(f"[{request.remote_addr}] Requested quiz results for a quiz that does not exist.")
         abort(404)
     
