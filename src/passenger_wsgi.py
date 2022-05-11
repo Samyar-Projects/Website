@@ -22,5 +22,5 @@ import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-wsgi = importlib.load_source("wsgi", "app.py")
+wsgi = importlib.import_module("wsgi", "app.py")
 application = wsgi.app
