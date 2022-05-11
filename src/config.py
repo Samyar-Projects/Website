@@ -17,6 +17,7 @@
 
 
 # ------- Libraries -------
+import logging
 import os
 import pkg_resources
 
@@ -27,8 +28,8 @@ load_dotenv("vars.env")
 
 
 # ------- Flask config -------
-# SERVER_NAME = "gigawhat-local.gtw:5000"
-SERVER_NAME = "gigawhat.net"
+SERVER_NAME = "gigawhat-local.gtw:5000"
+# SERVER_NAME = "gigawhat.net"
 SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
 DEBUG = True
 
@@ -51,7 +52,7 @@ SECURITY_REGISTERABLE = True
 SECURITY_PASSWORD_BREACHED_COUNT = 4
 SECURITY_REDIRECT_ALLOW_SUBDOMAINS = True
 SECURITY_CSRF_IGNORE_UNAUTH_ENDPOINTS = False
-SECURITY_I18N_DIRNAME = [pkg_resources.resource_filename("flask_security", "translations"), "translations"]
+SECURITY_I18N_DIRNAME = ["translations", pkg_resources.resource_filename("flask_security", "translations")]
 SECURITY_USERNAME_ENABLE = True
 SECURITY_USERNAME_REQUIRED = True
 SECURITY_CONFIRMABLE = True
@@ -80,7 +81,13 @@ WTF_CSRF_CHECK_DEFAULT = False
 
 
 # ------- Module configs -------
-QUIZ_QUESTION_COUNT = 3
+QUIZ_QUESTION_COUNT = 15
 QUIZ_QUESTION_TIME = 60
 TEMPORARY_FILE_DIR = "data/temporary"
 RENDER_CACHE_TIMEOUT = 1
+SUPPORTED_LANGS = ["en_US", "tr_TR"]
+LOG_FILE_PATH = "../logs/GigawhatApp_pylog.log"
+LOG_LEVEL = logging.DEBUG
+
+
+# ------- Flask-Security gettex key overrides -------

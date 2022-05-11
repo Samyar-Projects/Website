@@ -20,6 +20,7 @@
 import json
 from flask import Blueprint
 from config import TEMPORARY_FILE_DIR
+from init import log
 
 
 # ------- Blueprint init -------
@@ -70,33 +71,43 @@ def read_quiz_res_temp(quiz_id = int):
         to_send = QuizResultTemp(data["r_answ"], data["w_answ"], str(quiz_id))
     
     except:
+        log.exception(f"TemporaryDataError")
         return False
     
     else:
         return to_send
 
 def write_quiz_res_temp(quiz_result_temp = QuizResultTemp):
-    json_data = {quiz_result_temp.get_quiz_id(): {"r_answ": quiz_result_temp.get_right_answ(), "w_answ": quiz_result_temp.get_wrong_answ()}}
-    
-    with open(TEMPORARY_FILE_DIR + "/quiz_result_temp.json", "r") as file:
-        data = json.load(file)
-    
-    data.update(json_data)
-    
-    with open(TEMPORARY_FILE_DIR + "/quiz_result_temp.json", "w") as file:
-        json.dump(data, file, indent = 4)
+    try:
+        json_data = {quiz_result_temp.get_quiz_id(): {"r_answ": quiz_result_temp.get_right_answ(), "w_answ": quiz_result_temp.get_wrong_answ()}}
+        
+        with open(TEMPORARY_FILE_DIR + "/quiz_result_temp.json", "r") as file:
+            data = json.load(file)
+        
+        data.update(json_data)
+        
+        with open(TEMPORARY_FILE_DIR + "/quiz_result_temp.json", "w") as file:
+            json.dump(data, file, indent = 4)
+            
+    except:
+        log.exception(f"TemporaryDataError")
+        return False
+        
+    else:
+        return True
         
 def delete_quiz_res_temp(quiz_id = int):
-    with open(TEMPORARY_FILE_DIR + "/quiz_result_temp.json", "r") as file:
-        data = json.load(file)
-    
     try:
+        with open(TEMPORARY_FILE_DIR + "/quiz_result_temp.json", "r") as file:
+            data = json.load(file)
+        
         data.pop(str(quiz_id))
         
         with open(TEMPORARY_FILE_DIR + "/quiz_result_temp.json", "w") as file:
             json.dump(data, file, indent = 4)
         
     except:
+        log.exception(f"TemporaryDataError")
         return False
     
     else:

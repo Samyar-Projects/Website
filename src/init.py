@@ -23,6 +23,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_babel import Babel
 from flask_wtf.csrf import CSRFProtect
 from flask_mail import Mail
+import logging
+from config import LOG_FILE_PATH, LOG_LEVEL
 
 
 # ------- Flask and Flask plug-in init -------
@@ -33,3 +35,12 @@ db = SQLAlchemy(app)
 babel = Babel(app)
 csrf = CSRFProtect(app)
 mail = Mail(app)
+
+
+# ------- Logging init -------
+log = logging.getLogger(__name__)
+handler = logging.FileHandler(LOG_FILE_PATH)
+formatter = logging.Formatter("[%(asctime)s] [%(module)s/%(levelname)s] [%(funcName)s]: %(message)s")
+handler.setFormatter(formatter)
+log.addHandler(handler)
+log.setLevel(LOG_LEVEL)

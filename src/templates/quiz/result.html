@@ -23,16 +23,16 @@
     <label for="progress_bar" class="h5 mt-1">%{{q_per}}</label>
 
     <div class="mt-2" style="font-size: 1.2rem;">
-        {{_("Right Answers")}}: <p class="fw-bold text-danger d-inline">{{info.p1_r_answ}}</p><br>
-        {{_("Wrong Answers")}}: <p class="fw-bold text-danger d-inline">{{info.p1_w_answ}}</p><br>
+        {{_("Right Answers:")}} <p class="fw-bold text-danger d-inline">{{info.p1_r_answ}}</p><br>
+        {{_("Wrong Answers:")}} <p class="fw-bold text-danger d-inline">{{info.p1_w_answ}}</p><br>
         {% if info.p1_w_acc == "True" %}
-        {{_("Username")}}: <p class="fw-bold text-danger d-inline">{{info.p1_user}}</p><br>
+        {{_("Username:")}} <p class="fw-bold text-danger d-inline">{{info.p1_user}}</p><br>
         {% endif %}
-        {{_("Date")}}: <p class="fw-bold text-danger d-inline">{{info.date}}</p><br>
-        {{_("Time")}}: <p class="fw-bold text-danger d-inline">{{info.time}}</p>
+        {{_("Date:")}} <p class="fw-bold text-danger d-inline">{{info.date}}</p><br>
+        {{_("Time:")}} <p class="fw-bold text-danger d-inline">{{info.time}}</p>
 
         <div class="mt-4">
-            {{_("Quiz ID")}}: <p class="fw-bold text-danger d-inline">{{info.q_id}}</p>
+            {{_("Quiz ID:")}} <p class="fw-bold text-danger d-inline">{{info.q_id}}</p>
             <p class="barcode">{{info.q_id}}</p>
         </div>
     </div>

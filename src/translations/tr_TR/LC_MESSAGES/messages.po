@@ -8,44 +8,45 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: gpt@gigawhat.net\n"
 "POT-Creation-Date: 2022-05-09 00:43+0300\n"
-"PO-Revision-Date: 2022-05-09 00:43+0300\n"
+"PO-Revision-Date: 2022-05-10 20:55+0300\n"
 "Last-Translator: Samyar Sadat Akhavi <samyarsadat@gigawhat.net>\n"
-"Language: tr_TR\n"
 "Language-Team: tr_TR <contact.gpt.tr@gigawhat.net>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: tr_TR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "Generated-By: Babel 2.10.1\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: modules/quiz.py:71
 msgid "Invalid input"
-msgstr ""
+msgstr "Geçersiz giriş"
 
 #: modules/quiz.py:77
 msgid "A quiz with these criteria does not exist."
-msgstr ""
+msgstr "Bu kriterlere sahip bir quiz mevcut değil."
 
 #: modules/quiz.py:112
 msgid "You are already in a quiz. Please finish before starting a new one or click reset to reset it."
-msgstr ""
+msgstr "Zaten bir quizdesiniz. Lütfen yeni bir quiz başlatmadan once şu anki quizinizi bitirin veya sıfırlamak için sıfırla'ya tıklayın."
 
 #: modules/quiz.py:188 modules/quiz.py:211
 msgid "Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."
-msgstr ""
+msgstr "Hile önleme sistemlerimiz hile tespit etti! Lütfen yenilemeyi veya F12'yi denemeyin."
 
 #: modules/quiz.py:259
 msgid "Your quiz has been reset. You can now start a new quiz."
-msgstr ""
+msgstr "Quiziniz sıfırlandı. Artık yeni bir quiz başlatabilirsiniz."
 
 #: templates/base_templates/acc_base.html:82
 #: templates/base_templates/base.html:78 templates/blog_index.html:3
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 #: templates/blog_index.html:6
 msgid "Blog is a work in progress!"
-msgstr ""
+msgstr "Blog henüz hazır değildir!"
 
 #: templates/base_templates/acc_base.html:80
 #: templates/base_templates/base.html:76
@@ -53,23 +54,23 @@ msgstr ""
 #: templates/base_templates/quiz_base.html:80 templates/index.html:3
 #: templates/quiz_index.html:3
 msgid "Home"
-msgstr ""
+msgstr "Anasayfa"
 
 #: templates/index.html:18 templates/index.html:28 templates/index.html:38
 msgid "Lorem ipsum dolor sit amet"
-msgstr ""
+msgstr "Lorem ipsum dolor sit amet"
 
 #: templates/index.html:19 templates/index.html:29 templates/index.html:39
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque."
-msgstr ""
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque."
 
 #: templates/index.html:20 templates/index.html:30 templates/index.html:40
 msgid "Learn more"
-msgstr ""
+msgstr "Bilgi edin"
 
 #: templates/index.html:55
 msgid "About Gigawhat"
-msgstr ""
+msgstr "Gigawhat Hakkında"
 
 #: templates/index.html:67
 msgid ""
@@ -78,22 +79,26 @@ msgid ""
 "\t\t\t\t\t\t\tnon imperdiet ante accumsan a. Nam enim erat, congue nec fringilla ut, rhoncus in mauris. Praesent fringilla nunc ac bibendum porttitor. \n"
 "\t\t\t\t\t\t\tQuisque ultricies cursus eros vitae sodales."
 msgstr ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque. \n"
+"\t\t\t\t\t\t\tDonec mauris urna, suscipit in dignissim non, dignissim ut enim. Pellentesque eget consequat magna. Nam feugiat imperdiet velit, \n"
+"\t\t\t\t\t\t\tnon imperdiet ante accumsan a. Nam enim erat, congue nec fringilla ut, rhoncus in mauris. Praesent fringilla nunc ac bibendum porttitor. \n"
+"\t\t\t\t\t\t\tQuisque ultricies cursus eros vitae sodales."
 
 #: templates/index.html:79
 msgid "News"
-msgstr ""
+msgstr "Haberler"
 
 #: templates/index.html:93
 msgid "Read More"
-msgstr ""
+msgstr "Okumaya devam et"
 
 #: templates/index.html:108
-msgid "Views in the past month"
-msgstr ""
+msgid "Views in the past month:"
+msgstr "Geçen ayki görüntülemeler:"
 
 #: templates/mc_server.html:3 templates/mc_server.html:6
 msgid "Minecraft Server"
-msgstr ""
+msgstr "Minecraft Sunucusu"
 
 #: templates/base_templates/acc_base.html:149
 #: templates/base_templates/acc_base.html:163
@@ -103,110 +108,96 @@ msgstr ""
 #: templates/base_templates/blog_base.html:153
 #: templates/base_templates/quiz_base.html:141 templates/privacy_policy.html:3
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Gizlilik Politikası"
 
 #: templates/base_templates/quiz_base.html:46 templates/quiz_index.html:7
 msgid "Gigawhat Quiz"
-msgstr ""
+msgstr "Gigawhat Quiz"
 
 #: templates/quiz_index.html:11
 msgid "Test your knowledge on any subject with singleplayer or compete with your friends in multiplayer!"
-msgstr ""
+msgstr "Tek oyunculu modda herhangi bir konuda bilginizi sınayın veya çok oyunculu modda arkadaşlarınızla rekabet edin!"
 
 #: templates/quiz_index.html:12
-msgid "The questions are randomly selected every time you start a new game"
-msgstr ""
+msgid "The questions are randomly selected every time you start a new game."
+msgstr "Her yeni oyuna başladığınızda sorular rastgele olarak seçilir."
 
 #: templates/base_templates/quiz_base.html:82
 #: templates/quiz/singleplayer.html:3 templates/quiz_index.html:19
 msgid "Singleplayer"
-msgstr ""
+msgstr "Tek oyunculu"
 
 #: templates/quiz_index.html:20
 msgid "Multiplayer (W.I.P.)"
-msgstr ""
+msgstr "Çok oyunculu (D.E.Ç.)"
 
 #: templates/base_templates/acc_base.html:46
 msgid "Gigawhat Account"
-msgstr ""
+msgstr "Gigawhat Hesap"
 
 #: templates/base_templates/acc_base.html:61
 msgid "ACC."
-msgstr ""
-
-#: templates/base_templates/acc_base.html:65
-#: templates/base_templates/acc_base.html:68
-#: templates/base_templates/acc_base.html:69
-#: templates/base_templates/base.html:61 templates/base_templates/base.html:64
-#: templates/base_templates/base.html:65
-#: templates/base_templates/blog_base.html:65
-#: templates/base_templates/blog_base.html:68
-#: templates/base_templates/blog_base.html:69
-#: templates/base_templates/quiz_base.html:65
-#: templates/base_templates/quiz_base.html:68
-#: templates/base_templates/quiz_base.html:69
-msgid "EN"
-msgstr ""
+msgstr "ACC."
 
 #: templates/base_templates/acc_base.html:81
 #: templates/base_templates/base.html:77
 msgid "About"
-msgstr ""
+msgstr "Hakkında"
 
 #: templates/base_templates/acc_base.html:84
 #: templates/base_templates/base.html:80
 msgid "Servers"
-msgstr ""
+msgstr "Sunucular"
 
 #: templates/base_templates/acc_base.html:87
 #: templates/base_templates/base.html:83
 msgid "Minecraft"
-msgstr ""
+msgstr "Minecraft"
 
 #: templates/base_templates/acc_base.html:88
 #: templates/base_templates/base.html:84
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: templates/base_templates/acc_base.html:91
 #: templates/base_templates/base.html:87
 msgid "Quiz"
-msgstr ""
+msgstr "Quiz"
 
 #: templates/base_templates/acc_base.html:103
 #: templates/base_templates/base.html:99
 #: templates/base_templates/blog_base.html:93
 #: templates/base_templates/quiz_base.html:95
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: templates/base_templates/acc_base.html:104
 #: templates/base_templates/base.html:100
 #: templates/base_templates/blog_base.html:94
 #: templates/base_templates/quiz_base.html:96
 msgid "Settings"
-msgstr ""
+msgstr "Ayarlar"
 
 #: templates/base_templates/acc_base.html:105
 #: templates/base_templates/base.html:101
 #: templates/base_templates/blog_base.html:95
 #: templates/base_templates/quiz_base.html:97
 msgid "Quiz Stats"
-msgstr ""
+msgstr "Quiz İstatistikleri"
 
 #: templates/base_templates/acc_base.html:106
 #: templates/base_templates/base.html:102
 #: templates/base_templates/blog_base.html:96
 #: templates/base_templates/quiz_base.html:98
 msgid "MC Server"
-msgstr ""
+msgstr "MC Sunucusu"
 
 #: templates/base_templates/acc_base.html:108
 #: templates/base_templates/base.html:104
 #: templates/base_templates/blog_base.html:98
 #: templates/base_templates/quiz_base.html:100
 msgid "Logout"
-msgstr ""
+msgstr "Oturum kapat"
 
 #: templates/base_templates/acc_base.html:113
 #: templates/base_templates/base.html:109
@@ -214,7 +205,7 @@ msgstr ""
 #: templates/base_templates/quiz_base.html:105
 #: templates/security/login_user.html:4 templates/security/login_user.html:9
 msgid "Login"
-msgstr ""
+msgstr "Oturum aç"
 
 #: templates/base_templates/acc_base.html:114
 #: templates/base_templates/base.html:110
@@ -222,224 +213,223 @@ msgstr ""
 #: templates/base_templates/quiz_base.html:106 templates/security/signup.html:3
 #: templates/security/signup.html:8
 msgid "Sign-up"
-msgstr ""
+msgstr "Üye ol"
 
 #: templates/base_templates/acc_base.html:149
 #: templates/base_templates/base.html:145
 #: templates/base_templates/blog_base.html:139
 #: templates/base_templates/quiz_base.html:141
 msgid "Copyright &copy; 2022 Gigawhat."
-msgstr ""
+msgstr "Telif Hakkı &copy; 2022 Gigawhat."
 
 #: templates/base_templates/base.html:46
 msgid "Gigawhat"
-msgstr ""
+msgstr "Gigawhat"
 
 #: templates/base_templates/blog_base.html:46
 msgid "Gigawhat Blog"
-msgstr ""
+msgstr "Gigawhat Blog"
 
 #: templates/base_templates/blog_base.html:61
 msgid "BLOG"
-msgstr ""
+msgstr "BLOG"
 
 #: templates/base_templates/blog_base.html:81
 #: templates/base_templates/quiz_base.html:81
 msgid "Back to Gigawhat"
-msgstr ""
+msgstr "Gigawhat'a geri dön"
 
 #: templates/base_templates/quiz_base.html:61
 msgid "QUIZ"
-msgstr ""
+msgstr "QUIZ"
 
 #: templates/base_templates/quiz_base.html:83 templates/quiz/multiplayer.html:3
 msgid "Multiplayer"
-msgstr ""
+msgstr "Çok oyunculu"
 
 #: templates/errors/error_404.html:6
 msgid "404 Not Found"
-msgstr ""
+msgstr "404 Bulunamadı"
 
 #: templates/errors/error_404.html:17
 msgid "Error 404"
-msgstr ""
+msgstr "Hata 404"
 
 #: templates/errors/error_404.html:18
 msgid "Not Found"
-msgstr ""
+msgstr "Bulunamadı"
 
 #: templates/errors/error_404.html:19 templates/errors/error_404.html:20
 msgid "We searched all of space and time but the page that you are looking for does not exist!"
-msgstr ""
+msgstr "Tüm uzayı ve zamanı aradık ama aradığınız sayfayı bulamadık!"
 
 #: templates/errors/error_404.html:22 templates/errors/error_405.html:22
 #: templates/errors/error_500.html:22
 msgid "Back to Home"
-msgstr ""
+msgstr "Anasayfa'ya geri dön"
 
 #: templates/errors/error_405.html:6
 msgid "405 Method Not Allowed"
-msgstr ""
+msgstr "405 Yönteme İzin Verilmiyor"
 
 #: templates/errors/error_405.html:17
 msgid "Error 405"
-msgstr ""
+msgstr "Hata 405"
 
 #: templates/errors/error_405.html:18
 msgid "Method Not Allowed"
-msgstr ""
+msgstr "Yönteme İzin Verilmiyor"
 
 #: templates/errors/error_405.html:19 templates/errors/error_405.html:20
 msgid "This page does not support the type of request that you sent."
-msgstr ""
+msgstr "Bu sayfa, gönderdiğiniz istek türünü desteklemiyor."
 
 #: templates/errors/error_500.html:6
 msgid "500 Internal Server Error"
-msgstr ""
+msgstr "500 Dahili Sunucu Hatası"
 
 #: templates/errors/error_500.html:17
 msgid "Error 500"
-msgstr ""
+msgstr "Hata 500"
 
 #: templates/errors/error_500.html:18
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Dahili Sunucu Hatası"
 
 #: templates/errors/error_500.html:19 templates/errors/error_500.html:20
 msgid "Something went wrong with our servers! Please try again later."
-msgstr ""
+msgstr "Sunucularımızda bir şeyler ters gitti! Lütfen daha sonra tekrar deneyiniz."
 
 #: templates/quiz/multiplayer.html:6
 msgid "Multiplayer quiz is a work in progress!"
-msgstr ""
+msgstr "Çok oyunculu quiz henüz hazır değildir!"
 
 #: templates/quiz/result.html:9
 msgid "Quiz Results"
-msgstr ""
+msgstr "Quiz Sonuçları"
 
 #: templates/quiz/result.html:14
 msgid "Singleplayer Quiz Results"
-msgstr ""
+msgstr "Tek oyunculu quiz sonuçları"
 
 #: templates/quiz/result.html:26
-msgid "Right Answers"
-msgstr ""
+msgid "Right Answers:"
+msgstr "Doğru Cevaplar:"
 
 #: templates/quiz/result.html:27
-msgid "Wrong Answers"
-msgstr ""
+msgid "Wrong Answers:"
+msgstr "Yanlış Cevaplar:"
 
 #: templates/quiz/result.html:29
-msgid "Username"
-msgstr ""
+msgid "Username:"
+msgstr "Kullanıcı adı:"
 
 #: templates/quiz/result.html:31
-msgid "Date"
-msgstr ""
+msgid "Date:"
+msgstr "Tarih:"
 
 #: templates/quiz/result.html:32
-msgid "Time"
-msgstr ""
+msgid "Time:"
+msgstr "Zaman:"
 
 #: templates/quiz/result.html:35
-msgid "Quiz ID"
-msgstr ""
+msgid "Quiz ID:"
+msgstr "Quiz ID:"
 
 #: templates/quiz/singleplayer.html:6
 msgid "Customize your quiz"
-msgstr ""
+msgstr "Quizinizi özelleştirin"
 
 #: templates/quiz/singleplayer.html:12
 msgid "Mathematics"
-msgstr ""
+msgstr "Matematik"
 
 #: templates/quiz/singleplayer.html:13
 msgid "Science"
-msgstr ""
+msgstr "Fen Bilimleri"
 
 #: templates/quiz/singleplayer.html:16
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 #: templates/quiz/singleplayer.html:21
 msgid "Hard"
-msgstr ""
+msgstr "Zor"
 
 #: templates/quiz/singleplayer.html:22
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: templates/quiz/singleplayer.html:23
 msgid "Easy"
-msgstr ""
+msgstr "Kolay"
 
 #: templates/quiz/singleplayer.html:26
 msgid "Difficulty"
-msgstr ""
+msgstr "Zorluk seviyesi"
 
 #: templates/quiz/singleplayer.html:31
 msgid "7th Grade"
-msgstr ""
+msgstr "7. Sınıf"
 
 #: templates/quiz/singleplayer.html:34
 msgid "Level"
-msgstr ""
+msgstr "Seviye"
 
 #: templates/quiz/singleplayer.html:37
 msgid "Start!"
-msgstr ""
+msgstr "Başla!"
 
 #: templates/quiz/singleplayer.html:41
 msgid "Reset Quiz"
-msgstr ""
+msgstr "Quizi Sıfırla"
 
 #: templates/quiz/singleplayer.html:44
 #, python-format
 msgid "Note: The quiz consists of %(q_num)s questions, and there is a time limit of %(time)s minute for every question."
-msgstr ""
+msgstr "Not: Quiz %(q_num)s sorudan oluşur ve her soru için %(time)s dakikalık bir zaman sınırı vardır."
 
 #: templates/quiz/singleplayer_quiz.html:3
 #: templates/quiz/singleplayer_quiz.html:7
 msgid "Singleplayer Quiz"
-msgstr ""
+msgstr "Tek oyunculu Quiz"
 
 #: templates/quiz/singleplayer_quiz.html:11
 msgid "Time Left:"
-msgstr ""
+msgstr "Kalan Süre:"
 
 #: templates/quiz/singleplayer_quiz.html:17
 msgid "Questions Left:"
-msgstr ""
+msgstr "Kalan Soru:"
 
 #: templates/quiz/singleplayer_quiz.html:61
 msgid "Show Results"
-msgstr ""
+msgstr "Sonuçları Göster"
 
 #: templates/quiz/singleplayer_quiz.html:61
 msgid "Next Question"
-msgstr ""
+msgstr "Sonraki Soru"
 
 #: templates/security/login_user.html:19
 msgid "Forgot Password?"
-msgstr ""
+msgstr "Şifremi Unuttum!"
 
 #: templates/security/login_user.html:26
 msgid "Show password"
-msgstr ""
+msgstr "Şifreyi göster"
 
 #: templates/security/login_user.html:33
 msgid "Or use a third-party"
-msgstr ""
+msgstr "Veya başka bir yolu kullanın"
 
 #: templates/security/login_user.html:36
 msgid "Login with Google"
-msgstr ""
+msgstr "Google ile oturum aç"
 
 #: templates/security/login_user.html:40
 msgid "Login with Twitter"
-msgstr ""
+msgstr "Twitter ile oturum aç"
 
 #: templates/security/login_user.html:44
 msgid "Login with GitHub"
-msgstr ""
-
+msgstr "GitHub ile oturum aç"
