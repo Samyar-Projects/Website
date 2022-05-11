@@ -64,47 +64,47 @@ def quiz_db_add():
 class RolesUsers(db.Model):
     __tablename__ = "RolesUsers"
     
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column("user_id", db.Integer, db.ForeignKey("Users.id"))
     role_id = db.Column("role_id", db.Integer, db.ForeignKey("Role.id"))
 
 class Role(db.Model, RoleMixin):
     __tablename__ = "Role"
     
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(80), unique = True)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
 
 class Users(db.Model, UserMixin):
     __tablename__ = "Users"
     
-    id = db.Column(db.Integer, primary_key = True)
-    email = db.Column(db.String(255), unique = True)
-    username = db.Column(db.String(255), unique = True)
-    pp_url = db.Column(db.String(255), default = "img/logos/default_pp.png")
-    password = db.Column(db.String(255), nullable = False)
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True)
+    username = db.Column(db.String(255), unique=True)
+    pp_url = db.Column(db.String(255), default="img/logos/default_pp.png")
+    password = db.Column(db.String(255), nullable=False)
     last_login_at = db.Column(db.DateTime)
     current_login_at = db.Column(db.DateTime)
     last_login_ip = db.Column(db.String(100))
     current_login_ip = db.Column(db.String(100))
     login_count = db.Column(db.Integer)
     active = db.Column(db.Boolean)
-    fs_uniquifier = db.Column(db.String(255), unique = True, nullable = False)
+    fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False)
     confirmed_at = db.Column(db.DateTime)
     
-    roles = db.relationship("Role", secondary = "RolesUsers", backref = db.backref("users", lazy = "dynamic"))
+    roles = db.relationship("Role", secondary="RolesUsers", backref=db.backref("users", lazy="dynamic"))
 
 
 # ---- Quiz Question Database ----
 class QuizQuestions(db.Model):
     __tablename__ = "QuizQuestions"
     
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(20))
     lang = db.Column(db.String(5))
     level = db.Column(db.Integer)
     difficulty = db.Column(db.String(15))
-    question = db.Column(db.String(16384), unique = True)
+    question = db.Column(db.String(16384), unique=True)
     correct_answ = db.Column(db.String(1))
     answ_a = db.Column(db.String(2048))
     answ_b = db.Column(db.String(2048))
@@ -129,7 +129,7 @@ class QuizQuestions(db.Model):
 class QuizResults(db.Model):
     __tablename__ = "QuizResults"
     
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String(10))
     time = db.Column(db.String(8))
     multiplayer = db.Column(db.Boolean)
@@ -137,7 +137,7 @@ class QuizResults(db.Model):
     player_2_with_account = db.Column(db.Boolean)
     player_1 = db.Column(db.String(50))
     player_2 = db.Column(db.String(50))
-    quiz_id = db.Column(db.String(32), unique = True)
+    quiz_id = db.Column(db.String(32), unique=True)
     player_1_wrong = db.Column(db.Integer)
     player_1_right = db.Column(db.Integer)
     player_2_wrong = db.Column(db.Integer)

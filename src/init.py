@@ -17,13 +17,13 @@
 
 
 # ------- Libraries -------
+import logging
 from flask import Flask
 from flask_caching import Cache
 from flask_sqlalchemy import SQLAlchemy
 from flask_babel import Babel
 from flask_wtf.csrf import CSRFProtect
 from flask_mail import Mail
-import logging
 from config import LOG_FILE_PATH, LOG_LEVEL
 
 

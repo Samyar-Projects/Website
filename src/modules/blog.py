@@ -21,7 +21,7 @@ from flask import Blueprint, render_template
 
 
 # ------- Blueprint init -------
-blog_pages = Blueprint("blog_pages", __name__, template_folder = "../templates", static_folder = "../static")
+blog_pages = Blueprint("blog_pages", __name__, template_folder="../templates", static_folder="../static")
 
 
 # ------- Page routes -------
