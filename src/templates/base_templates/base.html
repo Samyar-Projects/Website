@@ -58,11 +58,12 @@
                     </a>
 
                     <div class="dropdown d-inline ms-1">
-                        <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">{{_("EN")}}</a>
+                        <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">{{get_locale() | string | truncate(2, True, "", 0) | upper}}</a>
                         
                         <ul class="dropdown-menu bg-black dropdown-menu-dark">
-                            <li><form action="{{url_for("set_lang_en")}}" method="POST"><input class="dropdown-item {% if _("EN") == "EN" %}text-primary{% endif %}" type="submit" value="EN"></form></li>
-                            <li><form action="{{url_for("set_lang_tr")}}" method="POST"><input class="dropdown-item {% if _("EN") == "TR" %}text-primary{% endif %}" type="submit" value="TR"></form></li>
+                            {% for lang in SUPPORTED_LANGS %}
+                            <li><form action="{{url_for("set_lang", lang = lang)}}" method="POST"><input class="dropdown-item{% if get_locale() | string == lang %} text-primary{% endif %}" type="submit" value={{lang | truncate(2, True, "", 0) | upper}}></form></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

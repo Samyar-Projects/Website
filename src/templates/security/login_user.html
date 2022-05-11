@@ -27,7 +27,7 @@
             </div>
 
             {{render_field_errors(login_user_form.csrf_token, 3)}}
-            {{render_field(login_user_form.submit, "floating", class = "w-100 mt-2 mb-2 btn btn-lg rounded-3 btn-outline-secondary")}}
+            {{render_field(login_user_form.submit, "floating", class = "w-100 mt-2 mb-2 btn btn-lg rounded-3 btn-outline-secondary", value = _("Login"))}}
 
             <hr class="my-4">
             <h2 class="fs-5 fw-bold mb-3">{{_("Or use a third-party")}}</h2>

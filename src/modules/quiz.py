@@ -24,8 +24,8 @@ from modules.temp_data import QuizResultTemp, delete_quiz_res_temp, read_quiz_re
 from utils.helpers import quiz_query_cond
 from modules.database import QuizQuestions, db, QuizResults
 from config import QUIZ_QUESTION_COUNT, QUIZ_QUESTION_TIME, RENDER_CACHE_TIMEOUT
-from init import cache, babel
-from flask_babel import gettext
+from init import cache, log
+from flask_babel import gettext, get_locale
 
 
 # ------- Blueprint init -------
@@ -59,7 +59,7 @@ def index():
 
 @quiz_pages.route("/singleplayer", methods = ["GET", "POST"])
 def singleplayer():
-    lang = request.cookies.get("lang")
+    lang = str(get_locale())
     
     if not session.get("quiz.in_quiz"):
         if request.method == "POST":
@@ -68,12 +68,16 @@ def singleplayer():
             level = request.form.get("level-select")
             
             if not category or not difficulty or not level:
+                log.debug(f"[{request.remote_addr}] Sent invalid quiz start request.")
+                
                 flash(gettext(u"Invalid input"), "danger")
                 return redirect(url_for("quiz_pages.singleplayer"))
 
             questions = db.session.query(QuizQuestions.id).filter_by(lang = lang, category = category, difficulty = difficulty, level = int(level), status = True).all()
             
             if len(questions) < q_num :
+                log.debug(f"[{request.remote_addr}] Tried to start a quiz that does not exist.")
+                
                 flash(gettext(u"A quiz with these criteria does not exist."), "warning")
                 return redirect(url_for("quiz_pages.singleplayer"))
             
@@ -101,6 +105,8 @@ def singleplayer():
             session["quiz.quiz_id"] = q_id
             to_write = QuizResultTemp(0, 0, q_id)
             write_quiz_res_temp(to_write)
+            
+            log.debug(f"[{request.remote_addr}] Started a new quiz with Quiz ID: [{session.get('quiz.quiz_id')}]")
             
             return redirect(url_for("quiz_pages.singleplayer_quiz"))
         
@@ -136,7 +142,9 @@ def singleplayer_quiz():
                 if not next:
                     answer = request.form.get("answ")
                     correct_answer = quiz_query_cond(db.session.query(QuizQuestions.correct_answ).filter_by(id = get_q[q_left]).first())
-                        
+                    
+                    log.debug(f"[{request.remote_addr}] Sent answer [{answer}] for Quiz ID: [{session.get('quiz.quiz_id')}] with q_left [{q_left}]")
+                    
                     if answer.endswith(str(q_left + 1)):
                         question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id = get_q[q_left]).first())
                         answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id = get_q[q_left]).first())
@@ -190,6 +198,8 @@ def singleplayer_quiz():
                     
                 # Load next question:
                 elif next and next.endswith(str(q_track)):
+                    log.debug(f"[{request.remote_addr}] Requested next question for Quiz ID: [{session.get('quiz.quiz_id')}]")
+                    
                     question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id = get_q[q_left]).first())
                     answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id = get_q[q_left]).first())
                     answ_b = quiz_query_cond(db.session.query(QuizQuestions.answ_b).filter_by(id = get_q[q_left]).first())
@@ -205,6 +215,8 @@ def singleplayer_quiz():
                     return render_template("quiz/singleplayer_quiz.html", question = send_question, info = info)		
             
                 else:
+                    log.info(f"[{request.remote_addr}] Cheating detected for Quiz ID: [{session.get('quiz.quiz_id')}]")
+                    
                     pop_sessions()
                     delete_quiz_res_temp(q_id)
                         
@@ -212,7 +224,6 @@ def singleplayer_quiz():
                     return redirect(url_for("quiz_pages.singleplayer"))
 
             else:
-                # Todo: Show quiz results.
                 date_time = datetime.datetime.now()
                 time = date_time.strftime("%H:%M")
                 date = date_time.strftime("%d/%m/%Y")
@@ -223,6 +234,8 @@ def singleplayer_quiz():
                 db.session.add(to_write)
                 db.session.commit()
                 
+                log.debug(f"[{request.remote_addr}] Quiz completed with Quiz ID: [{session.get('quiz.quiz_id')}]")
+                
                 delete_quiz_res_temp(q_id)
                 pop_sessions()
                 
@@ -231,6 +244,8 @@ def singleplayer_quiz():
         # Load first question:
         else:       
             if q_track == 0:
+                log.debug(f"[{request.remote_addr}] Loaded first question with Quiz ID: [{session.get('quiz.quiz_id')}]")
+                
                 question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id = get_q[q_left]).first())
                 answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id = get_q[q_left]).first())
                 answ_b = quiz_query_cond(db.session.query(QuizQuestions.answ_b).filter_by(id = get_q[q_left]).first())
@@ -253,6 +268,8 @@ def singleplayer_quiz():
     
 @quiz_pages.route("/singleplayer/reset-quiz")
 def reset_quiz_singleplayer():
+    log.debug(f"[{request.remote_addr}] Reset their singleplayer quiz. Quiz ID: [{session.get('quiz.quiz_id')}]")
+    
     delete_quiz_res_temp(int(session.get("quiz.quiz_id")))
     pop_sessions()
     
@@ -261,6 +278,8 @@ def reset_quiz_singleplayer():
 
 @quiz_pages.route("/quiz-result/<q_id>")
 def show_results(q_id):
+    log.debug(f"[{request.remote_addr}] Requested quiz results for Quiz ID: [{q_id}]")
+    
     try:
         p1_r_answ = quiz_query_cond(db.session.query(QuizResults.player_1_right).filter_by(quiz_id = q_id).first())
         p1_w_answ = quiz_query_cond(db.session.query(QuizResults.player_1_wrong).filter_by(quiz_id = q_id).first())
@@ -277,11 +296,12 @@ def show_results(q_id):
         time = quiz_query_cond(db.session.query(QuizResults.time).filter_by(quiz_id = q_id).first())
             
     except:
+        log.debug(f"[{request.remote_addr}] Requested quiz results for a quiz that does not exist.")
         abort(404)
     
     else:
         if not is_multiplayer:
-            info = {"p1_r_answ": p1_r_answ, "p1_w_answ": p1_w_answ, "p1_user": p1_user, "p1_w_acc": p1_w_acc, "date": date, "time": time, "q_id": q_id, "q_num": q_num, "show_modal": (babel.get_locale() == "tr_TR")}
+            info = {"p1_r_answ": p1_r_answ, "p1_w_answ": p1_w_answ, "p1_user": p1_user, "p1_w_acc": p1_w_acc, "date": date, "time": time, "q_id": q_id, "q_num": q_num, "show_modal": (str(get_locale()) == "tr_TR")}
             return render_template("quiz/result.html", info = info)
         
         else:
