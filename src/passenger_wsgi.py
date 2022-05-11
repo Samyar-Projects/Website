@@ -16,11 +16,11 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-import importlib
+import imp
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-wsgi = importlib.import_module("wsgi", "app.py")
+wsgi = imp.load_source("wsgi", "app.py")
 application = wsgi.app
