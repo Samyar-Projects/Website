@@ -1,7 +1,7 @@
 # Turkish (Turkey) translations for Gigawhat Website.
 # Copyright (C) 2022 Gigawhat Programming Team
 # This file is distributed under the same license as the Gigawhat Website project.
-# Samyar Sadat Akhavi <samyarsadat@gigawhat.net>, 2022.
+# Rüzgar Kaya <ruzgar@gigawhat.net>, 2022.
 #
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: gpt@gigawhat.net\n"
 "POT-Creation-Date: 2022-05-09 00:43+0300\n"
 "PO-Revision-Date: 2022-05-10 20:55+0300\n"
-"Last-Translator: Samyar Sadat Akhavi <samyarsadat@gigawhat.net>\n"
+"Last-Translator: Rüzgar Kaya <ruzgar@gigawhat.net>\n"
 "Language-Team: tr_TR <contact.gpt.tr@gigawhat.net>\n"
 "Language: tr_TR\n"
 "MIME-Version: 1.0\n"
