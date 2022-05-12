@@ -21,7 +21,7 @@ from flask import Blueprint, redirect, url_for
 from flask_security import Security
 from init import app
 from modules.database import user_datastore
-    
+
 
 # ------- Flask-Security init -------
 security = Security(app, user_datastore)
@@ -35,6 +35,7 @@ account_pages = Blueprint("account_pages", __name__, template_folder="../templat
 @account_pages.route("/")
 def index():
     return redirect(url_for("index"))
+
 
 """@account_pages.route("/login")
 def login():

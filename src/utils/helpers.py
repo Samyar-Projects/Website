@@ -18,9 +18,9 @@
 
 # --- Condition raw output from db query for quiz ---
 def quiz_query_cond(query):
-    query = query[0] 
+    query = query[0]
     query = str(query)
     query = query.replace("<script", "")
     query = query.replace("</script", "")
-    
+
     return query
