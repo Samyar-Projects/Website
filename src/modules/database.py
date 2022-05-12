@@ -137,14 +137,14 @@ class QuizResults(db.Model):
     time = db.Column(db.String(8))
     multiplayer = db.Column(db.Boolean)
     player_1_with_account = db.Column(db.Boolean)
-    player_2_with_account = db.Column(db.Boolean)
+    player_2_with_account = db.Column(db.JSON)
     player_1 = db.Column(db.String(50))
-    player_2 = db.Column(db.String(50))
+    player_2 = db.Column(db.JSON)
     quiz_id = db.Column(db.String(32), unique=True)
     player_1_wrong = db.Column(db.Integer)
     player_1_right = db.Column(db.Integer)
-    player_2_wrong = db.Column(db.Integer)
-    player_2_right = db.Column(db.Integer)
+    player_2_wrong = db.Column(db.JSON)
+    player_2_right = db.Column(db.JSON)
 
     def __init__(self, date, time, player_1_with_account, player_2_with_account, player_1, player_2, quiz_id, player_1_wrong, player_1_right, player_2_wrong, player_2_right):
         self.date = date
@@ -159,7 +159,7 @@ class QuizResults(db.Model):
         self.player_2_wrong = player_2_wrong
         self.player_2_right = player_2_right
 
-        if(player_2):
+        if player_2:
             self.multiplayer = True
 
         else:

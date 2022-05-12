@@ -108,7 +108,7 @@
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            percent = diff / duration * 100
+            percent = diff / duration * 100;
     
             bar.style.width = percent + "%";
             display.textContent = minutes + ":" + seconds; 
