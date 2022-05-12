@@ -47,9 +47,8 @@ app.register_blueprint(temp_data)
 # ------- Locale selector -------
 @app.route("/set-lang/<lang>", methods=["POST"])
 def set_lang(lang):
-    log.debug(f"[{request.remote_addr}] Changed language to [{lang}]")
-
     if lang in SUPPORTED_LANGS:
+        log.debug(f"[{request.remote_addr}] Changed language to [{lang}]")
         session["lang"] = lang
         return redirect(request.referrer)
 
