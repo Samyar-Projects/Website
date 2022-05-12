@@ -18,9 +18,15 @@
         <p class="text-success d-inline">{{info.q_left}}</p>
     </div>
 
-    <div class="pt-3"></div>
+    <div class="py-sm-1 py-3"></div>
+ 
+    {% if not info.correct_answ %}
+    <div class="progress mt-4 mb-sm-2 mb-0 rounded-3" style="height: 28px;">
+        <div id="timeBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success shadow-dark" role="progressbar"></div>
+    </div>
+    {% endif %}
 
-    <div class="container mt-4 rounded-3 border-2 border-info border shadow-info bg-white">
+    <div class="container mt-5 rounded-3 border-2 border-info border shadow-info bg-white">
         <div class="p-sm-3 p-2">
             {{question.question | safe}}
         </div>
@@ -88,6 +94,7 @@
     {
         duration = {{info.t_left}};
         display = document.getElementById("timer");
+        bar = document.getElementById("timeBar");
 
         var start = Date.now(), diff, minutes, seconds;
         
@@ -100,7 +107,10 @@
     
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            percent = diff / duration * 100
     
+            bar.style.width = percent + "%";
             display.textContent = minutes + ":" + seconds; 
     
             if (diff <= 0) 
@@ -108,19 +118,30 @@
                 start = Date.now() + 1000;
             }
 
-            if (minutes === "00" && seconds < "11" && display.style.color !== "red")
+            if (minutes == "00" && seconds == "20")
             {
-                display.style.color = "red";
+                display.style.color = "darkorange";
+
+                bar.classList.remove("bg-success");
+                bar.classList.add('bg-warning');
             }
 
-            if (minutes === "00" && seconds === "00")
+            if (minutes == "00" && seconds == "10")
+            {
+                display.style.color = "red";
+
+                bar.classList.remove("bg-warning");
+                bar.classList.add('bg-danger');
+            }
+
+            if (minutes == "00" && seconds == "00")
             {
                 submitNoAnsw();
             }
         };
 
         timer();
-        setInterval(timer, 1000);
+        setInterval(timer, 100);
     };
 </script>
 {% endif %}

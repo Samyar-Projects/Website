@@ -14,13 +14,12 @@
     <h4 class="text-center">{{_("Singleplayer Quiz Results")}}</h4>
 
     <div class="progress mt-5 rounded-3" style="height: 28px;">
-        {% set q_per = info.p1_r_answ | int / info.q_num | int * 100 %}
-        {% set q_per = "%.2f" | format(q_per) %}
-        
-        <div id="progress_bar" class="progress-bar progress-bar-striped progress-bar-animated bg-success shadow-dark" role="progressbar" style="width: {{q_per}}%;"></div>
+        <div id="successBar" class="progress-bar progress-bar-striped progress-bar-animated bg-danger shadow-dark" role="progressbar"></div>
     </div>
 
-    <label for="progress_bar" class="h5 mt-1">%{{q_per}}</label>
+    <div class="text-center mt-2">
+        <label for="successBar" class="h4 mt-1"><span id="successText">%0</span></label>
+    </div>
 
     <div class="mt-2" style="font-size: 1.2rem;">
         {{_("Right Answers:")}} <p class="fw-bold text-danger d-inline">{{info.p1_r_answ}}</p><br>
@@ -79,6 +78,36 @@
 {% endblock %}
 
 {% block end %}
+<script>
+    window.onload = async function () 
+    {
+        bar = document.getElementById("successBar");
+        display = document.getElementById("successText");
+
+        percent = {{info.p1_r_answ | int}} / {{info.q_num | int}} * 100
+
+        for(var i = 0; i <= percent; i++)
+        {
+            if (i == 75)
+            {
+                bar.classList.remove("bg-warning");
+                bar.classList.add('bg-success');
+            }
+
+            if (i == 45)
+            {
+                bar.classList.remove("bg-danger");
+                bar.classList.add('bg-warning');
+            }
+
+            bar.style.width = i + "%";
+            display.textContent = "%" + i; 
+
+            await new Promise(r => setTimeout(r, 80));
+        }
+    };
+</script>
+
 {% if info.p1_r_answ == "0" and info.show_modal %}
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
