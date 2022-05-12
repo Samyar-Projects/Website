@@ -19,7 +19,7 @@ jobs:
         protocol: ftp
         port: 21
         security: loose
-        server: ${{ secrets.FTP_HOST }}
+        server: ftp.gigawhat.net
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: src/
