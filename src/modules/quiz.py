@@ -310,7 +310,7 @@ def show_results(q_id):
         abort(404)
 
     else:
-        if not is_multiplayer:
+        if is_multiplayer is not True:
             info = {"p1_r_answ": p1_r_answ, "p1_w_answ": p1_w_answ, "p1_user": p1_user, "p1_w_acc": p1_w_acc, "date": date, "time": time, "q_id": q_id, "q_num": q_num, "show_modal": (str(get_locale()) == "tr_TR")}
             return render_template("quiz/result.html", info=info)
 
