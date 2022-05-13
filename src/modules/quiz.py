@@ -24,18 +24,13 @@ from flask_security import current_user
 from modules.temp_data import QuizResultTemp, delete_quiz_res_temp, read_quiz_res_temp, write_quiz_res_temp
 from utils.helpers import quiz_query_cond
 from modules.database import QuizQuestions, db, QuizResults
-from config import QUIZ_QUESTION_COUNT, QUIZ_QUESTION_TIME, RENDER_CACHE_TIMEOUT
+from config import AppConfig
 from init import cache, log
 from flask_babel import gettext, get_locale
 
 
 # ------- Blueprint init -------
 quiz_pages = Blueprint("quiz_pages", __name__, template_folder="../templates", static_folder="../static")
-
-
-# ------- Global variables -------
-q_num = QUIZ_QUESTION_COUNT   # Number of questions in a quiz
-q_time = QUIZ_QUESTION_TIME   # How many seconds to allow for one question
 
 
 # ------- Functions -------
@@ -49,7 +44,7 @@ def pop_sessions():
 
 # ------- Page routes -------
 @quiz_pages.route("/")
-@cache.cached(timeout=RENDER_CACHE_TIMEOUT)
+@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
 def index():
     """for i in range(0, 100):
         data = QuizQuestions("math", "en_US", 7, "normal", "This is placeholder question number " + str(i), "c", "Answer A", "Answer B", "Answer C", "Answer D", True)
@@ -77,7 +72,7 @@ def singleplayer():
 
             questions = db.session.query(QuizQuestions.id).filter_by(lang=lang, category=category, difficulty=difficulty, level=int(level), status=True).all()
 
-            if len(questions) < q_num:
+            if len(questions) < AppConfig.QUIZ_QUESTION_COUNT:
                 log.debug(f"[{request.remote_addr}] Tried to start a quiz that does not exist.")
 
                 flash(gettext(u"A quiz with these criteria does not exist."), "warning")
@@ -86,7 +81,7 @@ def singleplayer():
             final_questions = []
             ids = []
 
-            while len(final_questions) < q_num:
+            while len(final_questions) < AppConfig.QUIZ_QUESTION_COUNT:
                 rand_id = randint(0, len(questions) - 1)
                 question = questions[rand_id]
 
@@ -96,7 +91,7 @@ def singleplayer():
 
             session["quiz.questions"] = final_questions
             session["quiz.q_track"] = 0
-            session["quiz.q_left"] = q_num - 1
+            session["quiz.q_left"] = AppConfig.QUIZ_QUESTION_COUNT - 1
             session["quiz.in_quiz"] = True
 
             q_id = randint(0, 999999999)
@@ -113,12 +108,12 @@ def singleplayer():
             return redirect(url_for("quiz_pages.singleplayer_quiz"))
 
         else:
-            info = {"q_num": q_num, "q_time": round(q_time / 60, 2)}
+            info = {"q_num": AppConfig.QUIZ_QUESTION_COUNT, "q_time": round(AppConfig.QUIZ_QUESTION_TIME / 60, 2)}
             return render_template("quiz/singleplayer.html", info=info)
 
     else:
         flash(gettext(u"You are already in a quiz. Please finish before starting a new one or click reset to reset it."), "danger")
-        info = {"q_num": q_num, "q_time": round(q_time / 60, 2), "reset_q": True}
+        info = {"q_num": AppConfig.QUIZ_QUESTION_COUNT, "q_time": round(AppConfig.QUIZ_QUESTION_TIME / 60, 2), "reset_q": True}
         return render_template("quiz/singleplayer.html", info=info)
 
 
@@ -146,7 +141,7 @@ def singleplayer_quiz():
                     answer = request.form.get("answ")
                     correct_answer = quiz_query_cond(db.session.query(QuizQuestions.correct_answ).filter_by(id=get_q[q_left]).first())
 
-                    log.debug(f"[{request.remote_addr}] Sent answer [{answer}] for Quiz ID: [{session.get('quiz.quiz_id')}] with q_left [{q_left}]")
+                    log.debug(f"[{request.remote_addr}] Sent answer [{answer}] for Quiz ID: [{session.get('quiz.quiz_id')}] with q_left [{q_left}] and q_track [{q_track}]")
 
                     if answer.endswith(str(q_left + 1)):
                         question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id=get_q[q_left]).first())
@@ -176,7 +171,7 @@ def singleplayer_quiz():
 
                             return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)
 
-                        elif answ != "a" and answ != "b" and answ != "c" and answ != "d":
+                        elif answ not in ["a", "b", "c", "d"]:
                             send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                             info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer}
 
@@ -201,7 +196,7 @@ def singleplayer_quiz():
 
                 # Load next question:
                 elif next and next.endswith(str(q_track)):
-                    log.debug(f"[{request.remote_addr}] Requested next question for Quiz ID: [{session.get('quiz.quiz_id')}]")
+                    log.debug(f"[{request.remote_addr}] Requested next question for Quiz ID: [{session.get('quiz.quiz_id')}] with q_left [{q_left}] and q_track [{q_track}]")
 
                     question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id=get_q[q_left]).first())
                     answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id=get_q[q_left]).first())
@@ -213,12 +208,12 @@ def singleplayer_quiz():
                     q_track = int(session.get("quiz.q_track"))
 
                     send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
-                    info = {"q_left": q_left + 1, "t_left": q_time, "q_track": q_track}
+                    info = {"q_left": q_left + 1, "t_left": AppConfig.QUIZ_QUESTION_TIME, "q_track": q_track}
 
                     return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)
 
                 else:
-                    log.info(f"[{request.remote_addr}] Cheating detected for Quiz ID: [{session.get('quiz.quiz_id')}]")
+                    log.info(f"[{request.remote_addr}] Cheating detected for Quiz ID: [{session.get('quiz.quiz_id')}] at q_left [{q_left}] and q_track [{q_track}]")
 
                     pop_sessions()
                     delete_quiz_res_temp(q_id)
@@ -261,7 +256,7 @@ def singleplayer_quiz():
                 answ_d = quiz_query_cond(db.session.query(QuizQuestions.answ_d).filter_by(id=get_q[q_left]).first())
 
                 send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
-                info = {"q_left": q_left + 1, "t_left": q_time, "q_track": q_track}
+                info = {"q_left": q_left + 1, "t_left": AppConfig.QUIZ_QUESTION_TIME, "q_track": q_track}
 
                 session["quiz.q_track"] = q_track + 1
                 q_track = int(session.get("quiz.q_track"))
@@ -311,9 +306,9 @@ def show_results(q_id):
 
     else:
         if is_multiplayer is not True:
-            info = {"p1_r_answ": p1_r_answ, "p1_w_answ": p1_w_answ, "p1_user": p1_user, "p1_w_acc": p1_w_acc, "date": date, "time": time, "q_id": q_id, "q_num": q_num, "show_modal": (str(get_locale()) == "tr_TR")}
+            info = {"p1_r_answ": p1_r_answ, "p1_w_answ": p1_w_answ, "p1_user": p1_user, "p1_w_acc": p1_w_acc, "date": date, "time": time, "q_id": q_id, "q_num": AppConfig.QUIZ_QUESTION_COUNT, "show_modal": (str(get_locale()) == "tr_TR")}
             return render_template("quiz/result.html", info=info)
 
         else:
-            info = {"p1_r_answ": p1_r_answ, "p1_w_answ": p1_w_answ, "p1_user": p1_user, "p1_w_acc": p1_w_acc, "p2_r_answ": p2_r_answ, "p2_w_answ": p2_w_answ, "p2_user": p2_user, "p2_w_acc": p2_w_acc, "date": date, "time": time, "q_id": q_id, "q_num": q_num, "show_modal": False}
+            info = {"p1_r_answ": p1_r_answ, "p1_w_answ": p1_w_answ, "p1_user": p1_user, "p1_w_acc": p1_w_acc, "p2_r_answ": p2_r_answ, "p2_w_answ": p2_w_answ, "p2_user": p2_user, "p2_w_acc": p2_w_acc, "date": date, "time": time, "q_id": q_id, "q_num": AppConfig.QUIZ_QUESTION_COUNT, "show_modal": False}
             return render_template("quiz/result.html", info=info)

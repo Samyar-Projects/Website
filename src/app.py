@@ -23,7 +23,7 @@ from flask import abort, redirect, render_template, request, session, url_for
 from flask_security import hash_password, url_for_security
 from flask_babel import get_locale
 from init import app, cache, db, babel, log
-from config import RENDER_CACHE_TIMEOUT, SUPPORTED_LANGS
+from config import AppConfig
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
 from modules.account import account_pages
@@ -33,7 +33,9 @@ from modules.temp_data import temp_data
 
 # ------- Jinja env global objects -------
 app.jinja_env.globals["get_locale"] = get_locale
-app.jinja_env.globals["SUPPORTED_LANGS"] = SUPPORTED_LANGS
+app.jinja_env.globals["SUPPORTED_LANGS"] = AppConfig.SUPPORTED_LANGS
+app.jinja_env.globals["ANALYTICS_TAG_ID"] = AppConfig.ANALYTICS_TAG_ID
+app.jinja_env.globals["RENDER_CACHE_TIMEOUT"] = AppConfig.RENDER_CACHE_TIMEOUT
 
 
 # ------- Blueprint registry -------
@@ -47,7 +49,7 @@ app.register_blueprint(temp_data)
 # ------- Locale selector -------
 @app.route("/set-lang/<lang>", methods=["POST"])
 def set_lang(lang):
-    if lang in SUPPORTED_LANGS:
+    if lang in AppConfig.SUPPORTED_LANGS:
         log.debug(f"[{request.remote_addr}] Changed language to [{lang}]")
         session["lang"] = lang
         return redirect(request.referrer)
@@ -62,34 +64,34 @@ def get_locale():
     if lang:
         return lang
 
-    session["lang"] = request.accept_languages.best_match(SUPPORTED_LANGS)
+    session["lang"] = request.accept_languages.best_match(AppConfig.SUPPORTED_LANGS)
     return session.get("lang")
 
 
 # ------- Error handlers -------
 @app.errorhandler(werkzeug.exceptions.NotFound)
-@cache.cached(timeout=RENDER_CACHE_TIMEOUT)
+@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
 def error404(error):
     log.info(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [404 Error]")
     return render_template("errors/error_404.html"), 404
 
 
 @app.errorhandler(werkzeug.exceptions.InternalServerError)
-@cache.cached(timeout=RENDER_CACHE_TIMEOUT)
+@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
 def error500(error):
     log.info(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [500 Error]")
     return render_template("errors/error_500.html"), 500
 
 
 @app.errorhandler(werkzeug.exceptions.MethodNotAllowed)
-@cache.cached(timeout=RENDER_CACHE_TIMEOUT)
+@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
 def error405(error):
     log.info(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [405 Error]")
     return render_template("errors/error_405.html"), 405
 
 
 @app.errorhandler(jinja2.exceptions.TemplateNotFound)
-@cache.cached(timeout=RENDER_CACHE_TIMEOUT)
+@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
 def template_error(error):
     log.warning(
         f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [500 Template Error]")
@@ -139,7 +141,7 @@ def mc_server():
 
 
 @app.route("/privacy-policy")
-@cache.cached(timeout=RENDER_CACHE_TIMEOUT)
+@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
 def privacy_policy():
     return render_template("privacy_policy.html")
 

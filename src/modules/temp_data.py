@@ -19,7 +19,7 @@
 # ------- Libraries and utils -------
 import json
 from flask import Blueprint
-from config import TEMPORARY_FILE_DIR
+from config import AppConfig
 from init import log
 
 
@@ -64,7 +64,7 @@ class QuizResultTemp():
 # ---- Quiz result storage ----
 def read_quiz_res_temp(quiz_id: int):
     try:
-        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
+        with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
             data = json.load(file)
 
         data = data[str(quiz_id)]
@@ -82,12 +82,12 @@ def write_quiz_res_temp(quiz_result_temp: QuizResultTemp):
     json_data = {quiz_result_temp.get_quiz_id(): {"r_answ": quiz_result_temp.get_right_answ(), "w_answ": quiz_result_temp.get_wrong_answ()}}
 
     try:
-        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
+        with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
             data = json.load(file)
 
         data.update(json_data)
 
-        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "w") as file:
+        with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "w") as file:
             json.dump(data, file, indent=4)
 
     except Exception:
@@ -100,12 +100,12 @@ def write_quiz_res_temp(quiz_result_temp: QuizResultTemp):
 
 def delete_quiz_res_temp(quiz_id: int):
     try:
-        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
+        with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
             data = json.load(file)
 
         data.pop(str(quiz_id))
 
-        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "w") as file:
+        with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "w") as file:
             json.dump(data, file, indent=4)
 
     except Exception:
