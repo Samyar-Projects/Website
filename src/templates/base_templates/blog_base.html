@@ -38,6 +38,16 @@
         <link rel="stylesheet" href="{{url_for("static", filename = "css/style.css")}}"/>
 {% endcache %}
 
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-3J818WNF23"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag("js", new Date());
+
+            gtag("config", "G-3J818WNF23");
+        </script>
+
         <!-- Head block -->
         {% block head %}
         {% endblock %}
