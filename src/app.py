@@ -172,6 +172,67 @@ def signup_redirect():
     return redirect(url_for_security("register"))
 
 
+# ------- Social redirects -------
+@app.route("/twitter")
+def twitter_redirect():
+    if str(get_locale()) == "en_US":
+        return redirect("https://twitter.com/Gigawhat_net")
+    
+    else:
+        return redirect("https://twitter.com/Gigawhat_net_tr")
+
+
+@app.route("/instagram")
+def instagram_redirect():
+    if str(get_locale()) == "en_US":
+        return redirect("https://www.instagram.com/gigawhat_net/")
+    
+    else:
+        return redirect("https://www.instagram.com/gigawhat_net_tr/")
+
+
+@app.route("/discord")
+def discord_redirect():
+    if str(get_locale()) == "en_US":
+        return redirect("https://discord.gg/rMq7GujUZJ")
+    
+    else:
+        return redirect("https://discord.gg/bSHkhaGeuN")
+
+
+@app.route("/youtube")
+def youtube_redirect():
+    if str(get_locale()) == "en_US":
+        return redirect("https://www.youtube.com/channel/UCgjkgNz1MbhzIzhOOHfrxiw")
+    
+    else:
+        return redirect("https://www.youtube.com/channel/UCfjmMzekHS1YI2pv2tpvS2g")
+
+
+@app.route("/patreon")
+def patreon_redirect():
+    return redirect("https://www.patreon.com/gigawhat")
+
+
+@app.route("/github")
+def github_redirect():
+    return redirect("https://github.com/Gigawhat-net")
+
+
+@app.route("/open-source")
+def opensource_redirect():
+    return redirect("https://github.com/Gigawhat-net")
+
+
+@app.route("/email")
+def email_redirect():
+    if str(get_locale()) == "en_US":
+        return redirect("mailto:contact@gigawhat.net")
+    
+    else:
+        return redirect("mailto:contact.tr@gigawhat.net")
+
+
 # ------- Running the app -------
 if __name__ == "__main__":
     db.create_all()
