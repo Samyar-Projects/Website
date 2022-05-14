@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-09 00:43+0300\n"
+"POT-Creation-Date: 2022-05-15 01:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: modules/quiz.py:71
-msgid "Invalid input"
-msgstr ""
-
-#: modules/quiz.py:77
-msgid "A quiz with these criteria does not exist."
-msgstr ""
-
-#: modules/quiz.py:112
-msgid "You are already in a quiz. Please finish before starting a new one or click reset to reset it."
-msgstr ""
-
-#: modules/quiz.py:188 modules/quiz.py:211
+#: modules/quiz.py:51
 msgid "Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."
 msgstr ""
 
-#: modules/quiz.py:259
+#: modules/quiz.py:80
+msgid "Invalid input"
+msgstr ""
+
+#: modules/quiz.py:88
+msgid "A quiz with these criteria does not exist."
+msgstr ""
+
+#: modules/quiz.py:125
+msgid "You are already in a quiz. Please finish before starting a new one or click reset to reset it."
+msgstr ""
+
+#: modules/quiz.py:292
 msgid "Your quiz has been reset. You can now start a new quiz."
 msgstr ""
 
-#: templates/base_templates/acc_base.html:82
-#: templates/base_templates/base.html:78 templates/blog_index.html:3
+#: templates/base_templates/acc_base.html:63
+#: templates/base_templates/base.html:59 templates/blog_index.html:3
 msgid "Blog"
 msgstr ""
 
@@ -46,10 +46,10 @@ msgstr ""
 msgid "Blog is a work in progress!"
 msgstr ""
 
-#: templates/base_templates/acc_base.html:80
-#: templates/base_templates/base.html:76
-#: templates/base_templates/blog_base.html:80
-#: templates/base_templates/quiz_base.html:80 templates/index.html:3
+#: templates/base_templates/acc_base.html:61
+#: templates/base_templates/base.html:57
+#: templates/base_templates/blog_base.html:61
+#: templates/base_templates/quiz_base.html:61 templates/index.html:3
 #: templates/quiz_index.html:3
 msgid "Home"
 msgstr ""
@@ -94,17 +94,16 @@ msgstr ""
 msgid "Minecraft Server"
 msgstr ""
 
-#: templates/base_templates/acc_base.html:149
-#: templates/base_templates/acc_base.html:163
-#: templates/base_templates/base.html:145
-#: templates/base_templates/base.html:159
-#: templates/base_templates/blog_base.html:139
-#: templates/base_templates/blog_base.html:153
-#: templates/base_templates/quiz_base.html:141 templates/privacy_policy.html:3
+#: templates/base_templates/acc_base.html:96
+#: templates/base_templates/acc_base.html:104
+#: templates/base_templates/base.html:92 templates/base_templates/base.html:100
+#: templates/base_templates/blog_base.html:86
+#: templates/base_templates/blog_base.html:94
+#: templates/base_templates/quiz_base.html:88 templates/privacy_policy.html:3
 msgid "Privacy Policy"
 msgstr ""
 
-#: templates/base_templates/quiz_base.html:46 templates/quiz_index.html:7
+#: templates/base_templates/quiz_base.html:34 templates/quiz_index.html:7
 msgid "Gigawhat Quiz"
 msgstr ""
 
@@ -116,7 +115,7 @@ msgstr ""
 msgid "The questions are randomly selected every time you start a new game."
 msgstr ""
 
-#: templates/base_templates/quiz_base.html:82
+#: templates/base_templates/quiz_base.html:63
 #: templates/quiz/singleplayer.html:3 templates/quiz_index.html:19
 msgid "Singleplayer"
 msgstr ""
@@ -125,120 +124,100 @@ msgstr ""
 msgid "Multiplayer (W.I.P.)"
 msgstr ""
 
-#: templates/base_templates/acc_base.html:46
+#: templates/base_templates/acc_base.html:34
 msgid "Gigawhat Account"
 msgstr ""
 
-#: templates/base_templates/acc_base.html:61
+#: templates/base_templates/acc_base.html:49
 msgid "ACC."
 msgstr ""
 
-#: templates/base_templates/acc_base.html:81
-#: templates/base_templates/base.html:77
+#: templates/base_templates/acc_base.html:62
+#: templates/base_templates/base.html:58
 msgid "About"
 msgstr ""
 
-#: templates/base_templates/acc_base.html:84
-#: templates/base_templates/base.html:80
+#: templates/base_templates/acc_base.html:65
+#: templates/base_templates/base.html:61
 msgid "Servers"
 msgstr ""
 
-#: templates/base_templates/acc_base.html:87
-#: templates/base_templates/base.html:83
+#: templates/base_templates/acc_base.html:68
+#: templates/base_templates/base.html:64
 msgid "Minecraft"
 msgstr ""
 
-#: templates/base_templates/acc_base.html:88
-#: templates/base_templates/base.html:84
+#: templates/base_templates/acc_base.html:69
+#: templates/base_templates/base.html:65
 msgid "Discord"
 msgstr ""
 
-#: templates/base_templates/acc_base.html:91
-#: templates/base_templates/base.html:87
+#: templates/base_templates/acc_base.html:72
+#: templates/base_templates/base.html:68
 msgid "Quiz"
 msgstr ""
 
-#: templates/base_templates/acc_base.html:103
-#: templates/base_templates/base.html:99
-#: templates/base_templates/blog_base.html:93
-#: templates/base_templates/quiz_base.html:95
-msgid "Profile"
-msgstr ""
-
-#: templates/base_templates/acc_base.html:104
-#: templates/base_templates/base.html:100
-#: templates/base_templates/blog_base.html:94
-#: templates/base_templates/quiz_base.html:96
-msgid "Settings"
-msgstr ""
-
-#: templates/base_templates/acc_base.html:105
-#: templates/base_templates/base.html:101
-#: templates/base_templates/blog_base.html:95
-#: templates/base_templates/quiz_base.html:97
-msgid "Quiz Stats"
-msgstr ""
-
-#: templates/base_templates/acc_base.html:106
-#: templates/base_templates/base.html:102
-#: templates/base_templates/blog_base.html:96
-#: templates/base_templates/quiz_base.html:98
-msgid "MC Server"
-msgstr ""
-
-#: templates/base_templates/acc_base.html:108
-#: templates/base_templates/base.html:104
-#: templates/base_templates/blog_base.html:98
-#: templates/base_templates/quiz_base.html:100
-msgid "Logout"
-msgstr ""
-
-#: templates/base_templates/acc_base.html:113
-#: templates/base_templates/base.html:109
-#: templates/base_templates/blog_base.html:103
-#: templates/base_templates/quiz_base.html:105
-#: templates/security/login_user.html:4 templates/security/login_user.html:9
-msgid "Login"
-msgstr ""
-
-#: templates/base_templates/acc_base.html:114
-#: templates/base_templates/base.html:110
-#: templates/base_templates/blog_base.html:104
-#: templates/base_templates/quiz_base.html:106 templates/security/signup.html:3
-#: templates/security/signup.html:8
-msgid "Sign-up"
-msgstr ""
-
-#: templates/base_templates/acc_base.html:149
-#: templates/base_templates/base.html:145
-#: templates/base_templates/blog_base.html:139
-#: templates/base_templates/quiz_base.html:141
+#: templates/base_templates/acc_base.html:96
+#: templates/base_templates/base.html:92
+#: templates/base_templates/blog_base.html:86
+#: templates/base_templates/quiz_base.html:88
 msgid "Copyright &copy; 2022 Gigawhat."
 msgstr ""
 
-#: templates/base_templates/base.html:46
+#: templates/base_templates/base.html:34
 msgid "Gigawhat"
 msgstr ""
 
-#: templates/base_templates/blog_base.html:46
+#: templates/base_templates/blog_base.html:34
 msgid "Gigawhat Blog"
 msgstr ""
 
-#: templates/base_templates/blog_base.html:61
+#: templates/base_templates/blog_base.html:49
 msgid "BLOG"
 msgstr ""
 
-#: templates/base_templates/blog_base.html:81
-#: templates/base_templates/quiz_base.html:81
+#: templates/base_templates/blog_base.html:62
+#: templates/base_templates/quiz_base.html:62
 msgid "Back to Gigawhat"
 msgstr ""
 
-#: templates/base_templates/quiz_base.html:61
+#: templates/base_templates/quiz_base.html:49
 msgid "QUIZ"
 msgstr ""
 
-#: templates/base_templates/quiz_base.html:83 templates/quiz/multiplayer.html:3
+#: templates/base_templates/quiz_base.html:64 templates/quiz/multiplayer.html:3
 msgid "Multiplayer"
+msgstr ""
+
+#: templates/base_templates/template_modules/user_dropdown.html:9
+msgid "Profile"
+msgstr ""
+
+#: templates/base_templates/template_modules/user_dropdown.html:10
+msgid "Settings"
+msgstr ""
+
+#: templates/base_templates/template_modules/user_dropdown.html:11
+msgid "Quiz Stats"
+msgstr ""
+
+#: templates/base_templates/template_modules/user_dropdown.html:12
+msgid "MC Server"
+msgstr ""
+
+#: templates/base_templates/template_modules/user_dropdown.html:14
+msgid "Logout"
+msgstr ""
+
+#: templates/base_templates/template_modules/user_dropdown.html:19
+#: templates/security/login_user.html:4 templates/security/login_user.html:9
+#: templates/security/login_user.html:30
+msgid "Login"
+msgstr ""
+
+#: templates/base_templates/template_modules/user_dropdown.html:20
+#: templates/security/signup.html:3 templates/security/signup.html:8
+msgid "Sign-up"
 msgstr ""
 
 #: templates/errors/error_404.html:6
@@ -302,31 +281,39 @@ msgstr ""
 msgid "Quiz Results"
 msgstr ""
 
-#: templates/quiz/result.html:14
+#: templates/quiz/result.html:13
 msgid "Singleplayer Quiz Results"
 msgstr ""
 
-#: templates/quiz/result.html:26
-msgid "Right Answers:"
+#: templates/quiz/result.html:13
+msgid "Multiplayer Quiz Results"
 msgstr ""
 
 #: templates/quiz/result.html:27
-msgid "Wrong Answers:"
+msgid "Player"
 msgstr ""
 
-#: templates/quiz/result.html:29
+#: templates/quiz/result.html:30
 msgid "Username:"
 msgstr ""
 
-#: templates/quiz/result.html:31
+#: templates/quiz/result.html:32
+msgid "Right Answers:"
+msgstr ""
+
+#: templates/quiz/result.html:33
+msgid "Wrong Answers:"
+msgstr ""
+
+#: templates/quiz/result.html:40
 msgid "Date:"
 msgstr ""
 
-#: templates/quiz/result.html:32
+#: templates/quiz/result.html:41
 msgid "Time:"
 msgstr ""
 
-#: templates/quiz/result.html:35
+#: templates/quiz/result.html:44
 msgid "Quiz ID:"
 msgstr ""
 
@@ -396,11 +383,11 @@ msgstr ""
 msgid "Questions Left:"
 msgstr ""
 
-#: templates/quiz/singleplayer_quiz.html:61
+#: templates/quiz/singleplayer_quiz.html:67
 msgid "Show Results"
 msgstr ""
 
-#: templates/quiz/singleplayer_quiz.html:61
+#: templates/quiz/singleplayer_quiz.html:67
 msgid "Next Question"
 msgstr ""
 
