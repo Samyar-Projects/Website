@@ -29,6 +29,7 @@ from modules.blog import blog_pages
 from modules.account import account_pages
 from modules.database import database, user_datastore
 from modules.temp_data import temp_data
+from utils.json_models import HomeNews
 
 
 # ------- Jinja env global objects -------
@@ -128,9 +129,9 @@ def request_logging():
 def index():
     posts = []
 
-    posts.append({"title": "Placeholder post 1", "read_dur": "1963 mins", "thumb_url": "img/carousel/placeholder.png", "url": "#"})
-    posts.append({"title": "Placeholder post 2", "read_dur": "1980 mins", "thumb_url": "img/carousel/placeholder.png", "url": "#"})
-    posts.append({"title": "Placeholder post 3", "read_dur": "2001 mins", "thumb_url": "img/carousel/placeholder.png", "url": "#"})
+    posts.append(HomeNews("Placeholder post 1", "1980 mins", "img/carousel/placeholder.png", "#"))
+    posts.append(HomeNews("Placeholder post 2", "2001 mins", "img/carousel/placeholder.png", "#"))
+    posts.append(HomeNews("Placeholder post 3", "1963 mins", "img/carousel/placeholder.png", "#"))
 
     return render_template("index.html", page_views=4444845, posts=posts)
 

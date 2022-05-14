@@ -40,24 +40,6 @@ class QuizResultTemp():
         self.wrong_answ = wrong_answ
         self.quiz_id = quiz_id
 
-    def get_right_answ(self):
-        return self.right_answ
-
-    def get_wrong_answ(self):
-        return self.wrong_answ
-
-    def get_quiz_id(self):
-        return self.quiz_id
-
-    def set_right_answ(self, right_answ: int):
-        self.right_answ = right_answ
-
-    def set_wrong_answ(self, wrong_answ: int):
-        self.wrong_answ = wrong_answ
-
-    def set_quiz_id(self, quiz_id: int):
-        self.quiz_id = quiz_id
-
 
 # ------- Read, write and delete -------
 
@@ -79,7 +61,7 @@ def read_quiz_res_temp(quiz_id: int):
 
 
 def write_quiz_res_temp(quiz_result_temp: QuizResultTemp):
-    json_data = {quiz_result_temp.get_quiz_id(): {"r_answ": quiz_result_temp.get_right_answ(), "w_answ": quiz_result_temp.get_wrong_answ()}}
+    json_data = {quiz_result_temp.quiz_id: {"r_answ": quiz_result_temp.right_answ, "w_answ": quiz_result_temp.wrong_answ}}
 
     try:
         with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
