@@ -110,15 +110,6 @@ def create_user():
 
 
 @app.before_request
-def remove_www():
-    if "://www." in request.url.lower():
-        log.info(f"[{request.remote_addr}] Sent a request with [www.]")
-
-        request_url = request.url.lower()
-        return redirect(request_url.replace("www.", ""))
-
-
-@app.before_request
 def request_logging():
     log.info(
         f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}]")
