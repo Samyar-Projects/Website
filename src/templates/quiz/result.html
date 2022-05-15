@@ -10,51 +10,44 @@
 
 {% block body %}
 <div class="container mt-sm-4 mt-3">
-    {% if not info.p2_user %}
-    <h4 class="text-center">{{_("Singleplayer Quiz Results")}}</h4>
+    <h4 class="text-center">{% if info.multiplayer != True %}{{_("Singleplayer Quiz Results")}}{% else %}{{_("Multiplayer Quiz Results")}}{% endif %}</h4>
+    <div class="my-5"></div>
 
-    <div class="progress mt-5 rounded-3" style="height: 28px;">
-        <div id="successBar" class="progress-bar progress-bar-striped progress-bar-animated bg-danger shadow-dark" role="progressbar"></div>
-    </div>
+    {% for pinfo in info.p_info %}
+    <div class="mt-4" style="font-size: 1.2rem;">
+        <div class="progress mt-3 rounded-3" style="height: 28px;">
+            <div id="{{pinfo.username}}" class="progress-bar progress-bar-striped progress-bar-animated bg-danger shadow-dark" role="progressbar"></div>
+        </div>
+    
+        <div class="text-center mt-2">
+            <label for="{{pinfo.username}}" class="h4 mt-1"><span id="{{pinfo.username}}Text">%0</span></label>
+        </div>
 
-    <div class="text-center mt-2">
-        <label for="successBar" class="h4 mt-1"><span id="successText">%0</span></label>
-    </div>
-
-    <div class="mt-2" style="font-size: 1.2rem;">
-        {{_("Right Answers:")}} <p class="fw-bold text-danger d-inline">{{info.p1_r_answ}}</p><br>
-        {{_("Wrong Answers:")}} <p class="fw-bold text-danger d-inline">{{info.p1_w_answ}}</p><br>
-        {% if info.p1_w_acc == "True" %}
-        {{_("Username:")}} <p class="fw-bold text-danger d-inline">{{info.p1_user}}</p><br>
+        {% if info.multiplayer == True %}
+        <p class="fw-bold text-primary d-inline">{{_("Player")}} {{loop.index}}:</p><br>
         {% endif %}
+        {% if pinfo.with_account %}
+        {{_("Username:")}} <p class="fw-bold text-danger d-inline">{{pinfo.username}}</p><br>
+        {% endif %}
+        {{_("Right Answers:")}} <p class="fw-bold text-danger d-inline">{{pinfo.right_answ}}</p><br>
+        {{_("Wrong Answers:")}} <p class="fw-bold text-danger d-inline">{{pinfo.wrong_answ}}</p><br>
+    </div>
+
+    <hr class="my-4">
+    {% endfor %}
+
+    <div class="my-4" style="font-size: 1.2rem;">
         {{_("Date:")}} <p class="fw-bold text-danger d-inline">{{info.date}}</p><br>
         {{_("Time:")}} <p class="fw-bold text-danger d-inline">{{info.time}}</p>
 
-        <div class="mt-4">
+        <div class="mt-2">
             {{_("Quiz ID:")}} <p class="fw-bold text-danger d-inline">{{info.q_id}}</p>
             <p class="barcode">{{info.q_id}}</p>
         </div>
     </div>
-    {% else %}
-    <h5 class="d-inline">Multiplayer Quiz Results (W.I.P.)</h5>
-
-    <div class="mt-3">
-        Quiz ID: <p class="fw-bold text-danger d-inline">{{info.q_id}}</p><br>
-        Right Answers (Player 1): <p class="fw-bold text-danger d-inline">{{info.p1_r_answ}}</p><br>
-        Wrong Answers (Player 1): <p class="fw-bold text-danger d-inline">{{info.p1_w_answ}}</p><br>
-        Username (Player 1): <p class="fw-bold text-danger d-inline">{{info.p1_user}}</p><br>
-        With Account (Player 1): <p class="fw-bold text-danger d-inline">{{info.p1_w_acc}}</p><br>
-        Right Answers (Player 2): <p class="fw-bold text-danger d-inline">{{info.p2_r_answ}}</p><br>
-        Wrong Answers (Player 2): <p class="fw-bold text-danger d-inline">{{info.p2_w_answ}}</p><br>
-        Username (Player 2): <p class="fw-bold text-danger d-inline">{{info.p2_user}}</p><br>
-        With Account (Player 2): <p class="fw-bold text-danger d-inline">{{info.p2_w_acc}}</p><br>
-        Date: <p class="fw-bold text-danger d-inline">{{info.date}}</p><br>
-        Time: <p class="fw-bold text-danger d-inline">{{info.time}}</p>
-    </div>
-    {% endif %}
 </div>
 
-{% if info.p1_r_answ == "0" and info.show_modal %}
+{% if info.p_info[0].right_answ == 0 and info.show_modal %}
 <div class="modal fade" id="modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -86,10 +79,11 @@
 <script>
     window.onload = async function () 
     {
-        bar = document.getElementById("successBar");
-        display = document.getElementById("successText");
+        {% for pinfo in info.p_info %}
+        bar = document.getElementById("{{pinfo.username}}");
+        display = document.getElementById("{{pinfo.username}}Text");
 
-        percent = {{info.p1_r_answ | int}} / {{info.q_num | int}} * 100;
+        percent = {{pinfo.right_answ | int}} / {{info.q_num | int}} * 100;
 
         for(var i = 0; i <= percent; i++)
         {
@@ -102,7 +96,7 @@
                         "#ff0000", "#fff700", "#0dff00", "#00fff7", "#0800ff", "#ff00ea", "#ff8400",
                     ],
                     confettiRadius: 7,
-                    confettiNumber: 1200,
+                    confettiNumber: 800,
                 });
             }
 
@@ -121,12 +115,13 @@
             bar.style.width = i + "%";
             display.textContent = "%" + i; 
 
-            await new Promise(r => setTimeout(r, 65));
+            await new Promise(r => setTimeout(r, 35));
         }
+        {% endfor %}
     };
 </script>
 
-{% if info.p1_r_answ == "0" and info.show_modal %}
+{% if info.p_info[0].right_answ == 0 and info.show_modal %}
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 
