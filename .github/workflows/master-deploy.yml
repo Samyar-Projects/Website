@@ -16,9 +16,6 @@ jobs:
     - name: Deploy application (Sync files with server)
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
-        protocol: ftp
-        port: 21
-        security: loose
         server: ftp.gigawhat.net
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
