@@ -24,7 +24,8 @@ from init import log
 
 # ------- JSON models -------
 
-# ---- Quiz player info ----
+# -=-=-= Quiz player info =-=-=-
+# ---- Model class ----
 class QuizPlayerInfo():
     username: str
     with_account: bool
@@ -38,12 +39,14 @@ class QuizPlayerInfo():
         self.wrong_answ = wrong_answ
 
 
+# ---- Convert model to a JSON serializable object ----
 def player_info_json(player_info: QuizPlayerInfo):
     json_data = {"username": player_info.username, "with_account": player_info.with_account, "right_answ": player_info.right_answ, "wrong_answ": player_info.wrong_answ}
     return json_data
 
 
-# ---- Home page news ----
+# -=-=-= Home page news =-=-=-
+# ---- Model class ----
 class HomeNews():
     title: str
     read_dur: str

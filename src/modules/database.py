@@ -60,8 +60,10 @@ def quiz_db_add():
 
 # ------- Database models -------
 
-# ---- User database ----
+# -=-=-= Accounts Database =-=-=-
+# ---- User roles table ----
 class RolesUsers(db.Model):
+    __bind_key__ = "accounts"
     __tablename__ = "RolesUsers"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -69,7 +71,9 @@ class RolesUsers(db.Model):
     role_id = db.Column("role_id", db.Integer, db.ForeignKey("Role.id"))
 
 
+# ---- Roles table ----
 class Role(db.Model, RoleMixin):
+    __bind_key__ = "accounts"
     __tablename__ = "Role"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -77,7 +81,9 @@ class Role(db.Model, RoleMixin):
     description = db.Column(db.String(255))
 
 
+# ---- User table ----
 class Users(db.Model, UserMixin):
+    __bind_key__ = "accounts"
     __tablename__ = "Users"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -97,8 +103,10 @@ class Users(db.Model, UserMixin):
     roles = db.relationship("Role", secondary="RolesUsers", backref=db.backref("users", lazy="dynamic"))
 
 
-# ---- Quiz Question Database ----
+# -=-=-= Quiz Database =-=-=-
+# ---- Quiz question table ----
 class QuizQuestions(db.Model):
+    __bind_key__ = "quiz"
     __tablename__ = "QuizQuestions"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -128,8 +136,9 @@ class QuizQuestions(db.Model):
         self.status = status
 
 
-# ---- Quiz Result Database ----
+# ---- Quiz result table ----
 class QuizResults(db.Model):
+    __bind_key__ = "quiz"
     __tablename__ = "QuizResults"
 
     id = db.Column(db.Integer, primary_key=True)
