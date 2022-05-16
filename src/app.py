@@ -102,11 +102,12 @@ def template_error(error):
 # ------- Before request -------
 @app.before_first_request
 def create_user():
-    if not user_datastore.find_user(email="test@me.com"):
+    """if not user_datastore.find_user(email="test@me.com"):
         user_datastore.create_user(
             email="test@me.com", password=hash_password("password"))
 
-    db.session.commit()
+    db.session.commit()"""
+    pass
 
 
 @app.before_request

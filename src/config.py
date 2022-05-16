@@ -32,6 +32,7 @@ class ProductionConfig(object):
     # ------- Flask config -------
     SERVER_NAME = "gigawhat.net"
     SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
+    DEBUG = False
 
     # ------- Flask-Caching config -------
     CACHE_DEFAULT_TIMEOUT = 0
@@ -39,8 +40,13 @@ class ProductionConfig(object):
     CACHE_DIR = "CACHE"
 
     # ------- Flask-SQLAlchemy config -------
-    SQLALCHEMY_DATABASE_URI = "sqlite:///data/database/db.sqlite3"
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SQLALCHEMY_DATABASE_URI = "sqlite:///data/database/main.sqlite3"
+    SQLALCHEMY_BINDS = {
+        "accounts": "sqlite:///data/database/accounts.sqlite3",
+        "quiz": "sqlite:///data/database/quiz.sqlite3"
+    }
+    
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # ------- Flask-Security config -------
     SECURITY_PASSWORD_SALT = os.getenv("PASSWORD_ENCRYPT_SALT")
@@ -95,7 +101,7 @@ class LocalConfig(ProductionConfig):
     RENDER_CACHE_TIMEOUT = 1
 
 
-class AppConfig(ProductionConfig):
+class AppConfig(LocalConfig):
     # ------- Flask-Security message overrides -------
     SECURITY_MSG_ALREADY_CONFIRMED = ("Your email has already been confirmed.", "info")
     SECURITY_MSG_API_ERROR = ("Input not appropriate for requested API", "danger")

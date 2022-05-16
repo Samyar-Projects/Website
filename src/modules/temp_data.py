@@ -43,7 +43,8 @@ class QuizResultTemp():
 
 # ------- Read, write and delete -------
 
-# ---- Quiz result storage ----
+# -=-=-= Quiz result storage =-=-=-
+# ---- Read quiz results from temporary storage ----
 def read_quiz_res_temp(quiz_id: int):
     try:
         with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
@@ -60,6 +61,7 @@ def read_quiz_res_temp(quiz_id: int):
         return to_send
 
 
+# ---- Write quiz results to temporary storage ----
 def write_quiz_res_temp(quiz_result_temp: QuizResultTemp):
     json_data = {quiz_result_temp.quiz_id: {"r_answ": quiz_result_temp.right_answ, "w_answ": quiz_result_temp.wrong_answ}}
 
@@ -80,6 +82,7 @@ def write_quiz_res_temp(quiz_result_temp: QuizResultTemp):
         return True
 
 
+# ---- Delete quiz results from temporary storage ----
 def delete_quiz_res_temp(quiz_id: int):
     try:
         with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
