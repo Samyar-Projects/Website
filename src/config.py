@@ -101,7 +101,7 @@ class LocalConfig(ProductionConfig):
     RENDER_CACHE_TIMEOUT = 1
 
 
-class AppConfig(LocalConfig):
+class AppConfig(ProductionConfig):
     # ------- Flask-Security message overrides -------
     SECURITY_MSG_ALREADY_CONFIRMED = ("Your email has already been confirmed.", "info")
     SECURITY_MSG_API_ERROR = ("Input not appropriate for requested API", "danger")
