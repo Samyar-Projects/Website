@@ -48,6 +48,7 @@
                     <div class="d-inline">
                         <a href="{{url_for("quiz_pages.index")}}" class="link-light text-decoration-none small fw-bold">{{_("QUIZ")}}</a>
                     </div>
+{% endcache %}
 
                     {% include "base_templates/template_modules/lang_dropdown.html" %}
                 </div>
@@ -63,8 +64,6 @@
                         <li class="nav-item"><a href="{{url_for("quiz_pages.singleplayer")}}" class="nav-link">{{_("Singleplayer")}}</a></li>
                         <li class="nav-item"><a href="{{url_for("quiz_pages.multiplayer")}}" class="nav-link disabled" tabindex="-1">{{_("Multiplayer")}}</a></li>
                     </ul>
-{% endcache %}
-
                     {% include "base_templates/template_modules/user_dropdown.html" %}
                 </div>
             </div>
@@ -84,6 +83,7 @@
                     <a href="https://www.ugurkurs.com.tr/" class="text-decoration-none">
                         <img src="{{url_for("static", filename = "img/logos/gigawhat-symbol-transparent.svg")}}" width="25">
                     </a>
+{% endcache %}
                         
                     <span class="text-white ms-2">{{_("Copyright &copy; 2022 Gigawhat.")}} <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">{{_("Privacy Policy")}}</a></span>
                 </div>
@@ -93,7 +93,6 @@
                 </div>
             </div>
         </footer>
-{% endcache %}
 
         {% include "base_templates/template_modules/end.html" %}
 
