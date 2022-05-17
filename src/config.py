@@ -60,13 +60,10 @@ class ProductionConfig(object):
     SECURITY_USERNAME_REQUIRED = True
     SECURITY_CONFIRMABLE = True
     SECURITY_CHANGEABLE = True
-    SECURITY_CHANGE_URL = "/change-pass"
     SECURITY_RECOVERABLE = True
-    SECURITY_RESET_URL = "/reset-pass"
     SECURITY_RESET_PASSWORD_WITHIN = "2 days"
     SECURITY_TRACKABLE = True
     SECURITY_EMAIL_SENDER = "account@gigawhat.net"
-    SECURITY_SUBDOMAIN = "account"
 
     # ------- Flask-Mail config -------
     MAIL_SERVER = "smtp.googlemail.com"
@@ -102,6 +99,20 @@ class LocalConfig(ProductionConfig):
 
 
 class AppConfig(ProductionConfig):
+    # ------- Flask-Security config -------
+    SECURITY_CHANGE_URL = "/change-pass"
+    SECURITY_RESET_URL = "/reset-pass"
+    SECURITY_SUBDOMAIN = "account"
+    
+    # ------- Flask-Security view overrides -------
+    SECURITY_POST_LOGIN_VIEW = "index"
+    SECURITY_POST_LOGOUT_VIEW = "index"
+    SECURITY_CONFIRM_ERROR_VIEW = "login"
+    SECURITY_POST_REGISTER_VIEW = "index"
+    SECURITY_POST_CONFIRM_VIEW = "index"
+    SECURITY_POST_RESET_VIEW = "login"
+    SECURITY_POST_CHANGE_VIEW = "index"
+    
     # ------- Flask-Security message overrides -------
     SECURITY_MSG_ALREADY_CONFIRMED = ("Your email has already been confirmed.", "info")
     SECURITY_MSG_API_ERROR = ("Input not appropriate for requested API", "danger")

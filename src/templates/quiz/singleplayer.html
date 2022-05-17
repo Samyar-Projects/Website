@@ -9,14 +9,37 @@
     <form action="{{url_for("quiz_pages.singleplayer")}}" method="POST">
         <div class="form-floating mb-3">
             <select name="category-select" class="form-select rounded-3" id="category-select">
-                <option value="math" selected>{{_("Mathematics")}}</option>
-                <option value="sci">{{_("Science")}}</option>
+                <!--<optgroup label="{{_("General knowledge")}}">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </optgroup>-->
+                
+                <optgroup label="{{_("School subjects")}}">
+                    <option value="math" selected>{{_("Mathematics")}}</option>
+                    <option value="sci">{{_("Science")}}</option>
+                </optgroup>
             </select>
             
             <label for="category-select">{{_("Category")}}</label>
         </div>
 
-        <div class="form-floating mb-3">
+        <div id="subcat" class="form-floating mb-3 d-none">
+            <select name="subcategory-select" class="form-select rounded-3" id="subcategory-select">
+                <option value="" selected>{{_("None")}}</option>
+            </select>
+            
+            <label for="subcategory-select">{{_("Subcategory")}}</label>
+        </div>
+
+        <div id="level" class="form-floating mb-3">
+            <select name="level-select" class="form-select rounded-3" id="level-select">
+                <option value="7" selected>{{_("7th Grade")}}</option>
+            </select>
+            
+            <label for="level-select">{{_("Level")}}</label>
+        </div>
+
+        <div class="form-floating mb-4">
             <select name="difficulty-select" class="form-select rounded-3" id="difficulty-select">
                 <option value="hard">{{_("Hard")}}</option>
                 <option value="normal" selected>{{_("Normal")}}</option>
@@ -24,14 +47,6 @@
             </select>
             
             <label for="difficulty-select">{{_("Difficulty")}}</label>
-        </div>
-
-        <div class="form-floating mb-4">
-            <select name="level-select" class="form-select rounded-3" id="level-select">
-                <option value="7" selected>{{_("7th Grade")}}</option>
-            </select>
-            
-            <label for="level-select">{{_("Level")}}</label>
         </div>
 
         <button class="w-100 btn btn-lg rounded-3 btn-outline-success" type="submit"{% if info.reset_q %} disabled{% endif %}>{{_("Start!")}}</button>
@@ -43,4 +58,31 @@
 
     <p class="text-secondary mt-3 mb-5">{{_("Note: The quiz consists of %(q_num)s questions, and there is a time limit of %(time)s minute for every question.", q_num = info.q_num, time = info.q_time)}}</p>
 </div>
+{% endblock %}
+
+{% block end %}
+<script>
+    var level = document.getElementById("level");
+    var subcat = document.getElementById("subcat");
+    var selector = document.getElementById("category-select");
+
+    function changed(event)
+    {
+        var optgroup = document.querySelector('select[name="category-select"] option:checked').parentElement.label
+
+        if (optgroup == "{{_("School subjects")}}")
+        {
+            level.style.display = "block";
+            subcat.style.display = "none";
+        }
+
+        else if (optgroup == "{{_("General knowledge")}}")
+        {
+            subcat.style.display = "block";
+            level.style.display = "none";
+        }
+    }
+
+    selector.addEventListener("change", changed)
+</script>
 {% endblock %}

@@ -103,13 +103,13 @@
             if (i == 75)
             {
                 bar.classList.remove("bg-warning");
-                bar.classList.add('bg-success');
+                bar.classList.add("bg-success");
             }
 
             if (i == 45)
             {
                 bar.classList.remove("bg-danger");
-                bar.classList.add('bg-warning');
+                bar.classList.add("bg-warning");
             }
 
             bar.style.width = i + "%";
@@ -126,9 +126,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 
 <script>
-    $(document).ready(function(){
+    function show()
+    {
         $("#modal").modal("show");  
-    });
+    }
+
+    $(document).ready(show);
 </script>
 {% endif %}
 {% endblock %}
