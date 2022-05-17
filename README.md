@@ -25,6 +25,30 @@ Written in HTML 5, CSS 3, Bootstrap 5, and Python Flask.
 
 Live website: https://gigawhat.net/
 
+## How to run localy :
+	1. Install the dependencies that are listed in the requirements.txt file.
+	2. Add this to your hosts file (replace COMPUTERS_LOCAL_IP with your computer's local IP address) *1:
+	     COMPUTERS_LOCAL_IP       gigawhat-local.gtw
+	     COMPUTERS_LOCAL_IP       www.gigawhat-local.gtw
+	     COMPUTERS_LOCAL_IP       quiz.gigawhat-local.gtw
+	     COMPUTERS_LOCAL_IP       blog.gigawhat-local.gtw
+	     COMPUTERS_LOCAL_IP       account.gigawhat-local.gtw
+	     COMPUTERS_LOCAL_IP       api.gigawhat-local.gtw
+	
+	3. In the config.py file, change AppConfig(ProductionConfig) to AppConfig(LocalConfig)
+	4. Create a vars.env file in the same directory as the config.py file and add these to the file (change the values to your own values):
+	     FLASK_SECRET_KEY = "A VERY SECRET STRING"
+	     PASSWORD_ENCRYPT_SALT = "A VERY SECRET SALT"
+	     FLASK_MAIL_USERNAME = "SOME USERNAME"
+	     FLASK_MAIL_PASSWORD = "A SECRET PASSWORD"
+	
+	5. Run the application with: python app.py
+	6. Go to: http://gigawhat-local.gtw:5000/
+
+
+	*1: If you don't know how to modify your hosts file, take a look at this guide: https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/
+	Note: Python 3.7.12 is recommended.
+
 ## Support :
 You can contact us via e-mail.<br>
 E-mail: support.gpt@gigawhat.net
