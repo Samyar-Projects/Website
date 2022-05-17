@@ -19,7 +19,7 @@
 # ------- Libraries and utils -------
 from flask import Blueprint, flash, render_template, request
 from flask_security import RoleMixin, SQLAlchemySessionUserDatastore, UserMixin
-from init import db
+from init import db, log
 
 
 # ------- Blueprint init -------
@@ -38,21 +38,23 @@ def quiz_db_add():
             ad = request.form.get("ad")
             ca = request.form.get("ca")
             cat = request.form.get("cat")
+            sub_cat = request.form.get("subcat")
             diff = request.form.get("diff")
             lvl = request.form.get("lvl")
             lang = request.form.get("lang")
 
-            data = QuizQuestions(cat, lang, lvl, diff, q, ca, aa, ab, ac, ad, True)
+            data = QuizQuestions(cat, sub_cat, lang, lvl, diff, q, ca, aa, ab, ac, ad, True)
             db.session.add(data)
             db.session.commit()
 
-        except:
+        except Exception:
+            log.exception("AddQuizQuestionException")
             flash("ERROR", "danger")
-            return render_template("en_us/quiz/db_add.html")
+            return render_template("quiz/db_add.html")
 
         else:
             flash("SUCCESS", "success")
-            return render_template("en_us/quiz/db_add.html")
+            return render_template("quiz/db_add.html")
 
     else:
         return render_template("quiz/db_add.html")
@@ -110,7 +112,8 @@ class QuizQuestions(db.Model):
     __tablename__ = "QuizQuestions"
 
     id = db.Column(db.Integer, primary_key=True)
-    category = db.Column(db.String(20))
+    category = db.Column(db.String(30))
+    sub_category = db.Column(db.String(50))
     lang = db.Column(db.String(5))
     level = db.Column(db.Integer)
     difficulty = db.Column(db.String(15))
@@ -122,8 +125,9 @@ class QuizQuestions(db.Model):
     answ_d = db.Column(db.String(2048))
     status = db.Column(db.Boolean)
 
-    def __init__(self, category, lang, level, difficulty, question, correct_answ, answ_a, answ_b, answ_c, answ_d, status):
+    def __init__(self, category, sub_category, lang, level, difficulty, question, correct_answ, answ_a, answ_b, answ_c, answ_d, status):
         self.category = category
+        self.sub_category = sub_category
         self.lang = lang
         self.level = level
         self.difficulty = difficulty
