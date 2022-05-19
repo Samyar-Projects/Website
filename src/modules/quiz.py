@@ -57,7 +57,7 @@ def cheating(q_id):
 @cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
 def index():
     """for i in range(0, 100):
-        data = QuizQuestions("math", "en_US", 7, "normal", "This is placeholder question number " + str(i), "c", "Answer A", "Answer B", "Answer C", "Answer D", True)
+        data = QuizQuestions("math", None, "en_US", 7, "normal", "This is placeholder question number " + str(i), "c", "Answer A", "Answer B", "Answer C", "Answer D", True)
         db.session.add(data)
         db.session.commit()"""
 
@@ -71,16 +71,31 @@ def singleplayer():
     if not session.get("quiz.in_quiz"):
         if request.method == "POST":
             category = request.form.get("category-select")
+            subcategory = request.form.get("subcategory-select")
             difficulty = request.form.get("difficulty-select")
             level = request.form.get("level-select")
+            
+            cat_optgroup = category.split("-")
+            category = cat_optgroup[1]
+            cat_optgroup = cat_optgroup[0]
 
-            if not category or not difficulty or not level:
+            if not category or not difficulty or not level or not subcategory:
                 log.debug(f"[{request.remote_addr}] Sent invalid quiz start request.")
 
                 flash(gettext(u"Invalid input"), "danger")
                 return redirect(url_for("quiz_pages.singleplayer"))
 
-            questions = db.session.query(QuizQuestions.id).filter_by(lang=lang, category=category, difficulty=difficulty, level=int(level), status=True).all()
+            if cat_optgroup == "gk":
+                questions = db.session.query(QuizQuestions.id).filter_by(lang=lang, category=category, subcategory=subcategory, difficulty=difficulty, status=True).all()
+                
+            elif cat_optgroup == "ss":
+                questions = db.session.query(QuizQuestions.id).filter_by(lang=lang, category=category, difficulty=difficulty, level=int(level), status=True).all()
+                
+            else:
+                log.debug(f"[{request.remote_addr}] Sent invalid quiz category optgroup")
+
+                flash(gettext(u"Invalid input"), "danger")
+                return redirect(url_for("quiz_pages.singleplayer"))
 
             if len(questions) < AppConfig.QUIZ_QUESTION_COUNT:
                 log.debug(f"[{request.remote_addr}] Tried to start a quiz that does not exist.")
@@ -230,6 +245,8 @@ def singleplayer_quiz():
                     return cheating(q_id)
 
             else:
+                pop_sessions()
+                
                 date_time = datetime.datetime.now()
                 time = date_time.strftime("%H:%M")
                 date = date_time.strftime("%d/%m/%Y")
@@ -245,13 +262,12 @@ def singleplayer_quiz():
                     list_data.append(player_info_json(QuizPlayerInfo("AnonymousUser", False, data.right_answ, data.wrong_answ)))
                     to_write = QuizResults(date, time, False, q_id, list_data)
 
+                delete_quiz_res_temp(q_id)
+
                 db.session.add(to_write)
                 db.session.commit()
 
                 log.debug(f"[{request.remote_addr}] Quiz completed with Quiz ID: [{q_id}]")
-
-                delete_quiz_res_temp(q_id)
-                pop_sessions()
 
                 return redirect(url_for("quiz_pages.show_results", q_id=q_id))
 

@@ -10,13 +10,13 @@
         <div class="form-floating mb-3">
             <select name="category-select" class="form-select rounded-3" id="category-select">
                 <!--<optgroup label="{{_("General knowledge")}}">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
+                    <option value="gk-10">10</option>
+                    <option value="gk-20">20</option>
                 </optgroup>-->
                 
                 <optgroup label="{{_("School subjects")}}">
-                    <option value="math" selected>{{_("Mathematics")}}</option>
-                    <option value="sci">{{_("Science")}}</option>
+                    <option value="ss-math" selected>{{_("Mathematics")}}</option>
+                    <option value="ss-sci">{{_("Science")}}</option>
                 </optgroup>
             </select>
             
@@ -25,7 +25,7 @@
 
         <div id="subcat" class="form-floating mb-3 d-none">
             <select name="subcategory-select" class="form-select rounded-3" id="subcategory-select">
-                <option value="" selected>{{_("None")}}</option>
+                <option value="None" selected>{{_("None")}}</option>
             </select>
             
             <label for="subcategory-select">{{_("Subcategory")}}</label>
