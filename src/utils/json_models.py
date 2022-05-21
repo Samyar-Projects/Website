@@ -20,12 +20,6 @@
 """
 
 
-# ------- Libraries and utils -------
-import json
-from config import AppConfig
-from init import log
-
-
 # ------- JSON models -------
 
 # -=-=-= Quiz player info =-=-=-

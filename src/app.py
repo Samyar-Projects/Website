@@ -20,14 +20,14 @@
 import jinja2
 import werkzeug
 from flask import abort, redirect, render_template, request, session, url_for
-from flask_security import hash_password, url_for_security
+from flask_security import url_for_security
 from flask_babel import get_locale
 from init import app, cache, db, babel, log
 from config import AppConfig
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
 from modules.account import account_pages
-from modules.database import database, user_datastore
+from modules.database import database
 from modules.temp_data import temp_data
 from utils.json_models import HomeNews
 
