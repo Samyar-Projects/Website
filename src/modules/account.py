@@ -1,4 +1,4 @@
-#  Gigawhat Website user account login and signup module.
+#  Gigawhat Website user account module.
 #  Copyright 2022 Gigawhat Programming Team
 #  Written by Samyar Sadat Akhavi, 2022.
 #
@@ -14,6 +14,20 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+"""
+User account module for the Gigawhat website.
+
+The user account module contains the profile, settings, and
+user-specific status pages.
+
+Notes
+-----
+The rest of the user account system (login, logout, signup, ext.)
+is handled by Flask-Security.
+
+This module is not complete.
+"""
 
 
 # ------- Libraries and utils -------

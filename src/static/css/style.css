@@ -86,3 +86,20 @@
     font-size: 60px;
     margin: 0;
 }
+
+.fade-in-flash {
+    animation: fadeInFlash linear 0.5s;
+    margin-top: 30px;
+}
+
+@keyframes fadeInFlash {
+    0% {
+        opacity: 0;
+        margin-top: -50px;
+    }
+
+    100% {
+        opacity: 1;
+        margin-top: 30px;
+    }
+}

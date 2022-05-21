@@ -2,7 +2,7 @@
 {% with messages = get_flashed_messages(with_categories = true) %}
     {% if messages %}
         {% for category, message in messages %}
-        <div class="container mt-4 fixed-top">    
+        <div class="container fade-in-flash fixed-top">    
             <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
                 {{message}}
                         

@@ -15,6 +15,12 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+"""
+Database module for the Gigawhat website.
+
+This module contains all of the database models.
+"""
+
 
 # ------- Libraries and utils -------
 from flask import Blueprint, flash, render_template, request

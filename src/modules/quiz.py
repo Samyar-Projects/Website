@@ -15,10 +15,19 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+"""
+Quiz module for the Gigawhat website.
+
+The singleplayer and multiplayer quiz game system.
+
+Notes
+-----
+The multiplayer system is not complete.
+"""
+
 
 # ------- Libraries and utils -------
 import datetime
-import json
 from random import randint
 from flask import Blueprint, abort, flash, redirect, render_template, request, url_for, session
 from flask_security import current_user
@@ -56,10 +65,10 @@ def cheating(q_id):
 @quiz_pages.route("/")
 @cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
 def index():
-    """for i in range(0, 100):
-        data = QuizQuestions("math", None, "en_US", 7, "normal", "This is placeholder question number " + str(i), "c", "Answer A", "Answer B", "Answer C", "Answer D", True)
-        db.session.add(data)
-        db.session.commit()"""
+    # for i in range(0, 100):
+    #     data = QuizQuestions("math", None, "en_US", 7, "normal", "This is placeholder question number " + str(i), "c", "Answer A", "Answer B", "Answer C", "Answer D", True)
+    #     db.session.add(data)
+    #     db.session.commit()
 
     return render_template("quiz_index.html")
 

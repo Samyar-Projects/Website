@@ -15,8 +15,12 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+"""Helper functions file for the Gigawhat website.
+
+"""
+
 
 # --- Condition raw output from db query for quiz ---
-def quiz_query_cond(query):
+def quiz_query_cond(query):   
     query = str(query[0]).replace("<script", "").replace("</script", "")
     return query

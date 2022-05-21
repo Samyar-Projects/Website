@@ -1,4 +1,4 @@
-#  Gigawhat Website flask and flask plugin config file.
+#  Gigawhat Website flask production WSGI server.
 #  Copyright 2022 Gigawhat Programming Team
 #  Written by Samyar Sadat Akhavi, 2022.
 #

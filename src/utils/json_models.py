@@ -15,11 +15,9 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+"""JSON models for the Gigawhat website.
 
-# ------- Libraries and utils -------
-import json
-from config import AppConfig
-from init import log
+"""
 
 
 # ------- JSON models -------
