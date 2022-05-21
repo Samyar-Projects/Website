@@ -15,6 +15,14 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+"""
+Blog module for the Gigawhat website.
+
+Notes
+-----
+This module is not complete.
+"""
+
 
 # ------- Libraries and utils -------
 from flask import Blueprint, render_template

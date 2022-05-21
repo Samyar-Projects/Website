@@ -15,6 +15,15 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+"""
+Temporary data storage module for the Gigawhat website.
+
+Notes
+-----
+This module stores the temporary data in JSON files based on
+storage models.
+"""
+
 
 # ------- Libraries and utils -------
 import json
@@ -54,7 +63,7 @@ def read_quiz_res_temp(quiz_id: int):
         to_send = QuizResultTemp(data["r_answ"], data["w_answ"], str(quiz_id))
 
     except Exception:
-        log.exception(f"TemporaryDataError")
+        log.exception(f"TemporaryDataReadException")
         return False
 
     else:
@@ -75,7 +84,7 @@ def write_quiz_res_temp(quiz_result_temp: QuizResultTemp):
             json.dump(data, file, indent=4)
 
     except Exception:
-        log.exception(f"TemporaryDataError")
+        log.exception(f"TemporaryDataWriteException")
         return False
 
     else:
@@ -94,7 +103,7 @@ def delete_quiz_res_temp(quiz_id: int):
             json.dump(data, file, indent=4)
 
     except Exception:
-        log.exception(f"TemporaryDataError")
+        log.exception(f"TemporaryDataDeleteException")
         return False
 
     else:
