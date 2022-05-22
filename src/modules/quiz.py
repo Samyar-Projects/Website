@@ -63,12 +63,11 @@ def cheating(q_id):
 
 # ------- Page routes -------
 @quiz_pages.route("/")
-@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
 def index():
-    # for i in range(0, 100):
-    #     data = QuizQuestions("math", None, "en_US", 7, "normal", "This is placeholder question number " + str(i), "c", "Answer A", "Answer B", "Answer C", "Answer D", True)
-    #     db.session.add(data)
-    #     db.session.commit()
+    """for i in range(0, 30):
+       data = QuizQuestions("math", None, "en_US", 7, "normal", "This is placeholder question number " + str(i), "c", "Answer A", "Answer B", "Answer C", "Answer D", True)
+       db.session.add(data)
+       db.session.commit()"""
 
     return render_template("quiz_index.html")
 
@@ -306,7 +305,7 @@ def singleplayer_quiz():
         return redirect(url_for("quiz_pages.singleplayer"))
 
 
-@quiz_pages.route("/singleplayer/reset-quiz")
+@quiz_pages.route("/singleplayer/reset-quiz", methods=["POST"])
 def reset_quiz_singleplayer():
     q_id = int(session.get("quiz.quiz_id"))
     log.debug(f"[{request.remote_addr}] Reset their singleplayer quiz. Quiz ID: [{q_id}]")
