@@ -95,7 +95,7 @@ class TestingConfig(ProductionConfig):
 class LocalConfig(ProductionConfig):
     SERVER_NAME = "gigawhat-local.gtw:5000"
     DEBUG = True
-    RENDER_CACHE_TIMEOUT = 1
+    RENDER_CACHE_TIMEOUT = 3*60
 
 
 class AppConfig(ProductionConfig):

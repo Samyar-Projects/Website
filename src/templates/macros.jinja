@@ -23,7 +23,7 @@
         {{ field.label(class=l_class) | safe }} 
         
         {% if field.errors %}
-        <ul class="mt-{{ spacing + 1 }}">
+        <ul class="mt-{{ spacing }}">
         {% for error in field.errors %}
             <li>{{ error }}</li>
         {% endfor %}

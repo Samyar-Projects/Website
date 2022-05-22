@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  1.0\n"
 "Report-Msgid-Bugs-To: gpt@gigawhat.net\n"
-"POT-Creation-Date: 2022-05-18 14:37+0300\n"
+"POT-Creation-Date: 2022-05-23 00:53+0300\n"
 "PO-Revision-Date: 2022-05-10 20:55+0300\n"
 "Last-Translator: Rüzgar Kaya <ruzgar@gigawhat.net>\n"
 "Language: tr_TR\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: modules/quiz.py:51
+#: modules/quiz.py:60
 msgid "Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."
 msgstr "Hile önleme sistemlerimiz hile tespit etti! Lütfen yenilemeyi veya F12'yi denemeyin."
 
-#: modules/quiz.py:80
+#: modules/quiz.py:93 modules/quiz.py:105
 msgid "Invalid input"
 msgstr "Geçersiz giriş"
 
-#: modules/quiz.py:88
+#: modules/quiz.py:111
 msgid "A quiz with these criteria does not exist."
 msgstr "Bu kriterlere sahip bir quiz mevcut değil."
 
-#: modules/quiz.py:125
+#: modules/quiz.py:148
 msgid "You are already in a quiz. Please finish before starting a new one or click reset to reset it."
-msgstr "Zaten bir quizdesiniz. Lütfen yeni bir quiz başlatmadan once şu anki quizinizi bitirin veya sıfırlamak için sıfırla'ya tıklayın."
+msgstr "Zaten bir quizdesiniz. Lütfen yeni bir quiz başlatmadan önce şu anki quizinizi bitirin veya sıfırlamak için sıfırla'ya tıklayın."
 
-#: modules/quiz.py:292
+#: modules/quiz.py:316
 msgid "Your quiz has been reset. You can now start a new quiz."
 msgstr "Quiziniz sıfırlandı. Artık yeni bir quiz başlatabilirsiniz."
 
@@ -221,7 +221,8 @@ msgid "Login"
 msgstr "Oturum aç"
 
 #: templates/base_templates/template_modules/user_dropdown.html:20
-#: templates/security/signup.html:3 templates/security/signup.html:8
+#: templates/security/register_user.html:4
+#: templates/security/register_user.html:9
 msgid "Sign-up"
 msgstr "Üye ol"
 
@@ -326,11 +327,11 @@ msgstr "Quiz ID:"
 msgid "Customize your quiz"
 msgstr "Quizinizi özelleştirin"
 
-#: templates/quiz/singleplayer.html:12 templates/quiz/singleplayer.html:79
+#: templates/quiz/singleplayer.html:12 templates/quiz/singleplayer.html:81
 msgid "General knowledge"
 msgstr "Genel Bilgi"
 
-#: templates/quiz/singleplayer.html:17 templates/quiz/singleplayer.html:73
+#: templates/quiz/singleplayer.html:17 templates/quiz/singleplayer.html:75
 msgid "School subjects"
 msgstr "Okul konuları"
 
@@ -382,11 +383,11 @@ msgstr "Zorluk seviyesi"
 msgid "Start!"
 msgstr "Başla!"
 
-#: templates/quiz/singleplayer.html:56
+#: templates/quiz/singleplayer.html:57
 msgid "Reset Quiz"
 msgstr "Quizi Sıfırla"
 
-#: templates/quiz/singleplayer.html:59
+#: templates/quiz/singleplayer.html:61
 #, python-format
 msgid "Note: The quiz consists of %(q_num)s questions, and there is a time limit of %(time)s minute for every question."
 msgstr "Not: Quiz %(q_num)s sorudan oluşur ve her soru için %(time)s dakikalık bir zaman sınırı vardır."
@@ -412,15 +413,27 @@ msgstr "Sonuçları Göster"
 msgid "Next Question"
 msgstr "Sonraki Soru"
 
+#: templates/security/login_user.html:15
+#: templates/security/register_user.html:15
+msgid "Email"
+msgstr "E-posta"
+
+#: templates/security/login_user.html:16
+#: templates/security/register_user.html:21
+msgid "Password"
+msgstr "Şifre"
+
 #: templates/security/login_user.html:19
 msgid "Forgot Password?"
 msgstr "Şifremi Unuttum!"
 
 #: templates/security/login_user.html:26
+#: templates/security/register_user.html:29
 msgid "Show password"
 msgstr "Şifreyi göster"
 
 #: templates/security/login_user.html:33
+#: templates/security/register_user.html:36
 msgid "Or use a third-party"
 msgstr "Veya başka bir yolu kullanın"
 
@@ -435,4 +448,24 @@ msgstr "Twitter ile oturum aç"
 #: templates/security/login_user.html:44
 msgid "Login with GitHub"
 msgstr "GitHub ile oturum aç"
+
+#: templates/security/register_user.html:18
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+#: templates/security/register_user.html:24
+msgid "Repeat password"
+msgstr "Şifreyi tekrarla"
+
+#: templates/security/register_user.html:39
+msgid "Sign-up with Google"
+msgstr "Google ile üye ol"
+
+#: templates/security/register_user.html:43
+msgid "Sign-up with Twitter"
+msgstr "Twitter ile üye ol"
+
+#: templates/security/register_user.html:47
+msgid "Sign-up with GitHub"
+msgstr "GitHub ile üye ol"
 

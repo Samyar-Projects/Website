@@ -20,7 +20,6 @@
 import jinja2
 import werkzeug
 from flask import abort, redirect, render_template, request, session, url_for
-from flask_security import url_for_security
 from flask_babel import get_locale
 from init import app, cache, db, babel, log
 from config import AppConfig
@@ -29,6 +28,7 @@ from modules.blog import blog_pages
 from modules.account import account_pages
 from modules.database import database
 from modules.temp_data import temp_data
+from modules.redirects import redirects
 from utils.json_models import HomeNews
 
 
@@ -45,6 +45,7 @@ app.register_blueprint(blog_pages, subdomain="blog")
 app.register_blueprint(account_pages, subdomain="account")
 app.register_blueprint(database)
 app.register_blueprint(temp_data)
+app.register_blueprint(redirects)
 
 
 # ------- Locale selector -------
@@ -121,8 +122,7 @@ def remove_www():
 
 @app.before_request
 def request_logging():
-    log.info(
-        f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}]")
+    log.info(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}]")
 
 
 # ------- Page routes -------
@@ -146,93 +146,6 @@ def mc_server():
 @cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
 def privacy_policy():
     return render_template("privacy_policy.html")
-
-
-# ------- Page redirects -------
-@app.route("/quiz")
-def quiz_redirect():
-    return redirect(url_for("quiz_pages.index"))
-
-
-@app.route("/blog")
-def blog_redirect():
-    return redirect(url_for("blog_pages.index"))
-
-
-@app.route("/login")
-def login_redirect():
-    return redirect(url_for_security("login"))
-
-
-@app.route("/register")
-def register_redirect():
-    return redirect(url_for_security("register"))
-
-
-@app.route("/signup")
-def signup_redirect():
-    return redirect(url_for_security("register"))
-
-
-# ------- Social redirects -------
-@app.route("/twitter")
-def twitter_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("https://twitter.com/Gigawhat_net")
-    
-    else:
-        return redirect("https://twitter.com/Gigawhat_net_tr")
-
-
-@app.route("/instagram")
-def instagram_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("https://www.instagram.com/gigawhat_net/")
-    
-    else:
-        return redirect("https://www.instagram.com/gigawhat_net_tr/")
-
-
-@app.route("/discord")
-def discord_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("https://discord.gg/rMq7GujUZJ")
-    
-    else:
-        return redirect("https://discord.gg/bSHkhaGeuN")
-
-
-@app.route("/youtube")
-def youtube_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("https://www.youtube.com/channel/UCgjkgNz1MbhzIzhOOHfrxiw")
-    
-    else:
-        return redirect("https://www.youtube.com/channel/UCfjmMzekHS1YI2pv2tpvS2g")
-
-
-@app.route("/patreon")
-def patreon_redirect():
-    return redirect("https://www.patreon.com/gigawhat")
-
-
-@app.route("/github")
-def github_redirect():
-    return redirect("https://github.com/Gigawhat-net")
-
-
-@app.route("/open-source")
-def opensource_redirect():
-    return redirect("https://github.com/Gigawhat-net")
-
-
-@app.route("/email")
-def email_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("mailto:contact@gigawhat.net")
-    
-    else:
-        return redirect("mailto:contact.tr@gigawhat.net")
 
 
 # ------- Running the app -------
