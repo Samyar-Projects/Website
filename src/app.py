@@ -31,7 +31,6 @@ from modules.temp_data import temp_data
 from modules.redirects import redirects
 from utils.json_models import HomeNews
 
-
 # ------- Jinja env global objects -------
 app.jinja_env.globals["get_locale"] = get_locale
 app.jinja_env.globals["SUPPORTED_LANGS"] = AppConfig.SUPPORTED_LANGS
@@ -143,7 +142,6 @@ def mc_server():
 
 
 @app.route("/privacy-policy")
-@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
 def privacy_policy():
     return render_template("privacy_policy.html")
 

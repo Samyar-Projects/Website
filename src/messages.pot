@@ -1,6 +1,6 @@
-# Translations template for Gigawhat Website.
+# Translations template for PROJECT.
 # Copyright (C) 2022 ORGANIZATION
-# This file is distributed under the same license as the Gigawhat Website project.
+# This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 #
 #, fuzzy
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-23 00:53+0300\n"
+"POT-Creation-Date: 2022-05-23 22:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,19 +21,23 @@ msgstr ""
 msgid "Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."
 msgstr ""
 
-#: modules/quiz.py:93 modules/quiz.py:105
+#: modules/quiz.py:100 modules/quiz.py:112
 msgid "Invalid input"
 msgstr ""
 
-#: modules/quiz.py:111
+#: modules/quiz.py:118
 msgid "A quiz with these criteria does not exist."
 msgstr ""
 
-#: modules/quiz.py:148
+#: modules/quiz.py:153 modules/quiz.py:319
+msgid "The quiz system requires JavaScript to function correctly."
+msgstr ""
+
+#: modules/quiz.py:161
 msgid "You are already in a quiz. Please finish before starting a new one or click reset to reset it."
 msgstr ""
 
-#: modules/quiz.py:316
+#: modules/quiz.py:341
 msgid "Your quiz has been reset. You can now start a new quiz."
 msgstr ""
 
@@ -49,7 +53,7 @@ msgstr ""
 #: templates/base_templates/acc_base.html:62
 #: templates/base_templates/base.html:58
 #: templates/base_templates/blog_base.html:62
-#: templates/base_templates/quiz_base.html:62 templates/index.html:3
+#: templates/base_templates/quiz_base.html:65 templates/index.html:3
 #: templates/quiz_index.html:3
 msgid "Home"
 msgstr ""
@@ -99,11 +103,11 @@ msgstr ""
 #: templates/base_templates/base.html:92 templates/base_templates/base.html:100
 #: templates/base_templates/blog_base.html:86
 #: templates/base_templates/blog_base.html:94
-#: templates/base_templates/quiz_base.html:88 templates/privacy_policy.html:3
+#: templates/base_templates/quiz_base.html:91 templates/privacy_policy.html:3
 msgid "Privacy Policy"
 msgstr ""
 
-#: templates/base_templates/quiz_base.html:34 templates/quiz_index.html:7
+#: templates/base_templates/quiz_base.html:37 templates/quiz_index.html:7
 msgid "Gigawhat Quiz"
 msgstr ""
 
@@ -115,7 +119,7 @@ msgstr ""
 msgid "The questions are randomly selected every time you start a new game."
 msgstr ""
 
-#: templates/base_templates/quiz_base.html:64
+#: templates/base_templates/quiz_base.html:67
 #: templates/quiz/singleplayer.html:3 templates/quiz_index.html:19
 msgid "Singleplayer"
 msgstr ""
@@ -160,7 +164,7 @@ msgstr ""
 #: templates/base_templates/acc_base.html:96
 #: templates/base_templates/base.html:92
 #: templates/base_templates/blog_base.html:86
-#: templates/base_templates/quiz_base.html:88
+#: templates/base_templates/quiz_base.html:91
 msgid "Copyright &copy; 2022 Gigawhat."
 msgstr ""
 
@@ -177,15 +181,15 @@ msgid "BLOG"
 msgstr ""
 
 #: templates/base_templates/blog_base.html:63
-#: templates/base_templates/quiz_base.html:63
+#: templates/base_templates/quiz_base.html:66
 msgid "Back to Gigawhat"
 msgstr ""
 
-#: templates/base_templates/quiz_base.html:49
+#: templates/base_templates/quiz_base.html:52
 msgid "QUIZ"
 msgstr ""
 
-#: templates/base_templates/quiz_base.html:65 templates/quiz/multiplayer.html:3
+#: templates/base_templates/quiz_base.html:68 templates/quiz/multiplayer.html:3
 msgid "Multiplayer"
 msgstr ""
 
@@ -218,6 +222,7 @@ msgstr ""
 #: templates/base_templates/template_modules/user_dropdown.html:20
 #: templates/security/register_user.html:4
 #: templates/security/register_user.html:9
+#: templates/security/register_user.html:33
 msgid "Sign-up"
 msgstr ""
 
@@ -408,16 +413,6 @@ msgstr ""
 msgid "Next Question"
 msgstr ""
 
-#: templates/security/login_user.html:15
-#: templates/security/register_user.html:15
-msgid "Email"
-msgstr ""
-
-#: templates/security/login_user.html:16
-#: templates/security/register_user.html:21
-msgid "Password"
-msgstr ""
-
 #: templates/security/login_user.html:19
 msgid "Forgot Password?"
 msgstr ""
@@ -428,7 +423,7 @@ msgid "Show password"
 msgstr ""
 
 #: templates/security/login_user.html:33
-#: templates/security/register_user.html:36
+#: templates/security/register_user.html:37
 msgid "Or use a third-party"
 msgstr ""
 
@@ -444,23 +439,19 @@ msgstr ""
 msgid "Login with GitHub"
 msgstr ""
 
-#: templates/security/register_user.html:18
-msgid "Username"
+#: templates/security/register_user.html:34
+msgid "By signing up, you agree to our Privacy Policy."
 msgstr ""
 
-#: templates/security/register_user.html:24
-msgid "Repeat password"
-msgstr ""
-
-#: templates/security/register_user.html:39
+#: templates/security/register_user.html:40
 msgid "Sign-up with Google"
 msgstr ""
 
-#: templates/security/register_user.html:43
+#: templates/security/register_user.html:44
 msgid "Sign-up with Twitter"
 msgstr ""
 
-#: templates/security/register_user.html:47
+#: templates/security/register_user.html:48
 msgid "Sign-up with GitHub"
 msgstr ""
 

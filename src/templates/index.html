@@ -12,7 +12,7 @@
 	
 	<div class="carousel-inner">
 	    <div class="carousel-item active">
-			<img src="{{url_for("static", filename = "img/carousel/placeholder2.png")}}">
+			<img src="{{url_for("static", filename="img/carousel/placeholder2.png")}}">
 
 			<div class="carousel-caption">
 				<h1>{{_("Lorem ipsum dolor sit amet")}}</h1>
@@ -22,7 +22,7 @@
 	    </div>
 	    
 		<div class="carousel-item">
-			<img src="{{url_for("static", filename = "img/carousel/placeholder2.png")}}">
+			<img src="{{url_for("static", filename="img/carousel/placeholder2.png")}}">
 
 			<div class="carousel-caption">
 				<h1>{{_("Lorem ipsum dolor sit amet")}}</h1>
@@ -32,7 +32,7 @@
 	    </div>
 	    
 		<div class="carousel-item">
-			<img src="{{url_for("static", filename = "img/carousel/placeholder2.png")}}">
+			<img src="{{url_for("static", filename="img/carousel/placeholder2.png")}}">
 
 			<div class="carousel-caption">
 				<h1>{{_("Lorem ipsum dolor sit amet")}}</h1>
@@ -58,7 +58,7 @@
 		<div class="container">
 			<div class="row row-cols-1 row-cols-sm-2 g-3">
 				<div class="col">
-					<img class="card-img rounded-3 shadow w-100" src="{{url_for("static", filename = "img/carousel/placeholder.png")}}">
+					<img class="card-img rounded-3 shadow w-100" src="{{url_for("static", filename="img/carousel/placeholder.png")}}">
 				</div>
 	
 				<div class="col m-0">
@@ -84,7 +84,7 @@
 			{% for post in posts %}
 			<div class="col">
 				<div class="card shadow">
-					<img class="card-img-top w-100" src="{{url_for("static", filename = post.thumb_url)}}">
+					<img class="card-img-top w-100" src="{{url_for("static", filename=post.thumb_url)}}">
 
 					<div class="card-body">
 						<p class="card-text">{{post.title}}</p>

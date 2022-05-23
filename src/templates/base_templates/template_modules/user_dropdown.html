@@ -1,7 +1,7 @@
 {% if current_user.username %}
 <div class="dropdown text-lg-end mt-lg-0 mb-lg-0 text-start mt-4 mb-3">
     <a href="#" class="link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
-        <img src="{{url_for("static", filename = current_user.pp_url)}}" alt="{{current_user.username}}" width="32" height="32" class="rounded-circle me-1 pixelated">
+        <img src="{{url_for("static", filename=current_user.pp_url)}}" alt="{{current_user.username}}" width="32" height="32" class="rounded-circle me-1 pixelated">
         {{current_user.username}}
     </a>
 
