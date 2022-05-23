@@ -29,7 +29,7 @@ The multiplayer system is not complete.
 # ------- Libraries and utils -------
 import datetime
 from random import randint
-from flask import Blueprint, abort, flash, redirect, render_template, request, url_for, session
+from flask import Blueprint, abort, flash, make_response, redirect, render_template, request, url_for, session
 from flask_security import current_user
 from modules.temp_data import QuizResultTemp, delete_quiz_res_temp, read_quiz_res_temp, write_quiz_res_temp
 from utils.helpers import quiz_query_cond
@@ -61,6 +61,12 @@ def cheating(q_id):
     return redirect(url_for("quiz_pages.singleplayer"))
 
 
+def response_js_false(resp):
+    response = make_response(resp)
+    response.set_cookie("js_avail", "False")
+    return response
+
+
 # ------- Page routes -------
 @quiz_pages.route("/")
 def index():
@@ -75,9 +81,10 @@ def index():
 @quiz_pages.route("/singleplayer", methods=["GET", "POST"])
 def singleplayer():
     lang = str(get_locale())
+    js_avail = request.cookies.get("js_avail")
 
     if not session.get("quiz.in_quiz"):
-        if request.method == "POST":
+        if request.method == "POST" and js_avail == "True":
             category = request.form.get("category-select")
             subcategory = request.form.get("subcategory-select")
             difficulty = request.form.get("difficulty-select")
@@ -91,7 +98,7 @@ def singleplayer():
                 log.debug(f"[{request.remote_addr}] Sent invalid quiz start request.")
 
                 flash(gettext(u"Invalid input"), "danger")
-                return redirect(url_for("quiz_pages.singleplayer"))
+                return response_js_false(redirect(url_for("quiz_pages.singleplayer")))
 
             if cat_optgroup == "gk":
                 questions = db.session.query(QuizQuestions.id).filter_by(lang=lang, category=category, subcategory=subcategory, difficulty=difficulty, status=True).all()
@@ -103,13 +110,13 @@ def singleplayer():
                 log.debug(f"[{request.remote_addr}] Sent invalid quiz category optgroup")
 
                 flash(gettext(u"Invalid input"), "danger")
-                return redirect(url_for("quiz_pages.singleplayer"))
+                return response_js_false(redirect(url_for("quiz_pages.singleplayer")))
 
             if len(questions) < AppConfig.QUIZ_QUESTION_COUNT:
                 log.debug(f"[{request.remote_addr}] Tried to start a quiz that does not exist.")
 
                 flash(gettext(u"A quiz with these criteria does not exist."), "warning")
-                return redirect(url_for("quiz_pages.singleplayer"))
+                return response_js_false(redirect(url_for("quiz_pages.singleplayer")))
 
             final_questions = []
             ids = []
@@ -140,14 +147,20 @@ def singleplayer():
 
             return redirect(url_for("quiz_pages.singleplayer_quiz"))
 
+        elif request.method == "POST" and js_avail == "False":
+            log.debug(f"[{request.remote_addr}] Tried to start a quiz without JavaScript")
+            
+            flash(gettext(u"The quiz system requires JavaScript to function correctly."), "warning")     
+            return redirect(url_for("quiz_pages.singleplayer"))
+
         else:
             info = {"q_num": AppConfig.QUIZ_QUESTION_COUNT, "q_time": round(AppConfig.QUIZ_QUESTION_TIME / 60, 2)}
-            return render_template("quiz/singleplayer.html", info=info)
+            return response_js_false(render_template("quiz/singleplayer.html", info=info))
 
     else:
         flash(gettext(u"You are already in a quiz. Please finish before starting a new one or click reset to reset it."), "danger")
         info = {"q_num": AppConfig.QUIZ_QUESTION_COUNT, "q_time": round(AppConfig.QUIZ_QUESTION_TIME / 60, 2), "reset_q": True}
-        return render_template("quiz/singleplayer.html", info=info)
+        return response_js_false(render_template("quiz/singleplayer.html", info=info))
 
 
 @quiz_pages.route("/multiplayer")
@@ -158,8 +171,9 @@ def multiplayer():
 @quiz_pages.route("/singleplayer-quiz", methods=["GET", "POST"])
 def singleplayer_quiz():
     in_quiz = session.get("quiz.in_quiz")
+    js_avail = request.cookies.get("js_avail")
 
-    if in_quiz:
+    if in_quiz and js_avail == "True":
         q_track = int(session.get("quiz.q_track"))
         q_left = int(session.get("quiz.q_left"))
         get_q = session.get("quiz.questions")
@@ -204,7 +218,7 @@ def singleplayer_quiz():
                             send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                             info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer}
 
-                            return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)
+                            return response_js_false(render_template("quiz/singleplayer_quiz.html", question=send_question, info=info))
 
                         elif answ not in ["a", "b", "c", "d"]:
                             log.debug(f"[{request.remote_addr}] Sent empty answer for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
@@ -212,7 +226,7 @@ def singleplayer_quiz():
                             send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                             info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer}
 
-                            return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)
+                            return response_js_false(render_template("quiz/singleplayer_quiz.html", question=send_question, info=info))
 
                         else:
                             data = read_quiz_res_temp(q_id)
@@ -224,11 +238,11 @@ def singleplayer_quiz():
                             send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                             info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer, "answ": answ}
 
-                            return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)
+                            return response_js_false(render_template("quiz/singleplayer_quiz.html", question=send_question, info=info))
 
                     else:
                         log.debug(f"[{request.remote_addr}] Cheating detected for Quiz ID: [{q_id}] at q_left [{q_left}] and q_track [{q_track}]")
-                        return cheating(q_id)
+                        return response_js_false(cheating(q_id))
 
                 # Load next question:
                 elif next and next.endswith(str(q_track)):
@@ -246,11 +260,11 @@ def singleplayer_quiz():
                     send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                     info = {"q_left": q_left + 1, "t_left": AppConfig.QUIZ_QUESTION_TIME, "q_track": q_track}
 
-                    return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)
+                    return response_js_false(render_template("quiz/singleplayer_quiz.html", question=send_question, info=info))
 
                 else:
                     log.debug(f"[{request.remote_addr}] Cheating detected for Quiz ID: [{q_id}] at q_left [{q_left}] and q_track [{q_track}]")
-                    return cheating(q_id)
+                    return response_js_false(cheating(q_id))
 
             else:
                 pop_sessions()
@@ -277,7 +291,7 @@ def singleplayer_quiz():
 
                 log.debug(f"[{request.remote_addr}] Quiz completed with Quiz ID: [{q_id}]")
 
-                return redirect(url_for("quiz_pages.show_results", q_id=q_id))
+                return response_js_false(redirect(url_for("quiz_pages.show_results", q_id=q_id)))
 
         # Load first question:
         else:
@@ -296,13 +310,24 @@ def singleplayer_quiz():
                 session["quiz.q_track"] = q_track + 1
                 q_track = int(session.get("quiz.q_track"))
 
-                return render_template("quiz/singleplayer_quiz.html", question=send_question, info=info)
+                return response_js_false(render_template("quiz/singleplayer_quiz.html", question=send_question, info=info))
 
             else:
-                return redirect(url_for("quiz_pages.singleplayer"))
+                return response_js_false(redirect(url_for("quiz_pages.singleplayer")))
+
+    elif js_avail == "False":        
+        flash(gettext(u"The quiz system requires JavaScript to function correctly."), "warning")
+        q_id = session.get("quiz.quiz_id")
+        log.debug(f"[{request.remote_addr}] JavaScript disabled mid-quiz with Quiz ID: [{q_id}]")
+        pop_sessions()
+        
+        if q_id:
+            delete_quiz_res_temp(int(q_id))
+        
+        return redirect(url_for("quiz_pages.singleplayer"))
 
     else:
-        return redirect(url_for("quiz_pages.singleplayer"))
+        return response_js_false(redirect(url_for("quiz_pages.singleplayer")))
 
 
 @quiz_pages.route("/singleplayer/reset-quiz", methods=["POST"])
