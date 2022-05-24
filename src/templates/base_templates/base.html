@@ -22,7 +22,7 @@
 <html lang="en">
     <head>
         {% include "base_templates/template_modules/head.html" %}
-{% endcache %}
+        {% endcache %}
 
         {% include "base_templates/template_modules/google_analytics.html" %}
 
@@ -33,7 +33,7 @@
         <!-- Page title block -->
         <title>{% block title %}{% endblock %} | {{_("Gigawhat")}}</title>
 
-{% cache RENDER_CACHE_TIMEOUT %}
+        {% cache RENDER_CACHE_TIMEOUT %}
     </head>
 
     <body class="bg-light">
@@ -44,7 +44,7 @@
                     <a href="{{url_for("index")}}" class="text-decoration-none">
                         <img src="{{url_for("static", filename="img/logos/gigawhat-logo-transparent.svg")}}" width="150" alt="Gigawhat">
                     </a>
-{% endcache %}
+                    {% endcache %}
 
                     {% include "base_templates/template_modules/lang_dropdown.html" %}
                 </div>
@@ -79,15 +79,16 @@
         {% block body %}
         {% endblock %}
 
-{% cache RENDER_CACHE_TIMEOUT %}
         <!-- Footer -->
         <footer class="d-flex flex-wrap py-3 bg-dark {% block footer %}{% endblock %}">
+
+            {% cache RENDER_CACHE_TIMEOUT %}
             <div class="container">
                 <div class="text-center text-lg-start d-lg-inline d-block">
                     <a href="https://www.ugurkurs.com.tr/" class="text-decoration-none">
                         <img src="{{url_for("static", filename="img/logos/gigawhat-symbol-transparent.svg")}}" width="25">
                     </a>
-{% endcache %}
+                    {% endcache %}
                         
                     <span class="text-white ms-2">{{_("Copyright &copy; 2022 Gigawhat.")}} <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">{{_("Privacy Policy")}}</a></span>
                 </div>
