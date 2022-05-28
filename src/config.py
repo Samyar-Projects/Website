@@ -20,15 +20,16 @@
 import logging
 import os
 import pkg_resources
-
-
-# ------- Load env variables -------
 from dotenv import load_dotenv
-load_dotenv("vars.env")
+
+
+# ------- Load environment variables -------
+load_dotenv("secrets/vars.env")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "secrets/ga_creds.json"
 
 
 # ------- Config classes -------
-class ProductionConfig(object):
+class ProductionConfig():
     # ------- Flask config -------
     SERVER_NAME = "gigawhat.net"
     SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
@@ -80,12 +81,13 @@ class ProductionConfig(object):
     # ------- Module configs -------
     QUIZ_QUESTION_COUNT = 15
     QUIZ_QUESTION_TIME = 60
-    TEMPORARY_FILE_DIR = "data/temporary"
-    RENDER_CACHE_TIMEOUT = 3*60
-    SUPPORTED_LANGS = ["en_US", "tr_TR"]
     LOG_FILE_PATH = "../logs/GigawhatApp_pylog.log"
     LOG_LEVEL = logging.DEBUG
     ANALYTICS_TAG_ID = "G-3J818WNF23"
+    ANALYTICS_PROPERTY_ID = os.getenv("ANALYTICS_PROPERTY_ID")
+    TEMPORARY_FILE_DIR = "data/temporary"
+    RENDER_CACHE_TIMEOUT = 3*60
+    SUPPORTED_LANGS = ["en_US", "tr_TR"]
 
 
 class TestingConfig(ProductionConfig):
@@ -95,10 +97,10 @@ class TestingConfig(ProductionConfig):
 class LocalConfig(ProductionConfig):
     SERVER_NAME = "gigawhat-local.gtw:5000"
     DEBUG = True
-    RENDER_CACHE_TIMEOUT = 3*60
+    RENDER_CACHE_TIMEOUT = 0
 
 
-class AppConfig(ProductionConfig):
+class AppConfig(LocalConfig):
     # ------- Flask-Security config -------
     SECURITY_CHANGE_URL = "/change-pass"
     SECURITY_RESET_URL = "/reset-pass"

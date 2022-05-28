@@ -1,4 +1,4 @@
-#  Gigawhat Website helper functions.
+#  Gigawhat Website forum module.
 #  Copyright 2022 Gigawhat Programming Team
 #  Written by Samyar Sadat Akhavi, 2022.
 #
@@ -15,11 +15,24 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Helper functions file for the Gigawhat website.
+"""
+Forum module for the Gigawhat website.
 
+Notes
+-----
+This module is not complete.
 """
 
 
-# --- Condition raw output from db query for quiz ---
-def quiz_query_cond(query):   
-    return str(query[0]).replace("<script", "").replace("</script", "")
+# ------- Libraries and utils -------
+from flask import Blueprint, render_template
+
+
+# ------- Blueprint init -------
+forum_pages = Blueprint("forum_pages", __name__, template_folder="../templates", static_folder="../static")
+
+
+# ------- Page routes -------
+@forum_pages.route("/")
+def index():
+    return render_template("forum_index.html")

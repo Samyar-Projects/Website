@@ -44,11 +44,11 @@
                     <a href="{{url_for("account_pages.index")}}" class="text-decoration-none">
                         <img src="{{url_for("static", filename="img/logos/gigawhat-logo-transparent.svg")}}" width="150" alt="Gigawhat Account">
                     </a>
+                    {% endcache %}
 
                     <div class="d-inline">
                         <a href="{{url_for("account_pages.index")}}" class="link-light text-decoration-none small fw-bold">{{_("ACC.")}}</a>
                     </div>
-                    {% endcache %}
 
                     {% include "base_templates/template_modules/lang_dropdown.html" %}
                 </div>
@@ -61,7 +61,8 @@
                     <ul class="navbar-nav ms-auto me-4">
                         <li class="nav-item"><a href="{{url_for("index")}}" class="nav-link">{{_("Home")}}</a></li>
                         <li class="nav-item"><a href="{{url_for("index")}}#about" class="nav-link">{{_("About")}}</a></li>
-                        <li class="nav-item"><a href="{{url_for("blog_pages.index")}}" class="nav-link">{{_("Blog")}}</a></li>
+                        <!-- <li class="nav-item"><a href="{{url_for("blog_pages.index")}}" class="nav-link">{{_("Blog")}}</a></li>
+                        <li class="nav-item"><a href="{{url_for("forum_pages.index")}}" class="nav-link">{{_("Forum")}}</a></li> -->
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{_("Servers")}}</a>
 

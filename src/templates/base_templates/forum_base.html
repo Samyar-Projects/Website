@@ -1,5 +1,5 @@
 <!-- 
-    Gigawhat Website base HTML template file.
+    Gigawhat Website blog HTML template file.
     Copyright 2022 Gigawhat Programming Team
     Written by Samyar Sadat Akhavi, 2022.
 
@@ -31,7 +31,7 @@
         {% endblock %}
 
         <!-- Page title block -->
-        <title>{% block title %}{% endblock %} | {{_("Gigawhat")}}</title>
+        <title>{% block title %}{% endblock %} | {{_("Gigawhat Forum")}}</title>
 
         {% cache RENDER_CACHE_TIMEOUT %}
     </head>
@@ -41,10 +41,14 @@
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2">
             <div class="container">
                 <div class="navbar-brand">
-                    <a href="{{url_for("index")}}" class="text-decoration-none">
-                        <img src="{{url_for("static", filename="img/logos/gigawhat-logo-transparent.svg")}}" width="150" alt="Gigawhat">
+                    <a href="{{url_for("forum_pages.index")}}" class="text-decoration-none">
+                        <img src="{{url_for("static", filename="img/logos/gigawhat-logo-transparent.svg")}}" width="150" alt="Gigawhat Forum">
                     </a>
                     {% endcache %}
+
+                    <div class="d-inline">
+                        <a href="{{url_for("forum_pages.index")}}" class="link-light text-decoration-none fw-bold" style="font-size: 15px;">{{_("FORUM")}}</a>
+                    </div>
 
                     {% include "base_templates/template_modules/lang_dropdown.html" %}
                 </div>
@@ -55,19 +59,8 @@
 
                 <div class="collapse navbar-collapse" id="navmenu">
                     <ul class="navbar-nav ms-auto me-4">
-                        <li class="nav-item"><a href="{{url_for("index")}}" class="nav-link">{{_("Home")}}</a></li>
-                        <li class="nav-item"><a href="{{url_for("index")}}#about" class="nav-link">{{_("About")}}</a></li>
-                        <!-- <li class="nav-item"><a href="{{url_for("blog_pages.index")}}" class="nav-link">{{_("Blog")}}</a></li>
-                        <li class="nav-item"><a href="{{url_for("forum_pages.index")}}" class="nav-link">{{_("Forum")}}</a></li> -->
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{_("Servers")}}</a>
-
-                            <ul class="dropdown-menu bg-black dropdown-menu-dark w-25">
-                                <li><a href="{{url_for("mc_server")}}" class="dropdown-item text-success fw-bold">{{_("Minecraft")}}</a></li>
-                                <li><a href="{{url_for("redirects.discord_redirect")}}" class="dropdown-item text-primary fw-bold">{{_("Discord")}}</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a href="{{url_for("quiz_pages.index")}}" class="nav-link">{{_("Quiz")}}</a></li>
+                        <li class="nav-item"><a href="{{url_for("forum_pages.index")}}" class="nav-link">{{_("Home")}}</a></li>
+                        <li class="nav-item"><a href="{{url_for("index")}}" class="nav-link">{{_("Back to Gigawhat")}}</a></li>
                     </ul>
                     {% include "base_templates/template_modules/user_dropdown.html" %}
                 </div>
@@ -80,10 +73,9 @@
         {% block body %}
         {% endblock %}
 
+        {% cache RENDER_CACHE_TIMEOUT %}
         <!-- Footer -->
         <footer class="d-flex flex-wrap py-3 bg-dark {% block footer %}{% endblock %}">
-
-            {% cache RENDER_CACHE_TIMEOUT %}
             <div class="container">
                 <div class="text-center text-lg-start d-lg-inline d-block">
                     <a href="https://www.ugurkurs.com.tr/" class="text-decoration-none">

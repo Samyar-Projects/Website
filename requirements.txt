@@ -12,3 +12,4 @@ phonenumberslite==8.12.46
 zxcvbn==4.4.28
 Flask-Mail==0.9.1
 bleach==5.0.0
+google-analytics-data==0.12.0

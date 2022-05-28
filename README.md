@@ -26,28 +26,35 @@ Written in HTML 5, CSS 3, Bootstrap 5, and Python Flask.
 Live website: https://gigawhat.net/
 
 ## How to run localy :
-	1. Install the dependencies that are listed in the requirements.txt file.
-	2. Add this to your hosts file (replace COMPUTERS_LOCAL_IP with your computer's local IP address) *1:
-	     COMPUTERS_LOCAL_IP       gigawhat-local.gtw
-	     COMPUTERS_LOCAL_IP       www.gigawhat-local.gtw
-	     COMPUTERS_LOCAL_IP       quiz.gigawhat-local.gtw
-	     COMPUTERS_LOCAL_IP       blog.gigawhat-local.gtw
-	     COMPUTERS_LOCAL_IP       account.gigawhat-local.gtw
-	     COMPUTERS_LOCAL_IP       api.gigawhat-local.gtw
+1. Install the dependencies that are listed in the requirements.txt file.
+2. Add this to your hosts file (replace COMPUTERS_LOCAL_IP with your computer's local IP address) *1:
+	COMPUTERS_LOCAL_IP       gigawhat-local.gtw
+	COMPUTERS_LOCAL_IP       www.gigawhat-local.gtw
+	COMPUTERS_LOCAL_IP       quiz.gigawhat-local.gtw
+	COMPUTERS_LOCAL_IP       blog.gigawhat-local.gtw
+	COMPUTERS_LOCAL_IP       account.gigawhat-local.gtw
+	COMPUTERS_LOCAL_IP       api.gigawhat-local.gtw
+	COMPUTERS_LOCAL_IP       forum.gigawhat-local.gtw
 	
-	3. In the config.py file, change AppConfig(ProductionConfig) to AppConfig(LocalConfig)
-	4. Create a vars.env file in the same directory as the config.py file and add these to the file (change the values to your own values):
-	     FLASK_SECRET_KEY = "A VERY SECRET STRING"
-	     PASSWORD_ENCRYPT_SALT = "A VERY SECRET SALT"
-	     FLASK_MAIL_USERNAME = "SOME USERNAME"
-	     FLASK_MAIL_PASSWORD = "A SECRET PASSWORD"
+3. In the config.py file, change AppConfig(ProductionConfig) to AppConfig(LocalConfig)
+4. In the config.py file, change ANALYTICS_TAG_ID to your own Google Analytics G- ID. *2
+5. Put your Google Service Account credentials JSON file in a folder called secrets. Create this folder in the same directory as the app.py file. (Rename the file to ga_creds.json) *3
+6. Create a vars.env file in the secrets folder that you created and add these to it (change the values to your values):
+	FLASK_SECRET_KEY = "A VERY SECRET STRING"
+	PASSWORD_ENCRYPT_SALT = "A VERY SECRET SALT"
+	FLASK_MAIL_USERNAME = "SOME USERNAME"
+	FLASK_MAIL_PASSWORD = "A SECRET PASSWORD"
+	ANALYTICS_PROPERTY_ID = "YOUR GOOGLE ANALYTICS PROPERTY ID"
+
 	
-	5. Run the application with: python app.py
-	6. Go to: http://gigawhat-local.gtw:5000/
+7. Run the application with: python app.py
+8. Go to: http://gigawhat-local.gtw:5000/
 
 
-	*1: If you don't know how to modify your hosts file, take a look at this guide: https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/
-	Note: Python 3.7.12 is recommended.
+*1: If you don't know how to modify your hosts file, take a look at this guide: https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/
+*2: If you don't know how to get a Google Analytics tracking ID, take a look at this guide: https://support.google.com/analytics/answer/9304153?hl=en&ref_topic=9303319#zippy=%2Cfind-your-g--id-for-any-platform-that-accepts-a-g--id (NOTE: You will be creating the data stream for Web. In the Set up data collection section, go down to Find your "G-" ID then follow those steps and get your G- ID)
+*3: To get this file, create a Google Cloud Platform project, enable the Analytics Data API in the project, go to the Credentials section, create a Service Account and finally go to the Keys tab on your Service Account page then create and download a JSON key.
+Note: Python 3.7.12 is recommended.
 
 ## Support :
 You can contact us via e-mail.<br>

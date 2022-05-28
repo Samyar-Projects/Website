@@ -19,38 +19,45 @@
 # ------- Libraries, utils, and modules -------
 import jinja2
 import werkzeug
-from flask import abort, redirect, render_template, request, session, url_for
+from flask import abort, redirect, render_template, request, session
+from config import AppConfig
 from flask_babel import get_locale
 from init import app, cache, db, babel, log
-from config import AppConfig
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
+from modules.forum import forum_pages
 from modules.account import account_pages
 from modules.database import database
-from modules.temp_data import temp_data
 from modules.redirects import redirects
 from utils.json_models import HomeNews
+from utils.ga_util import Analytics
+
+
+# ------- Global variables -------
+SUPPORTED_LANGS = AppConfig.SUPPORTED_LANGS
+RENDER_CACHE_TIMEOUT = AppConfig.RENDER_CACHE_TIMEOUT
+
 
 # ------- Jinja env global objects -------
 app.jinja_env.globals["get_locale"] = get_locale
-app.jinja_env.globals["SUPPORTED_LANGS"] = AppConfig.SUPPORTED_LANGS
+app.jinja_env.globals["SUPPORTED_LANGS"] = SUPPORTED_LANGS
 app.jinja_env.globals["ANALYTICS_TAG_ID"] = AppConfig.ANALYTICS_TAG_ID
-app.jinja_env.globals["RENDER_CACHE_TIMEOUT"] = AppConfig.RENDER_CACHE_TIMEOUT
+app.jinja_env.globals["RENDER_CACHE_TIMEOUT"] = RENDER_CACHE_TIMEOUT
 
 
 # ------- Blueprint registry -------
 app.register_blueprint(quiz_pages, subdomain="quiz")
 app.register_blueprint(blog_pages, subdomain="blog")
+app.register_blueprint(forum_pages, subdomain="forum")
 app.register_blueprint(account_pages, subdomain="account")
 app.register_blueprint(database)
-app.register_blueprint(temp_data)
 app.register_blueprint(redirects)
 
 
 # ------- Locale selector -------
 @app.route("/set-lang/<lang>", methods=["POST"])
 def set_lang(lang):
-    if lang in AppConfig.SUPPORTED_LANGS:
+    if lang in SUPPORTED_LANGS:
         log.debug(f"[{request.remote_addr}] Changed language to [{lang}]")
         session["lang"] = lang
         return redirect(request.referrer)
@@ -65,34 +72,34 @@ def get_locale():
     if lang:
         return lang
 
-    session["lang"] = request.accept_languages.best_match(AppConfig.SUPPORTED_LANGS)
+    session["lang"] = request.accept_languages.best_match(SUPPORTED_LANGS)
     return session.get("lang")
 
 
 # ------- Error handlers -------
 @app.errorhandler(werkzeug.exceptions.NotFound)
-@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
+@cache.cached(timeout=RENDER_CACHE_TIMEOUT)
 def error404(error):
     log.info(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [404 Error]")
     return render_template("errors/error_404.html"), 404
 
 
 @app.errorhandler(werkzeug.exceptions.InternalServerError)
-@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
+@cache.cached(timeout=RENDER_CACHE_TIMEOUT)
 def error500(error):
     log.info(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [500 Error]")
     return render_template("errors/error_500.html"), 500
 
 
 @app.errorhandler(werkzeug.exceptions.MethodNotAllowed)
-@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
+@cache.cached(timeout=RENDER_CACHE_TIMEOUT)
 def error405(error):
     log.info(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [405 Error]")
     return render_template("errors/error_405.html"), 405
 
 
 @app.errorhandler(jinja2.exceptions.TemplateNotFound)
-@cache.cached(timeout=AppConfig.RENDER_CACHE_TIMEOUT)
+@cache.cached(timeout=RENDER_CACHE_TIMEOUT)
 def template_error(error):
     log.warning(
         f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [500 Template Error]")
@@ -101,7 +108,7 @@ def template_error(error):
 
 # ------- Before request -------
 @app.before_first_request
-def create_user():
+def create_test_user():
     """if not user_datastore.find_user(email="test@me.com"):
         user_datastore.create_user(
             email="test@me.com", password=hash_password("password"))
@@ -120,7 +127,7 @@ def remove_www():
 
 
 @app.before_request
-def request_logging():
+def log_request():
     log.info(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}]")
 
 
@@ -133,7 +140,7 @@ def index():
     posts.append(HomeNews("Placeholder post 2", "2001 mins", "img/carousel/placeholder.png", "#"))
     posts.append(HomeNews("Placeholder post 3", "1963 mins", "img/carousel/placeholder.png", "#"))
 
-    return render_template("index.html", page_views=4444845, posts=posts)
+    return render_template("index.html", page_views=Analytics.pageviews_this_month(), posts=posts)
 
 
 @app.route("/mc-server")

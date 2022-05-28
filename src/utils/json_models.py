@@ -30,7 +30,7 @@ class QuizPlayerInfo():
     right_answ: int
     wrong_answ: int
 
-    def __init__(self, username, with_account, right_answ, wrong_answ):
+    def __init__(self, username: str, with_account: bool, right_answ: int, wrong_answ: int):
         self.username = username
         self.with_account = with_account
         self.right_answ = right_answ
@@ -51,7 +51,7 @@ class HomeNews():
     thumb_url: str
     url: str
 
-    def __init__(self, title, read_dur, thumb_url, url):
+    def __init__(self, title: str, read_dur: str, thumb_url: str, url: str):
         self.title = title
         self.read_dur = read_dur
         self.thumb_url = thumb_url

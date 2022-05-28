@@ -131,7 +131,7 @@ class QuizQuestions(db.Model):
     answ_d = db.Column(db.String(2048))
     status = db.Column(db.Boolean)
 
-    def __init__(self, category, subcategory, lang, level, difficulty, question, correct_answ, answ_a, answ_b, answ_c, answ_d, status):
+    def __init__(self, category: str, subcategory: str, lang: str, level: int, difficulty: str, question: str, correct_answ: str, answ_a: str, answ_b: str, answ_c: str, answ_d: str, status: bool):
         self.category = category
         self.subcategory = subcategory
         self.lang = lang
@@ -158,7 +158,7 @@ class QuizResults(db.Model):
     quiz_id = db.Column(db.String(32), unique=True)
     player_info = db.Column(db.JSON)
 
-    def __init__(self, date, time, multiplayer, quiz_id, player_info):
+    def __init__(self, date: str, time: str, multiplayer: bool, quiz_id: str, player_info):
         self.date = date
         self.time = time
         self.multiplayer = multiplayer
