@@ -47,11 +47,11 @@
                     <a href="{{url_for("quiz_pages.index")}}" class="text-decoration-none">
                         <img src="{{url_for("static", filename="img/logos/gigawhat-logo-transparent.svg")}}" width="150" alt="Gigawhat Quiz">
                     </a>
+                    {% endcache %}
 
                     <div class="d-inline">
                         <a href="{{url_for("quiz_pages.index")}}" class="link-light text-decoration-none small fw-bold">{{_("QUIZ")}}</a>
                     </div>
-                    {% endcache %}
 
                     {% include "base_templates/template_modules/lang_dropdown.html" %}
                 </div>

@@ -27,19 +27,18 @@ storage models.
 
 # ------- Libraries and utils -------
 import json
-from flask import Blueprint
 from config import AppConfig
 from init import log
 
 
-# ------- Blueprint init -------
-temp_data = Blueprint("temp_data", __name__)
+# ------- Global variables -------
+TEMPORARY_FILE_DIR = AppConfig.TEMPORARY_FILE_DIR
 
 
 # ------- Storage models -------
 
-# ---- Quiz result storage ----
-class QuizResultTemp():
+# ---- Singleplayer quiz result storage ----
+class SpQuizResultTemp():
     right_answ: int
     wrong_answ: int
     quiz_id: int
@@ -52,15 +51,15 @@ class QuizResultTemp():
 
 # ------- Read, write and delete -------
 
-# -=-=-= Quiz result storage =-=-=-
+# -=-=-= Singleplayer quiz result storage =-=-=-
 # ---- Read quiz results from temporary storage ----
-def read_quiz_res_temp(quiz_id: int):
+def read_sp_quiz_res_temp(quiz_id: int):
     try:
-        with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
+        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
             data = json.load(file)
 
         data = data[str(quiz_id)]
-        to_send = QuizResultTemp(data["r_answ"], data["w_answ"], str(quiz_id))
+        to_send = SpQuizResultTemp(data["r_answ"], data["w_answ"], str(quiz_id))
 
     except Exception:
         log.exception(f"TemporaryDataReadException")
@@ -71,16 +70,16 @@ def read_quiz_res_temp(quiz_id: int):
 
 
 # ---- Write quiz results to temporary storage ----
-def write_quiz_res_temp(quiz_result_temp: QuizResultTemp):
+def write_sp_quiz_res_temp(quiz_result_temp: SpQuizResultTemp):
     json_data = {quiz_result_temp.quiz_id: {"r_answ": quiz_result_temp.right_answ, "w_answ": quiz_result_temp.wrong_answ}}
 
     try:
-        with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
+        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
             data = json.load(file)
 
         data.update(json_data)
 
-        with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "w") as file:
+        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "w") as file:
             json.dump(data, file, indent=4)
 
     except Exception:
@@ -92,14 +91,14 @@ def write_quiz_res_temp(quiz_result_temp: QuizResultTemp):
 
 
 # ---- Delete quiz results from temporary storage ----
-def delete_quiz_res_temp(quiz_id: int):
+def delete_sp_quiz_res_temp(quiz_id: int):
     try:
-        with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
+        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
             data = json.load(file)
 
         data.pop(str(quiz_id))
 
-        with open(f"{AppConfig.TEMPORARY_FILE_DIR}/quiz_result_temp.json", "w") as file:
+        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "w") as file:
             json.dump(data, file, indent=4)
 
     except Exception:
