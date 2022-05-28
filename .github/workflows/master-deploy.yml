@@ -21,7 +21,7 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: src/
         exclude: |       
-          **/vars.env
+          **/secrets
           **/data/database/db.sqlite3
           **/public
           **/tmp
