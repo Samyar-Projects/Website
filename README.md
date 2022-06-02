@@ -56,7 +56,7 @@ Live website: https://gigawhat.net/
 <br>
 *2: If you don't know how to get a Google Analytics tracking ID, take a look at this guide: https://support.google.com/analytics/answer/9304153?hl=en&ref_topic=9303319#zippy=%2Cfind-your-g--id-for-any-platform-that-accepts-a-g--id (NOTE: You will be creating the data stream for Web. In the 'Set up data collection' section, go down to 'Find your "G-" ID' then follow those steps and get your G- ID)<br>
 <br>
-*3: Create a Mailjet account, go to 'Account Settings > API Key Management' then create an API key.
+*3: Create a Mailjet account, go to 'Account Settings > API Key Management' then create an API key.<br>
 <br>
 *4: To get this file, create a 'Google Cloud Platform' project, enable the 'Analytics Data API' in the project, go to the 'Credentials' section, create a 'Service Account' and finally go to the 'Keys' tab on your Service Account page then create and download a JSON key.<br>
 <br>
