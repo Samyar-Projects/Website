@@ -55,7 +55,7 @@ class SpQuizResultTemp():
 # ---- Read quiz results from temporary storage ----
 def read_sp_quiz_res_temp(quiz_id: int):
     try:
-        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
+        with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
             data = json.load(file)
 
         data = data[str(quiz_id)]
@@ -74,12 +74,12 @@ def write_sp_quiz_res_temp(quiz_result_temp: SpQuizResultTemp):
     json_data = {quiz_result_temp.quiz_id: {"r_answ": quiz_result_temp.right_answ, "w_answ": quiz_result_temp.wrong_answ}}
 
     try:
-        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
+        with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
             data = json.load(file)
 
         data.update(json_data)
 
-        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "w") as file:
+        with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "w") as file:
             json.dump(data, file, indent=4)
 
     except Exception:
@@ -93,12 +93,12 @@ def write_sp_quiz_res_temp(quiz_result_temp: SpQuizResultTemp):
 # ---- Delete quiz results from temporary storage ----
 def delete_sp_quiz_res_temp(quiz_id: int):
     try:
-        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "r") as file:
+        with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
             data = json.load(file)
 
         data.pop(str(quiz_id))
 
-        with open(f"{TEMPORARY_FILE_DIR}/quiz_result_temp.json", "w") as file:
+        with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "w") as file:
             json.dump(data, file, indent=4)
 
     except Exception:

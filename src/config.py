@@ -66,14 +66,9 @@ class ProductionConfig():
     SECURITY_TRACKABLE = True
     SECURITY_EMAIL_SENDER = "account@gigawhat.net"
 
-    # ------- Flask-Mail config -------
-    MAIL_SERVER = "smtp.googlemail.com"
-    MAIL_PORT = 465
-    MAIL_USE_SSL = True
-    MAIL_USE_TLS = False
-    MAIL_USERNAME = os.getenv("FLASK_MAIL_USERNAME")
-    MAIL_PASSWORD = os.getenv("FLASK_MAIL_PASSWORD")
-    MAIL_DEFAULT_SENDER = "account@gigawhat.net"
+    # ------- Mailjet config -------
+    MAILJET_API_KEY = os.getenv("MAILJET_API_KEY")
+    MAILJET_API_SECRET = os.getenv("MAILJET_API_SECRET")
 
     # ------- Flask-WTF config -------
     WTF_CSRF_CHECK_DEFAULT = False
@@ -81,10 +76,10 @@ class ProductionConfig():
     # ------- Module configs -------
     QUIZ_QUESTION_COUNT = 15
     QUIZ_QUESTION_TIME = 60
-    LOG_FILE_PATH = "../logs/GigawhatApp_pylog.log"
-    LOG_LEVEL = logging.DEBUG
+    LOG_FILE_PATH = "../logs/"
+    LOG_LEVEL = logging.INFO
     ANALYTICS_TAG_ID = "G-3J818WNF23"
-    ANALYTICS_PROPERTY_ID = os.getenv("ANALYTICS_PROPERTY_ID")
+    ANALYTICS_PROPERTY_ID = "315035421"
     TEMPORARY_FILE_DIR = "data/temporary"
     RENDER_CACHE_TIMEOUT = 3*60
     SUPPORTED_LANGS = ["en_US", "tr_TR"]

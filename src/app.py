@@ -22,7 +22,7 @@ import werkzeug
 from flask import abort, redirect, render_template, request, session
 from config import AppConfig
 from flask_babel import get_locale
-from init import app, cache, db, babel, log
+from init import app, cache, db, babel, log, debug_log
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
 from modules.forum import forum_pages
@@ -30,7 +30,7 @@ from modules.account import account_pages
 from modules.database import database
 from modules.redirects import redirects
 from utils.json_models import HomeNews
-from utils.ga_util import Analytics
+from utils.google_analytics import Analytics
 
 
 # ------- Global variables -------
@@ -58,7 +58,7 @@ app.register_blueprint(redirects)
 @app.route("/set-lang/<lang>", methods=["POST"])
 def set_lang(lang):
     if lang in SUPPORTED_LANGS:
-        log.debug(f"[{request.remote_addr}] Changed language to [{lang}]")
+        debug_log.debug(f"[{request.remote_addr}] Changed language to [{lang}]")
         session["lang"] = lang
         return redirect(request.referrer)
 
