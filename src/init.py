@@ -23,7 +23,8 @@ from flask_caching import Cache
 from flask_sqlalchemy import SQLAlchemy
 from flask_babel import Babel
 from flask_wtf.csrf import CSRFProtect
-from flask_mail import Mail
+from mailjet_rest import Client
+from google.analytics.data_v1beta import BetaAnalyticsDataClient
 from config import AppConfig
 
 
@@ -34,13 +35,24 @@ cache = Cache(app)
 db = SQLAlchemy(app)
 babel = Babel(app)
 csrf = CSRFProtect(app)
-mail = Mail(app)
+mailjet = Client(auth=(AppConfig.MAILJET_API_KEY, AppConfig.MAILJET_API_SECRET), version="v3.1")
+ga = BetaAnalyticsDataClient()
 
 
 # ------- Logging init -------
-log = logging.getLogger(__name__)
-handler = logging.FileHandler(AppConfig.LOG_FILE_PATH)
-formatter = logging.Formatter("[%(asctime)s] [%(module)s/%(levelname)s] [%(funcName)s]: %(message)s")
-handler.setFormatter(formatter)
-log.addHandler(handler)
-log.setLevel(AppConfig.LOG_LEVEL)
+formatter = logging.Formatter("[%(asctime)s] [%(threadName)s/%(levelname)s] [%(module)s/%(funcName)s]: %(message)s")
+
+# ---- Get a logger with custom settings ----
+def get_logger(name, log_file, level):
+    handler = logging.FileHandler(AppConfig.LOG_FILE_PATH + log_file)        
+    handler.setFormatter(formatter)
+
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    logger.addHandler(handler)
+
+    return logger
+
+
+log = get_logger("main", "GigawhatApp_MainPyLog.log", AppConfig.LOG_LEVEL)
+debug_log = get_logger("debug", "GigawhatApp_DebugPyLog.log", logging.DEBUG)

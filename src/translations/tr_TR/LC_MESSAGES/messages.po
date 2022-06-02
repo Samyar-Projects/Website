@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  1.0\n"
 "Report-Msgid-Bugs-To: gpt@gigawhat.net\n"
-"POT-Creation-Date: 2022-05-23 22:30+0300\n"
+"POT-Creation-Date: 2022-06-02 00:49+0300\n"
 "PO-Revision-Date: 2022-05-10 20:55+0300\n"
 "Last-Translator: Rüzgar Kaya <ruzgar@gigawhat.net>\n"
 "Language: tr_TR\n"
@@ -18,46 +18,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: modules/quiz.py:60
+#: modules/quiz.py:68
 msgid "Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."
 msgstr "Hile önleme sistemlerimiz hile tespit etti! Lütfen yenilemeyi veya F12'yi denemeyin."
 
-#: modules/quiz.py:100 modules/quiz.py:112
+#: modules/quiz.py:109 modules/quiz.py:121
 msgid "Invalid input"
 msgstr "Geçersiz giriş"
 
-#: modules/quiz.py:118
+#: modules/quiz.py:127
 msgid "A quiz with these criteria does not exist."
 msgstr "Bu kriterlere sahip bir quiz mevcut değil."
 
-#: modules/quiz.py:153 modules/quiz.py:319
+#: modules/quiz.py:162 modules/quiz.py:328
 msgid "The quiz system requires JavaScript to function correctly."
 msgstr ""
 
-#: modules/quiz.py:161
+#: modules/quiz.py:170
 msgid "You are already in a quiz. Please finish before starting a new one or click reset to reset it."
 msgstr "Zaten bir quizdesiniz. Lütfen yeni bir quiz başlatmadan önce şu anki quizinizi bitirin veya sıfırlamak için sıfırla'ya tıklayın."
 
-#: modules/quiz.py:341
+#: modules/quiz.py:350
 msgid "Your quiz has been reset. You can now start a new quiz."
 msgstr "Quiziniz sıfırlandı. Artık yeni bir quiz başlatabilirsiniz."
 
-#: templates/base_templates/acc_base.html:64
-#: templates/base_templates/base.html:60 templates/blog_index.html:3
-msgid "Blog"
-msgstr "Blog"
+#: templates/base_templates/acc_base.html:62
+#: templates/base_templates/base.html:58
+#: templates/base_templates/blog_base.html:62
+#: templates/base_templates/forum_base.html:62
+#: templates/base_templates/quiz_base.html:65 templates/blog_index.html:3
+#: templates/forum_index.html:3 templates/index.html:3
+#: templates/quiz_index.html:3
+msgid "Home"
+msgstr "Anasayfa"
 
 #: templates/blog_index.html:6
 msgid "Blog is a work in progress!"
 msgstr "Blog henüz hazır değildir!"
 
-#: templates/base_templates/acc_base.html:62
-#: templates/base_templates/base.html:58
-#: templates/base_templates/blog_base.html:62
-#: templates/base_templates/quiz_base.html:65 templates/index.html:3
-#: templates/quiz_index.html:3
-msgid "Home"
-msgstr "Anasayfa"
+#: templates/forum_index.html:6
+msgid "Forum is a work in progress!"
+msgstr "Forum henüz hazır değildir!"
 
 #: templates/index.html:18 templates/index.html:28 templates/index.html:38
 msgid "Lorem ipsum dolor sit amet"
@@ -103,11 +104,13 @@ msgstr "Geçen ayki görüntülemeler:"
 msgid "Minecraft Server"
 msgstr "Minecraft Sunucusu"
 
-#: templates/base_templates/acc_base.html:96
-#: templates/base_templates/acc_base.html:104
-#: templates/base_templates/base.html:92 templates/base_templates/base.html:100
+#: templates/base_templates/acc_base.html:97
+#: templates/base_templates/acc_base.html:105
+#: templates/base_templates/base.html:94 templates/base_templates/base.html:102
 #: templates/base_templates/blog_base.html:86
 #: templates/base_templates/blog_base.html:94
+#: templates/base_templates/forum_base.html:86
+#: templates/base_templates/forum_base.html:94
 #: templates/base_templates/quiz_base.html:91 templates/privacy_policy.html:3
 msgid "Privacy Policy"
 msgstr "Gizlilik Politikası"
@@ -137,7 +140,7 @@ msgstr "Çok oyunculu (D.E.Ç.)"
 msgid "Gigawhat Account"
 msgstr "Gigawhat Hesap"
 
-#: templates/base_templates/acc_base.html:49
+#: templates/base_templates/acc_base.html:50
 msgid "ACC."
 msgstr "ACC."
 
@@ -146,29 +149,40 @@ msgstr "ACC."
 msgid "About"
 msgstr "Hakkında"
 
-#: templates/base_templates/acc_base.html:66
-#: templates/base_templates/base.html:62
+#: templates/base_templates/acc_base.html:64
+#: templates/base_templates/base.html:60
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/base_templates/acc_base.html:65
+#: templates/base_templates/base.html:61
+msgid "Forum"
+msgstr "Forum"
+
+#: templates/base_templates/acc_base.html:67
+#: templates/base_templates/base.html:63
 msgid "Servers"
 msgstr "Sunucular"
 
-#: templates/base_templates/acc_base.html:69
-#: templates/base_templates/base.html:65
+#: templates/base_templates/acc_base.html:70
+#: templates/base_templates/base.html:66
 msgid "Minecraft"
 msgstr "Minecraft"
 
-#: templates/base_templates/acc_base.html:70
-#: templates/base_templates/base.html:66
+#: templates/base_templates/acc_base.html:71
+#: templates/base_templates/base.html:67
 msgid "Discord"
 msgstr "Discord"
 
-#: templates/base_templates/acc_base.html:73
-#: templates/base_templates/base.html:69
+#: templates/base_templates/acc_base.html:74
+#: templates/base_templates/base.html:70
 msgid "Quiz"
 msgstr "Quiz"
 
-#: templates/base_templates/acc_base.html:96
-#: templates/base_templates/base.html:92
+#: templates/base_templates/acc_base.html:97
+#: templates/base_templates/base.html:94
 #: templates/base_templates/blog_base.html:86
+#: templates/base_templates/forum_base.html:86
 #: templates/base_templates/quiz_base.html:91
 msgid "Copyright &copy; 2022 Gigawhat."
 msgstr "Telif Hakkı &copy; 2022 Gigawhat."
@@ -181,16 +195,25 @@ msgstr "Gigawhat"
 msgid "Gigawhat Blog"
 msgstr "Gigawhat Blog"
 
-#: templates/base_templates/blog_base.html:49
+#: templates/base_templates/blog_base.html:50
 msgid "BLOG"
 msgstr "BLOG"
 
 #: templates/base_templates/blog_base.html:63
+#: templates/base_templates/forum_base.html:63
 #: templates/base_templates/quiz_base.html:66
 msgid "Back to Gigawhat"
 msgstr "Gigawhat'a geri dön"
 
-#: templates/base_templates/quiz_base.html:52
+#: templates/base_templates/forum_base.html:34
+msgid "Gigawhat Forum"
+msgstr "Gigawhat Forum"
+
+#: templates/base_templates/forum_base.html:50
+msgid "FORUM"
+msgstr ""
+
+#: templates/base_templates/quiz_base.html:53
 msgid "QUIZ"
 msgstr "QUIZ"
 

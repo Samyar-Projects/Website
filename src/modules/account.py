@@ -35,10 +35,11 @@ from flask import Blueprint, redirect, url_for
 from flask_security import Security
 from init import app
 from modules.database import user_datastore
+from utils.email import SecurityMailUtil
 
 
 # ------- Flask-Security init -------
-security = Security(app, user_datastore)
+security = Security(app, user_datastore, mail_util_cls=SecurityMailUtil)
 
 
 # ------- Blueprint init -------

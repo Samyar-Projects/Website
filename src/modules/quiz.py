@@ -35,7 +35,7 @@ from utils.temp_data import SpQuizResultTemp, delete_sp_quiz_res_temp, read_sp_q
 from utils.helpers import quiz_query_cond
 from modules.database import QuizQuestions, QuizResults
 from config import AppConfig
-from init import log, db
+from init import log, db, debug_log
 from flask_babel import gettext, get_locale
 from utils.json_models import QuizPlayerInfo, player_info_json
 
@@ -69,7 +69,7 @@ def cheating_sp(q_id):
     return redirect(url_for("quiz_pages.singleplayer"))
 
 
-# ---- Return a response with the "js_avail" cookie set to false ----
+# ---- Return a response with the "js_avail" cookie set to false. Only required for the quiz module ----
 def response_js_false(resp):
     response = make_response(resp)
     response.set_cookie("js_avail", "False")
@@ -104,7 +104,7 @@ def singleplayer():
             cat_optgroup = cat_optgroup[0]
 
             if not category or not difficulty or not level or not subcategory:
-                log.debug(f"[{request.remote_addr}] Sent invalid quiz start request.")
+                debug_log.debug(f"[{request.remote_addr}] Sent invalid quiz start request.")
 
                 flash(gettext(u"Invalid input"), "danger")
                 return response_js_false(redirect(url_for("quiz_pages.singleplayer")))
@@ -116,13 +116,13 @@ def singleplayer():
                 questions = db.session.query(QuizQuestions.id).filter_by(lang=lang, category=category, difficulty=difficulty, level=int(level), status=True).all()
                 
             else:
-                log.debug(f"[{request.remote_addr}] Sent invalid quiz category optgroup")
+                debug_log.debug(f"[{request.remote_addr}] Sent invalid quiz category optgroup")
 
                 flash(gettext(u"Invalid input"), "danger")
                 return response_js_false(redirect(url_for("quiz_pages.singleplayer")))
 
             if len(questions) < QUIZ_QUESTION_COUNT:
-                log.debug(f"[{request.remote_addr}] Tried to start a quiz that does not exist.")
+                debug_log.debug(f"[{request.remote_addr}] Tried to start a quiz that does not exist.")
 
                 flash(gettext(u"A quiz with these criteria does not exist."), "warning")
                 return response_js_false(redirect(url_for("quiz_pages.singleplayer")))
@@ -152,12 +152,12 @@ def singleplayer():
             to_write = SpQuizResultTemp(0, 0, q_id)
             write_sp_quiz_res_temp(to_write)
 
-            log.debug(f"[{request.remote_addr}] Started a new quiz with Quiz ID: [{q_id}]")
+            debug_log.debug(f"[{request.remote_addr}] Started a new quiz with Quiz ID: [{q_id}]")
 
             return redirect(url_for("quiz_pages.singleplayer_quiz"))
 
         elif request.method == "POST" and js_avail == "False":
-            log.debug(f"[{request.remote_addr}] Tried to start a quiz without JavaScript")
+            debug_log.debug(f"[{request.remote_addr}] Tried to start a quiz without JavaScript")
             
             flash(gettext(u"The quiz system requires JavaScript to function correctly."), "warning")     
             return redirect(url_for("quiz_pages.singleplayer"))
@@ -197,7 +197,7 @@ def singleplayer_quiz():
                     answer = request.form.get("answ")
                     correct_answer = quiz_query_cond(db.session.query(QuizQuestions.correct_answ).filter_by(id=get_q[q_left]).first())
 
-                    log.debug(f"[{request.remote_addr}] Sent answer [{answer}] for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
+                    debug_log.debug(f"[{request.remote_addr}] Sent answer [{answer}] for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
 
                     if answer.endswith(str(q_left + 1)):
                         question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id=get_q[q_left]).first())
@@ -222,7 +222,7 @@ def singleplayer_quiz():
                             data.right_answ = data.right_answ + 1
                             write_sp_quiz_res_temp(data)
                             
-                            log.debug(f"[{request.remote_addr}] Sent correct answer for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
+                            debug_log.debug(f"[{request.remote_addr}] Sent correct answer for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
 
                             send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                             info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer}
@@ -230,7 +230,7 @@ def singleplayer_quiz():
                             return response_js_false(render_template("quiz/singleplayer_quiz.html", question=send_question, info=info))
 
                         elif answ not in ["a", "b", "c", "d"]:
-                            log.debug(f"[{request.remote_addr}] Sent empty answer for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
+                            debug_log.debug(f"[{request.remote_addr}] Sent empty answer for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
                             
                             send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                             info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer}
@@ -242,7 +242,7 @@ def singleplayer_quiz():
                             data.wrong_answ = data.wrong_answ + 1
                             write_sp_quiz_res_temp(data)
                             
-                            log.debug(f"[{request.remote_addr}] Sent wrong answer for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
+                            debug_log.debug(f"[{request.remote_addr}] Sent wrong answer for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
 
                             send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                             info = {"q_left": q_left + 1, "q_track": q_track, "correct_answ": correct_answer, "answ": answ}
@@ -250,12 +250,12 @@ def singleplayer_quiz():
                             return response_js_false(render_template("quiz/singleplayer_quiz.html", question=send_question, info=info))
 
                     else:
-                        log.debug(f"[{request.remote_addr}] Cheating detected for Quiz ID: [{q_id}] at q_left [{q_left}] and q_track [{q_track}]")
+                        debug_log.debug(f"[{request.remote_addr}] Cheating detected for Quiz ID: [{q_id}] at q_left [{q_left}] and q_track [{q_track}]")
                         return response_js_false(cheating_sp(q_id))
 
                 # Load next question:
                 elif next and next.endswith(str(q_track)):
-                    log.debug(f"[{request.remote_addr}] Requested next question for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
+                    debug_log.debug(f"[{request.remote_addr}] Requested next question for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
 
                     question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id=get_q[q_left]).first())
                     answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id=get_q[q_left]).first())
@@ -272,7 +272,7 @@ def singleplayer_quiz():
                     return response_js_false(render_template("quiz/singleplayer_quiz.html", question=send_question, info=info))
 
                 else:
-                    log.debug(f"[{request.remote_addr}] Cheating detected for Quiz ID: [{q_id}] at q_left [{q_left}] and q_track [{q_track}]")
+                    debug_log.debug(f"[{request.remote_addr}] Cheating detected for Quiz ID: [{q_id}] at q_left [{q_left}] and q_track [{q_track}]")
                     return response_js_false(cheating_sp(q_id))
 
             else:
@@ -298,14 +298,14 @@ def singleplayer_quiz():
                 db.session.add(to_write)
                 db.session.commit()
 
-                log.debug(f"[{request.remote_addr}] Quiz completed with Quiz ID: [{q_id}]")
+                debug_log.debug(f"[{request.remote_addr}] Quiz completed with Quiz ID: [{q_id}]")
 
                 return response_js_false(redirect(url_for("quiz_pages.show_results", q_id=q_id)))
 
         # Load first question:
         else:
             if q_track == 0:
-                log.debug(f"[{request.remote_addr}] Loaded first question with Quiz ID: [{q_id}]")
+                debug_log.debug(f"[{request.remote_addr}] Loaded first question with Quiz ID: [{q_id}]")
 
                 question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id=get_q[q_left]).first())
                 answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id=get_q[q_left]).first())
@@ -327,7 +327,7 @@ def singleplayer_quiz():
     elif js_avail == "False":        
         flash(gettext(u"The quiz system requires JavaScript to function correctly."), "warning")
         q_id = session.get("quiz.quiz_id")
-        log.debug(f"[{request.remote_addr}] JavaScript disabled mid-quiz with Quiz ID: [{q_id}]")
+        debug_log.debug(f"[{request.remote_addr}] JavaScript disabled mid-quiz with Quiz ID: [{q_id}]")
         pop_sessions_sp()
         
         if q_id:
@@ -342,7 +342,7 @@ def singleplayer_quiz():
 @quiz_pages.route("/singleplayer/reset-quiz", methods=["POST"])
 def reset_quiz_singleplayer():
     q_id = int(session.get("quiz.quiz_id"))
-    log.debug(f"[{request.remote_addr}] Reset their singleplayer quiz. Quiz ID: [{q_id}]")
+    debug_log.debug(f"[{request.remote_addr}] Reset their singleplayer quiz. Quiz ID: [{q_id}]")
 
     delete_sp_quiz_res_temp(q_id)
     pop_sessions_sp()
@@ -353,7 +353,7 @@ def reset_quiz_singleplayer():
 
 @quiz_pages.route("/quiz-result/<q_id>")
 def show_results(q_id):
-    log.debug(f"[{request.remote_addr}] Requested quiz results for Quiz ID: [{q_id}]")
+    debug_log.debug(f"[{request.remote_addr}] Requested quiz results for Quiz ID: [{q_id}]")
 
     try:
         p_info = db.session.query(QuizResults.player_info).filter_by(quiz_id=q_id).first()
@@ -361,9 +361,13 @@ def show_results(q_id):
         date = quiz_query_cond(db.session.query(QuizResults.date).filter_by(quiz_id=q_id).first())
         time = quiz_query_cond(db.session.query(QuizResults.time).filter_by(quiz_id=q_id).first())
 
-    except Exception:
-        log.exception(f"[{request.remote_addr}] ShowQuizResultException")
+    except TypeError:
+        debug_log.debug(f"[{request.remote_addr}] Attempted to get quiz results for a quiz that does not exist. Quiz ID: [{q_id}]")
         abort(404)
+
+    except Exception:
+        log.exception(f"[{request.remote_addr}] ShowQuizResultException, with input [{q_id}]")
+        abort(500)
 
     else:
         info = {"p_info": p_info[0], "date": date, "time": time, "q_id": q_id, "q_num": QUIZ_QUESTION_COUNT, "multiplayer": is_multiplayer, "show_modal": (str(get_locale()) == "tr_TR" and is_multiplayer is not True)}

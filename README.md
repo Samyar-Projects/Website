@@ -38,16 +38,17 @@ Live website: https://gigawhat.net/
 	
 3. In the `config.py` file, change `AppConfig(ProductionConfig)` to `AppConfig(LocalConfig)`
 4. In the `config.py` file, change `ANALYTICS_TAG_ID` to your own Google Analytics G- ID. *2
-5. Put your Google Service Account credentials JSON file in a folder called `secrets`. Create this folder in the same directory as the `app.py` file. (Rename the file to `ga_creds.json`) *3
-6. Create a `vars.env` file in the `secrets` folder that you created and add these to it (change the values to your values):<br>
+5. In the `config.py` file, change `ANALYTICS_PROPERTY_ID` to your own Google Analytics property ID.
+6. In the `config.py` file, change `MAILJET_API_KEY` and `MAILJET_API_SECRET` to your own Mailjet credentials. *3
+7. Put your Google Service Account credentials JSON file in a folder called `secrets`. Create this folder in the same directory as the `app.py` file. (Rename the file to `ga_creds.json`) *4
+8. Create a `vars.env` file in the `secrets` folder that you created and add these to it (change the values to your values):<br>
 	`FLASK_SECRET_KEY = "A VERY SECRET STRING"`<br>
 	`PASSWORD_ENCRYPT_SALT = "A VERY SECRET SALT"`<br>
 	`FLASK_MAIL_USERNAME = "SOME USERNAME"`<br>
 	`FLASK_MAIL_PASSWORD = "A SECRET PASSWORD"`<br>
-	`ANALYTICS_PROPERTY_ID = "YOUR GOOGLE ANALYTICS PROPERTY ID"`
 
-7. Run the application with: `python app.py`
-8. Go to: http://gigawhat-local.gtw:5000/
+9. Run the application with: `python app.py`
+10. Go to: http://gigawhat-local.gtw:5000/
 
 
 <br>
@@ -55,7 +56,9 @@ Live website: https://gigawhat.net/
 <br>
 *2: If you don't know how to get a Google Analytics tracking ID, take a look at this guide: https://support.google.com/analytics/answer/9304153?hl=en&ref_topic=9303319#zippy=%2Cfind-your-g--id-for-any-platform-that-accepts-a-g--id (NOTE: You will be creating the data stream for Web. In the 'Set up data collection' section, go down to 'Find your "G-" ID' then follow those steps and get your G- ID)<br>
 <br>
-*3: To get this file, create a 'Google Cloud Platform' project, enable the 'Analytics Data API' in the project, go to the 'Credentials' section, create a 'Service Account' and finally go to the 'Keys' tab on your Service Account page then create and download a JSON key.<br>
+*3: Create a Mailjet account, go to 'Account Settings > API Key Management' then create an API key.
+<br>
+*4: To get this file, create a 'Google Cloud Platform' project, enable the 'Analytics Data API' in the project, go to the 'Credentials' section, create a 'Service Account' and finally go to the 'Keys' tab on your Service Account page then create and download a JSON key.<br>
 <br>
 Note: Python 3.7.12 is recommended.<br>
 <br>

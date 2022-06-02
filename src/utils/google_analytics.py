@@ -24,8 +24,8 @@ Gets analytics information from the Google Analytics Data API.
 
 # ------- Libraries and utils -------
 from config import AppConfig
-from google.analytics.data_v1beta import BetaAnalyticsDataClient
 from google.analytics.data_v1beta.types import DateRange, Metric, RunReportRequest, RunReportResponse
+from init import ga, debug_log
 
 
 # ---- Global variables ----
@@ -36,15 +36,14 @@ PROPERTY_ID = AppConfig.ANALYTICS_PROPERTY_ID
 
 # ---- Get basic analytics data from the API ----
 def get_basic_data(start_date: str, end_date: str, metric: str):
-    client = BetaAnalyticsDataClient()
-
     request = RunReportRequest(
         property = f"properties/{PROPERTY_ID}",
         metrics = [Metric(name=metric)],
         date_ranges = [DateRange(start_date=start_date, end_date=end_date)],
     )
     
-    return client.run_report(request)
+    debug_log.debug(f"Basic analytics query for metric [{metric}] with date range [{start_date}, {end_date}]")
+    return ga.run_report(request)
 
 
 # ---- Parse usable data from raw basic API response ----
@@ -113,5 +112,5 @@ class Analytics():
     
     # ---- Fully custom API query ----
     def custom_query(request: RunReportRequest):
-        client = BetaAnalyticsDataClient()
-        return client.run_report(request)
+        debug_log.debug(f"Fully custom analytics query for metrics [{request.metrics}] with date ranges [{request.date_ranges}]")
+        return ga.run_report(request)
