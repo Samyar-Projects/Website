@@ -21,7 +21,7 @@
 <br>
 
 The Gigawhat website,<br>
-Written in HTML 5, CSS 3, Bootstrap 5, and Python Flask.
+Written with HTML 5, CSS 3, Bootstrap 5, and Python Flask.
 
 Live website: https://gigawhat.net/
 

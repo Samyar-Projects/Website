@@ -32,7 +32,7 @@ msgstr "Bu kriterlere sahip bir quiz mevcut değil."
 
 #: modules/quiz.py:162 modules/quiz.py:328
 msgid "The quiz system requires JavaScript to function correctly."
-msgstr ""
+msgstr "Quiz sistemi, düzgün çalışabilmek için JavaScript'e ihtiyaç duyar."
 
 #: modules/quiz.py:170
 msgid "You are already in a quiz. Please finish before starting a new one or click reset to reset it."
@@ -211,7 +211,7 @@ msgstr "Gigawhat Forum"
 
 #: templates/base_templates/forum_base.html:50
 msgid "FORUM"
-msgstr ""
+msgstr "FORUM"
 
 #: templates/base_templates/quiz_base.html:53
 msgid "QUIZ"

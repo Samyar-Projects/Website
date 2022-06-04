@@ -21,5 +21,5 @@
 
 
 # --- Condition raw output from db query for quiz ---
-def quiz_query_cond(query):   
+def quiz_query_cond(query) -> str:   
     return str(query[0]).replace("<script", "").replace("</script", "")
