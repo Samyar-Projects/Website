@@ -38,7 +38,7 @@ class QuizPlayerInfo():
 
 
 # ---- Convert model to a JSON serializable object ----
-def player_info_json(player_info: QuizPlayerInfo):
+def player_info_json(player_info: QuizPlayerInfo) -> dict:
     json_data = {"username": player_info.username, "with_account": player_info.with_account, "right_answ": player_info.right_answ, "wrong_answ": player_info.wrong_answ}
     return json_data
 

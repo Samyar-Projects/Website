@@ -29,7 +29,8 @@ The multiplayer system is not complete.
 # ------- Libraries and utils -------
 import datetime
 from random import randint
-from flask import Blueprint, abort, flash, make_response, redirect, render_template, request, url_for, session
+from typing import Union
+from flask import Blueprint, Response, abort, flash, make_response, redirect, render_template, request, url_for, session
 from flask_security import current_user
 from utils.temp_data import SpQuizResultTemp, delete_sp_quiz_res_temp, read_sp_quiz_res_temp, write_sp_quiz_res_temp
 from utils.helpers import quiz_query_cond
@@ -61,16 +62,16 @@ def pop_sessions_sp():
     
 
 # ---- Cancel a quiz and flash a message (Called when cheating is detected) ----
-def cheating_sp(q_id):
+def cheating_sp(quiz_id: Union[int, str]) -> Response:
     pop_sessions_sp()
-    delete_sp_quiz_res_temp(int(q_id))
+    delete_sp_quiz_res_temp(int(quiz_id))
 
     flash(gettext(u"Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."), "danger")
     return redirect(url_for("quiz_pages.singleplayer"))
 
 
 # ---- Return a response with the "js_avail" cookie set to false. Only required for the quiz module ----
-def response_js_false(resp):
+def response_js_false(resp: Response) -> Response:
     response = make_response(resp)
     response.set_cookie("js_avail", "False")
     return response

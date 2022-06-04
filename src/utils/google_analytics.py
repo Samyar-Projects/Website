@@ -23,9 +23,10 @@ Gets analytics information from the Google Analytics Data API.
 
 
 # ------- Libraries and utils -------
-from config import AppConfig
+from google.api_core.exceptions import ServiceUnavailable, ResourceExhausted
 from google.analytics.data_v1beta.types import DateRange, Metric, RunReportRequest, RunReportResponse
-from init import ga, debug_log
+from config import AppConfig
+from init import ga, debug_log, log
 
 
 # ---- Global variables ----
@@ -35,7 +36,7 @@ PROPERTY_ID = AppConfig.ANALYTICS_PROPERTY_ID
 # -=-=-= Functions =-=-=-
 
 # ---- Get basic analytics data from the API ----
-def get_basic_data(start_date: str, end_date: str, metric: str):
+def get_basic_data(start_date: str, end_date: str, metric: str) -> RunReportResponse:
     request = RunReportRequest(
         property = f"properties/{PROPERTY_ID}",
         metrics = [Metric(name=metric)],
@@ -43,74 +44,78 @@ def get_basic_data(start_date: str, end_date: str, metric: str):
     )
     
     debug_log.debug(f"Basic analytics query for metric [{metric}] with date range [{start_date}, {end_date}]")
-    return ga.run_report(request)
+    
+    try:
+        return ga.run_report(request)
+    
+    except ServiceUnavailable:
+        log.critical("Requested analytics data from the Google Analytics Data API however the API responded with [503 Service Unavailable]")
+        debug_log.debug("Requested analytics data from the Google Analytics Data API however the API responded with [503 Service Unavailable]")
+        return RunReportResponse()
+    
+    except ResourceExhausted:
+        log.critical("Requested analytics data from the Google Analytics Data API however the API responded with [429 Resource Exhausted]")
+        debug_log.debug("Requested analytics data from the Google Analytics Data API however the API responded with [429 Resource Exhausted]")
+        return RunReportResponse()
+    
+    except Exception:
+        log.critical("Requested analytics data from the Google Analytics Data API however the API responded with error:", exc_info=1)
+        debug_log.debug("Requested analytics data from the Google Analytics Data API however the API responded with error:", exc_info=1)
+        return RunReportResponse()
 
 
 # ---- Parse usable data from raw basic API response ----
-def parse_basic_response(response: RunReportResponse):
+def parse_basic_response(response: RunReportResponse) -> str:
     if response.rows:
-        return response.rows[0].metric_values[0].value
+        return str(response.rows[0].metric_values[0].value)
     
-    return "0"
+    return "ERROR"
 
 
 class Analytics():
     # ---- Total page views ----
-    def total_pageviews():
+    def total_pageviews() -> str:
         response = get_basic_data("2022-05-01", "today", "screenPageviews")
-        value = parse_basic_response(response)
-        
-        return str(value)
+        return parse_basic_response(response)
 
 
     # ---- Total page views (Past 30 days) ----
-    def pageviews_this_month():
+    def pageviews_this_month() -> str:
         response = get_basic_data("30daysAgo", "today", "screenPageviews")
-        value = parse_basic_response(response)
-        
-        return str(value)
+        return parse_basic_response(response)
     
 
     # ---- Total page views (Today) ----
-    def pageviews_today():
+    def pageviews_today() -> str:
         response = get_basic_data("today", "today", "screenPageviews")
-        value = parse_basic_response(response)
-        
-        return str(value)
+        return parse_basic_response(response)
 
 
     # ---- Total unique user count ----
-    def total_users():
+    def total_users() -> str:
         response = get_basic_data("2022-05-01", "today", "totalUsers")
-        value = parse_basic_response(response)
-        
-        return str(value)
+        return parse_basic_response(response)
 
 
     # ---- Number of new users (Today) ----
-    def new_users_today():
+    def new_users_today() -> str:
         response = get_basic_data("today", "today", "newUsers")
-        value = parse_basic_response(response)
-        
-        return str(value)
+        return parse_basic_response(response)
 
 
     # ---- Number of active users (Today) ----
-    def active_users_today():
+    def active_users_today() -> str:
         response = get_basic_data("today", "today", "activeUsers")
-        value = parse_basic_response(response)
-        
-        return str(value)
+        return parse_basic_response(response)
     
     
     # ---- Custom basic API query ----
-    def custom_basic_query(start_date: str, end_date: str, metric: str):
+    def custom_basic_query(start_date: str, end_date: str, metric: str) -> str:
         response = get_basic_data(start_date, end_date, metric)
-        value = parse_basic_response(response)
-        return value
+        return parse_basic_response(response)
     
     
     # ---- Fully custom API query ----
-    def custom_query(request: RunReportRequest):
+    def custom_query(request: RunReportRequest) -> RunReportResponse:
         debug_log.debug(f"Fully custom analytics query for metrics [{request.metrics}] with date ranges [{request.date_ranges}]")
         return ga.run_report(request)

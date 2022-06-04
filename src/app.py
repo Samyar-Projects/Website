@@ -87,7 +87,7 @@ def error404(error):
 @app.errorhandler(werkzeug.exceptions.InternalServerError)
 @cache.cached(timeout=RENDER_CACHE_TIMEOUT)
 def error500(error):
-    log.info(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [500 Error]")
+    log.error(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [500 Error]")
     return render_template("errors/error_500.html"), 500
 
 
@@ -101,22 +101,11 @@ def error405(error):
 @app.errorhandler(jinja2.exceptions.TemplateNotFound)
 @cache.cached(timeout=RENDER_CACHE_TIMEOUT)
 def template_error(error):
-    log.warning(
-        f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [500 Template Error]")
+    log.critical(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}] that resulted in a [500 Template Error]")
     return render_template("errors/error_500.html"), 500
 
 
 # ------- Before request -------
-@app.before_first_request
-def create_test_user():
-    """if not user_datastore.find_user(email="test@me.com"):
-        user_datastore.create_user(
-            email="test@me.com", password=hash_password("password"))
-
-    db.session.commit()"""
-    pass
-
-
 @app.before_request
 def remove_www():
     if "://www." in request.url.lower():

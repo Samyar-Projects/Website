@@ -29,6 +29,7 @@ storage models.
 import json
 from config import AppConfig
 from init import log
+from typing import Union
 
 
 # ------- Global variables -------
@@ -53,7 +54,7 @@ class SpQuizResultTemp():
 
 # -=-=-= Singleplayer quiz result storage =-=-=-
 # ---- Read quiz results from temporary storage ----
-def read_sp_quiz_res_temp(quiz_id: int):
+def read_sp_quiz_res_temp(quiz_id: int) -> Union[SpQuizResultTemp, bool]:
     try:
         with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
             data = json.load(file)
@@ -70,7 +71,7 @@ def read_sp_quiz_res_temp(quiz_id: int):
 
 
 # ---- Write quiz results to temporary storage ----
-def write_sp_quiz_res_temp(quiz_result_temp: SpQuizResultTemp):
+def write_sp_quiz_res_temp(quiz_result_temp: SpQuizResultTemp) -> bool:
     json_data = {quiz_result_temp.quiz_id: {"r_answ": quiz_result_temp.right_answ, "w_answ": quiz_result_temp.wrong_answ}}
 
     try:
@@ -91,7 +92,7 @@ def write_sp_quiz_res_temp(quiz_result_temp: SpQuizResultTemp):
 
 
 # ---- Delete quiz results from temporary storage ----
-def delete_sp_quiz_res_temp(quiz_id: int):
+def delete_sp_quiz_res_temp(quiz_id: int) -> bool:
     try:
         with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
             data = json.load(file)
