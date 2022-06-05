@@ -54,7 +54,7 @@ class SpQuizResultTemp():
 
 # -=-=-= Singleplayer quiz result storage =-=-=-
 # ---- Read quiz results from temporary storage ----
-def read_sp_quiz_res_temp(quiz_id: int) -> Union[SpQuizResultTemp, bool]:
+def read_sp_quiz_res_temp(quiz_id: Union[int, str]) -> Union[SpQuizResultTemp, bool]:
     try:
         with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
             data = json.load(file)
@@ -92,7 +92,7 @@ def write_sp_quiz_res_temp(quiz_result_temp: SpQuizResultTemp) -> bool:
 
 
 # ---- Delete quiz results from temporary storage ----
-def delete_sp_quiz_res_temp(quiz_id: int) -> bool:
+def delete_sp_quiz_res_temp(quiz_id: Union[int, str]) -> bool:
     try:
         with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
             data = json.load(file)

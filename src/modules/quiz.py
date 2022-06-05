@@ -64,7 +64,7 @@ def pop_sessions_sp():
 # ---- Cancel a quiz and flash a message (Called when cheating is detected) ----
 def cheating_sp(quiz_id: Union[int, str]) -> Response:
     pop_sessions_sp()
-    delete_sp_quiz_res_temp(int(quiz_id))
+    delete_sp_quiz_res_temp(quiz_id)
 
     flash(gettext(u"Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."), "danger")
     return redirect(url_for("quiz_pages.singleplayer"))
@@ -332,7 +332,7 @@ def singleplayer_quiz():
         pop_sessions_sp()
         
         if q_id:
-            delete_sp_quiz_res_temp(int(q_id))
+            delete_sp_quiz_res_temp(q_id)
         
         return redirect(url_for("quiz_pages.singleplayer"))
 
@@ -342,7 +342,7 @@ def singleplayer_quiz():
 
 @quiz_pages.route("/singleplayer/reset-quiz", methods=["POST"])
 def reset_quiz_singleplayer():
-    q_id = int(session.get("quiz.quiz_id"))
+    q_id = session.get("quiz.quiz_id")
     debug_log.debug(f"[{request.remote_addr}] Reset their singleplayer quiz. Quiz ID: [{q_id}]")
 
     delete_sp_quiz_res_temp(q_id)
