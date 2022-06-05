@@ -29,6 +29,7 @@ from modules.forum import forum_pages
 from modules.account import account_pages
 from modules.database import database
 from modules.redirects import redirects
+from modules.api import api
 from utils.json_models import HomeNews
 from utils.google_analytics import Analytics
 
@@ -50,6 +51,7 @@ app.register_blueprint(quiz_pages, subdomain="quiz")
 app.register_blueprint(blog_pages, subdomain="blog")
 app.register_blueprint(forum_pages, subdomain="forum")
 app.register_blueprint(account_pages, subdomain="account")
+app.register_blueprint(api, subdomain="api")
 app.register_blueprint(database)
 app.register_blueprint(redirects)
 
