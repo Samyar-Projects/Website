@@ -95,7 +95,7 @@ class LocalConfig(ProductionConfig):
     RENDER_CACHE_TIMEOUT = 0
 
 
-class AppConfig(LocalConfig):
+class AppConfig(ProductionConfig):
     # ------- Flask-Security config -------
     SECURITY_CHANGE_URL = "/change-pass"
     SECURITY_RESET_URL = "/reset-pass"
