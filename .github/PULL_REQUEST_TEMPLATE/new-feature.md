@@ -1,8 +1,8 @@
 <!-- 
     Failure to fill out this template properly may result in your PR being ignored without warning. 
     
-    Gigawhat Website is licensed under the MIT license, By contributing to the Gigawhat Website
-    You agree to license your code under the MIT license, which can be found here: https://github.com/Gigawhat-net/Gigawhat-Website/blob/dev/LICENSE
+    Gigawhat Website is licensed under the GNU GPL-v3 license, By contributing to the Gigawhat Website
+    You agree to license your code under the GNU GPL-v3 license, which can be found here: https://github.com/Gigawhat-net/Gigawhat-Website/blob/dev/LICENSE
 -->
 
 
