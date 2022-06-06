@@ -6,8 +6,8 @@
 {% block title %}{{_("404 Not Found")}}{% endblock %}
 
 {% block body %}
-<div class="album text-light">
-	<div class="row row-cols-1 row-cols-sm-2 w-100 m-0">
+<div class="album text-light mb-5 pb-5">
+	<div class="row row-cols-1 row-cols-sm-2 w-100 m-0 pb-3">
 		<div class="col p-0 mt-2 text-center">
 			<img class="card-img rounded-0 w-70" src="{{url_for("static", filename="img/error_pages/404.png")}}"></img>
 		</div>
@@ -17,7 +17,7 @@
                 <div class="display-2">{{_("Error 404")}}</div>
                 <div class="display-2">{{_("Not Found")}}</div>
                 <div class="display-6 d-sm-block d-none w-75" style="font-size: 26px;">{{_("We searched all of space and time but the page that you are looking for does not exist!")}}</div>
-                <div class="display-6 d-sm-none d-block" style="font-size: 26px;">{{_("We searched all of space and time but the page that you are looking for does not exist!")}}</div>
+                <div class="display-6 d-sm-none d-block px-3" style="font-size: 26px;">{{_("We searched all of space and time but the page that you are looking for does not exist!")}}</div>
 
                 <a href="{{url_for("index")}}" role="button" class="btn btn-outline-light mt-4">{{_("Back to Home")}}</a>
 			</div>
@@ -27,6 +27,8 @@
 
 <canvas class="w-100 h-100" id="canvas" style="position: fixed; top: 0px; left: 0px; z-index: -1; pointer-events: none;"></canvas>
 {% endblock %}
+
+{% block footer %}fixed-bottom{% endblock %}
 
 {% block end %}
 <script>
