@@ -6,8 +6,8 @@
 {% block title %}{{_("405 Method Not Allowed")}}{% endblock %}
 
 {% block body %}
-<div class="album text-light">
-	<div class="row row-cols-1 row-cols-sm-2 w-100 m-0">
+<div class="album text-light mb-5 pb-5">
+	<div class="row row-cols-1 row-cols-sm-2 w-100 m-0 pb-5">
 		<div class="col p-0 my-sm-5 mt-5 mb-3 text-center">
 			<img class="card-img rounded-0 w-70" src="{{url_for("static", filename="img/error_pages/405.png")}}"></img>
 		</div>
@@ -15,9 +15,9 @@
 		<div class="col p-0 mt-sm-5 mt-2 mb-5">
 			<div class="card-body text-sm-start text-center">
                 <div class="display-2">{{_("Error 405")}}</div>
-                <div class="display-2">{{_("Method Not Allowed")}}</div>
+                <div class="display-2 px-sm-0 px-3">{{_("Method Not Allowed")}}</div>
                 <div class="display-6 d-sm-block d-none w-75" style="font-size: 26px;">{{_("This page does not support the type of request that you sent.")}}</div>
-                <div class="display-6 d-sm-none d-block" style="font-size: 26px;">{{_("This page does not support the type of request that you sent.")}}</div>
+                <div class="display-6 d-sm-none d-block px-3" style="font-size: 26px;">{{_("This page does not support the type of request that you sent.")}}</div>
 
                 <a href="{{url_for("index")}}" role="button" class="btn btn-outline-light mt-4">{{_("Back to Home")}}</a>
 			</div>
