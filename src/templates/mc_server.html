@@ -3,5 +3,140 @@
 {% block title %}{{_("Minecraft Server")}}{% endblock %}
 
 {% block body %}
-<h2 class="m-5 text-center">{{_("Minecraft Server")}}</h2>
+<div class="container my-4">
+    <h2 class="text-center">{{_("Minecraft Server")}}</h2>
+	
+    <div class="my-5 px-4 border-light border-1 border bg-white shadow rounded-3 p-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-dot text-success mb-1 me-2" viewBox="0 0 16 16" data-bs-toggle="tooltip" title="ONLINE">
+            <path d="M1.15 9.5a7 7 0 1 0 0-3 7 7 0 0 0 0 3z"/>
+        </svg>
+        
+		<p class="d-inline" style="font-size: 22px;">playmc.gigawhat.net</p><br>
+        <div class="text-secondary">The main Gigawhat modded "Minecraft: Java Edition" survival server</div>
+        
+        <hr>
+        
+        <i class="bi bi-speedometer" style="font-size: 30px;"></i><h4 class="ms-3 d-inline">Server status:</h4>
+        <ul class="list-group list-group-flush mt-3">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Operation status:
+                <span class="badge bg-success rounded-pill">ONLINE</span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Players:
+                <span class="badge rounded-pill" style="background-color: #4ec202;">5 / 10</span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                IP Address:
+                <button id="copyBtn" class="bg-transparent border-0 p-0 ps-1" onclick="copyIP()" data-bs-toggle="tooltip" data-bs-placement="left" title="Copy!"><span class="badge bg-primary rounded-pill">playmc.gigawhat.net</span></button>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Minecraft version:
+                <span class="badge rounded-pill" style="background-color: #4ec202;">Java edition 1.18.2</span>
+            </li>
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Mod loader:
+                <a href="https://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.2.html" class="badge rounded-pill text-decoration-none text-white" style="background-color: #ff7300;">Forge</a>
+            </li>
+
+            <div class="accordion accordion-flush">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed p-3" type="button" data-bs-toggle="collapse" data-bs-target="#panelNo1">
+                            <strong>Mods list</strong>
+                        </button>
+                    </h2>
+                    
+                    <div id="panelNo1" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <a href="#">Download mods zip file (Contains all of the mods below)</a>
+
+                            <ul class="mt-4">
+                                <li>The Create mod</li>
+                                <dl><a href="#">https://www.example.com</a></dl>
+
+                                <li>Flywheel mod</li>
+                                <dl><a href="#">https://www.example.com</a></dl>
+
+                                <li>Securitycraft</li>
+                                <dl><a href="#">https://www.example.com</a></dl>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                    
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed p-3" type="button" data-bs-toggle="collapse" data-bs-target="#panelNo2">
+                            <strong>Online players</strong>
+                        </button>
+                    </h2>
+                    
+                    <div id="panelNo2" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <h5 class="font-monospace">samyarsadat</h5>
+                                    <img class="pixelated" src="https://mc-heads.net/avatar/samyarsadat" width="50">
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <h5 class="font-monospace">rugar1245</h5>
+                                    <img class="pixelated" src="https://mc-heads.net/avatar/rugar1245" width="50">
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <h5 class="font-monospace">test1234</h5>
+                                    <img class="pixelated" src="https://mc-heads.net/avatar/test1234" width="50">
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <h5 class="font-monospace">doctorwho</h5>
+                                    <img class="pixelated" src="https://mc-heads.net/avatar/doctorwho" width="50">
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <h5 class="font-monospace">quacker</h5>
+                                    <img class="pixelated" src="https://mc-heads.net/avatar/quacker" width="50">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ul>
+
+        <input class="d-none" type="text" value="playmc.gigawhat.net" id="IPAdd">
+	</div>
+</div>
+{% endblock %}
+
+{% block end %}
+<script>
+    async function copyIP() 
+    {
+        const copyText = document.getElementById("IPAdd");
+        const tooltip = bootstrap.Tooltip.getInstance("#copyBtn")
+
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(copyText.value);
+        
+        tooltip.setContent({".tooltip-inner": "Copied!"})
+        await new Promise(r => setTimeout(r, 800));
+        tooltip.hide()
+        await new Promise(r => setTimeout(r, 50));
+        tooltip.setContent({".tooltip-inner": "Copy!"})
+    }
+</script>
+
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
 {% endblock %}

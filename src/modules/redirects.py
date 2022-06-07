@@ -43,6 +43,11 @@ def blog_redirect():
     return redirect(url_for("blog_pages.index"))
 
 
+@redirects.route("/forum")
+def forum_redirect():
+    return redirect(url_for("forum_pages.index"))
+
+
 @redirects.route("/login")
 def login_redirect():
     return redirect(url_for_security("login"))
