@@ -38,7 +38,7 @@ class ProductionConfig():
     # ------- Flask-Caching config -------
     CACHE_DEFAULT_TIMEOUT = 0
     CACHE_TYPE = "FileSystemCache"
-    CACHE_DIR = "CACHE"
+    CACHE_DIR = "__pycache__/FLASK_CACHE"
 
     # ------- Flask-SQLAlchemy config -------
     SQLALCHEMY_DATABASE_URI = "sqlite:///data/database/main.sqlite3"
