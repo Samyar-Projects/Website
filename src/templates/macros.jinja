@@ -18,14 +18,14 @@
 
 {# Render form field with errors (If any errors exist) #}
 {% macro render_field_with_errors(field, spacing, div_type, l_class) %}
-    <div class="form-{{ div_type }} mb-{{ spacing }}">
-        {{ field(**kwargs) | safe }}
-        {{ field.label(class=l_class) | safe }} 
+    <div class="form-{{div_type}} mb-{{spacing}}">
+        {{field(**kwargs) | safe}}
+        {{field.label(class=l_class) | safe}} 
         
         {% if field.errors %}
-        <ul class="mt-{{ spacing }}">
+        <ul class="mt-{{spacing}}">
         {% for error in field.errors %}
-            <li>{{ error }}</li>
+            <li>{{error}}</li>
         {% endfor %}
         </ul>
         {% endif %}
@@ -36,9 +36,9 @@
 {# Render form field errors (If any errors exist) #}
 {% macro render_field_errors(field, spacing) %}
     {% if field and field.errors %}
-    <ul class="mb-{{ spacing }}">
+    <ul class="mb-{{spacing}}">
     {% for error in field.errors %}
-        <li>{{ error }}</li>
+        <li>{{error}}</li>
     {% endfor %}
     </ul>
     {% endif %}
@@ -47,7 +47,7 @@
 
 {# Render form field without errors #}
 {% macro render_field(field, div_type) %}
-    <div class="form-{{ div_type }}">
-        {{ field(**kwargs) | safe }}
+    <div class="form-{{div_type}}">
+        {{field(**kwargs) | safe}}
     </div>
 {% endmacro %}

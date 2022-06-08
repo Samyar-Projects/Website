@@ -10,7 +10,12 @@
 
 {% block body %}
 <div class="container mt-sm-4 mt-3">
-    <h4 class="text-center">{% if info.multiplayer != True %}{{_("Singleplayer Quiz Results")}}{% else %}{{_("Multiplayer Quiz Results")}}{% endif %}</h4>
+    {% if info.multiplayer == False %}
+    <h4 class="text-center">{{_("Singleplayer Quiz Results")}}</h4>
+    {% else %}
+    <h4 class="text-center">{{_("Multiplayer Quiz Results")}}</h4>
+    {% endif %}
+
     <div class="my-5"></div>
 
     {% for pinfo in info.p_info %}
@@ -26,9 +31,11 @@
         {% if info.multiplayer == True %}
         <p class="fw-bold text-primary d-inline">{{_("Player")}} {{loop.index}}:</p><br>
         {% endif %}
+
         {% if pinfo.with_account %}
         {{_("Username:")}} <p class="fw-bold text-danger d-inline">{{pinfo.username}}</p><br>
         {% endif %}
+        
         {{_("Right Answers:")}} <p class="fw-bold text-danger d-inline">{{pinfo.right_answ}}</p><br>
         {{_("Wrong Answers:")}} <p class="fw-bold text-danger d-inline">{{pinfo.wrong_answ}}</p><br>
     </div>

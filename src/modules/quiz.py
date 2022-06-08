@@ -38,7 +38,7 @@ from modules.database import QuizQuestions, QuizResults
 from config import AppConfig
 from init import log, db, debug_log
 from flask_babel import gettext, get_locale
-from utils.json_models import QuizPlayerInfo, player_info_json
+from utils.models import QuizPlayerInfo, player_info_json
 
 
 # ------- Blueprint init -------
@@ -361,6 +361,9 @@ def show_results(q_id):
         is_multiplayer = quiz_query_cond(db.session.query(QuizResults.multiplayer).filter_by(quiz_id=q_id).first())
         date = quiz_query_cond(db.session.query(QuizResults.date).filter_by(quiz_id=q_id).first())
         time = quiz_query_cond(db.session.query(QuizResults.time).filter_by(quiz_id=q_id).first())
+        
+        info = {"p_info": p_info[0], "date": date, "time": time, "q_id": q_id, "q_num": QUIZ_QUESTION_COUNT, "multiplayer": is_multiplayer, "show_modal": (str(get_locale()) == "tr_TR" and is_multiplayer is not True)}
+        return render_template("quiz/result.html", info=info)
 
     except TypeError:
         debug_log.debug(f"[{request.remote_addr}] Attempted to get quiz results for a quiz that does not exist. Quiz ID: [{q_id}]")
@@ -369,7 +372,3 @@ def show_results(q_id):
     except Exception:
         log.exception(f"[{request.remote_addr}] ShowQuizResultException, with input [{q_id}]")
         abort(500)
-
-    else:
-        info = {"p_info": p_info[0], "date": date, "time": time, "q_id": q_id, "q_num": QUIZ_QUESTION_COUNT, "multiplayer": is_multiplayer, "show_modal": (str(get_locale()) == "tr_TR" and is_multiplayer is not True)}
-        return render_template("quiz/result.html", info=info)

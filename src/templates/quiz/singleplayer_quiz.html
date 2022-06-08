@@ -64,7 +64,11 @@
         </div>
 
         {% if info.correct_answ %}
-        <button class="w-100 mb-2 btn btn-lg rounded-3 shadow btn-outline-dark mt-4" value="next_qstn_{{info.q_track}}" type="submit" name="next">{% if info.q_left == 0 %}{{_("Show Results")}}{% else %}{{_("Next Question")}}{% endif %}</button>
+            {% if info.q_left == 0 %}
+            <button class="w-100 mb-2 btn btn-lg rounded-3 shadow btn-outline-dark mt-4" value="next_qstn_{{info.q_track}}" type="submit" name="next">{{_("Show Results")}}</button>
+            {% else %}
+            <button class="w-100 mb-2 btn btn-lg rounded-3 shadow btn-outline-dark mt-4" value="next_qstn_{{info.q_track}}" type="submit" name="next">{{_("Next Question")}}</button>
+            {% endif %}
         {% endif %}
     </form>
 </div>

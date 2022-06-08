@@ -30,8 +30,9 @@ from modules.account import account_pages
 from modules.database import database
 from modules.redirects import redirects
 from modules.api import api
-from utils.json_models import HomeNews
+from utils.models import HomeNews, MCServer, MCMod
 from utils.google_analytics import Analytics
+from utils.mc_server import Query, Status
 
 
 # ------- Global variables -------
@@ -126,7 +127,6 @@ def log_request():
 @app.route("/")
 def index():
     posts = []
-
     posts.append(HomeNews("Placeholder post 1", "1980 mins", "img/carousel/placeholder.png", "#"))
     posts.append(HomeNews("Placeholder post 2", "2001 mins", "img/carousel/placeholder.png", "#"))
     posts.append(HomeNews("Placeholder post 3", "1963 mins", "img/carousel/placeholder.png", "#"))
@@ -136,7 +136,17 @@ def index():
 
 @app.route("/mc-server")
 def mc_server():
-    return render_template("mc_server.html")
+    mods = []
+    mods.append(MCMod("The Create mod", "https://example.com"))
+    mods.append(MCMod("Flywheel", "https://example.com"))
+    mods.append(MCMod("Securitycraft", "https://example.com"))
+    
+    players = ["samyarsadat", "rugar1245", "quacker", "doctorwho", "test1234"]
+    
+    servers = []
+    servers.append(MCServer("The main Gigawhat modded 'Minecraft: Java Edition' survival server", "playmc.gigawhat.net", True, "Forge", "https://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.2.html", mods, "https://example.com", 5, 10, players, "ON", "Java Edition 1.18.2"))
+    
+    return render_template("mc_server.html", servers=servers)
 
 
 @app.route("/privacy-policy")
