@@ -61,13 +61,12 @@ def read_sp_quiz_res_temp(quiz_id: Union[int, str]) -> Union[SpQuizResultTemp, b
 
         data = data[str(quiz_id)]
         to_send = SpQuizResultTemp(data["r_answ"], data["w_answ"], str(quiz_id))
+        
+        return to_send
 
     except Exception:
         log.exception(f"TemporaryDataReadException")
         return False
-
-    else:
-        return to_send
 
 
 # ---- Write quiz results to temporary storage ----
@@ -82,14 +81,13 @@ def write_sp_quiz_res_temp(quiz_result_temp: SpQuizResultTemp) -> bool:
 
         with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "w") as file:
             json.dump(data, file, indent=4)
+            
+        return True
 
     except Exception:
         log.exception(f"TemporaryDataWriteException")
         return False
-
-    else:
-        return True
-
+        
 
 # ---- Delete quiz results from temporary storage ----
 def delete_sp_quiz_res_temp(quiz_id: Union[int, str]) -> bool:
@@ -101,10 +99,10 @@ def delete_sp_quiz_res_temp(quiz_id: Union[int, str]) -> bool:
 
         with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "w") as file:
             json.dump(data, file, indent=4)
+            
+        return True
 
     except Exception:
         log.exception(f"TemporaryDataDeleteException")
         return False
-
-    else:
-        return True
+        

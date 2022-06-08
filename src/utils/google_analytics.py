@@ -59,8 +59,8 @@ def get_basic_data(start_date: str, end_date: str, metric: str) -> RunReportResp
         return RunReportResponse()
     
     except Exception:
-        log.critical("Requested analytics data from the Google Analytics Data API however the API responded with error:", exc_info=1)
-        debug_log.debug("Requested analytics data from the Google Analytics Data API however the API responded with error:", exc_info=1)
+        log.critical("Requested analytics data from the Google Analytics Data API however the API responded with exception:", exc_info=1)
+        debug_log.debug("Requested analytics data from the Google Analytics Data API however the API responded with exception:", exc_info=1)
         return RunReportResponse()
 
 

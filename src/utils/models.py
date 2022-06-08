@@ -56,3 +56,45 @@ class HomeNews():
         self.read_dur = read_dur
         self.thumb_url = thumb_url
         self.url = url
+        
+        
+# -=-=-= Home page news =-=-=-
+# ---- Model class ----
+class MCMod():
+    title: str
+    link: str
+
+    def __init__(self, title: str, link: str):
+        self.title = title
+        self.link = link
+
+
+# -=-=-= Minecraft server =-=-=-
+# ---- Model class ----
+class MCServer():
+    desc: str
+    ip: str
+    modded: bool
+    modloader: str
+    modloader_link: str
+    mods: list
+    mods_zip: str
+    p_online: int
+    p_total: int
+    players: list
+    stat: str
+    version: str
+
+    def __init__(self, desc: str, ip: str, modded: bool, modloader: str, modloader_link: str, mods: list, mods_zip: str, p_online: int, p_total: int, players: list, stat: str, version: str):
+        self.desc = desc
+        self.ip = ip
+        self.modded = modded
+        self.modloader = modloader
+        self.modloader_link = modloader_link
+        self.mods = mods
+        self.mods_zip = mods_zip
+        self.p_online = p_online
+        self.p_total = p_total
+        self.players = players
+        self.stat = stat
+        self.version = version
