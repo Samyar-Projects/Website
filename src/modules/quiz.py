@@ -32,13 +32,13 @@ from random import randint
 from typing import Union
 from flask import Blueprint, Response, abort, flash, make_response, redirect, render_template, request, url_for, session
 from flask_security import current_user
-from utils.temp_data import SpQuizResultTemp, delete_sp_quiz_res_temp, read_sp_quiz_res_temp, write_sp_quiz_res_temp
+from utils.temp_data import SpQuizResultTemp
 from utils.helpers import quiz_query_cond
 from modules.database import QuizQuestions, QuizResults
 from config import AppConfig
 from init import log, db, debug_log
 from flask_babel import gettext, get_locale
-from utils.models import QuizPlayerInfo, player_info_json
+from utils.models import QuizPlayerInfo
 
 
 # ------- Blueprint init -------
@@ -64,7 +64,7 @@ def pop_sessions_sp():
 # ---- Cancel a quiz and flash a message (Called when cheating is detected) ----
 def cheating_sp(quiz_id: Union[int, str]) -> Response:
     pop_sessions_sp()
-    delete_sp_quiz_res_temp(quiz_id)
+    SpQuizResultTemp.delete(quiz_id)
 
     flash(gettext(u"Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."), "danger")
     return redirect(url_for("quiz_pages.singleplayer"))
@@ -150,8 +150,7 @@ def singleplayer():
                 q_id = randint(0, 999999999)
 
             session["quiz.quiz_id"] = q_id
-            to_write = SpQuizResultTemp(0, 0, q_id)
-            write_sp_quiz_res_temp(to_write)
+            SpQuizResultTemp(0, 0, q_id).write()
 
             debug_log.debug(f"[{request.remote_addr}] Started a new quiz with Quiz ID: [{q_id}]")
 
@@ -219,9 +218,9 @@ def singleplayer_quiz():
                         q_left = int(session.get("quiz.q_left"))
 
                         if answ == correct_answer:
-                            data = read_sp_quiz_res_temp(q_id)
+                            data = SpQuizResultTemp.read(q_id)
                             data.right_answ = data.right_answ + 1
-                            write_sp_quiz_res_temp(data)
+                            data.write()
                             
                             debug_log.debug(f"[{request.remote_addr}] Sent correct answer for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
 
@@ -239,9 +238,9 @@ def singleplayer_quiz():
                             return response_js_false(render_template("quiz/singleplayer_quiz.html", question=send_question, info=info))
 
                         else:
-                            data = read_sp_quiz_res_temp(q_id)
+                            data = SpQuizResultTemp.read(q_id)
                             data.wrong_answ = data.wrong_answ + 1
-                            write_sp_quiz_res_temp(data)
+                            data.write()
                             
                             debug_log.debug(f"[{request.remote_addr}] Sent wrong answer for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
 
@@ -276,6 +275,7 @@ def singleplayer_quiz():
                     debug_log.debug(f"[{request.remote_addr}] Cheating detected for Quiz ID: [{q_id}] at q_left [{q_left}] and q_track [{q_track}]")
                     return response_js_false(cheating_sp(q_id))
 
+            # Quiz completed:
             else:
                 pop_sessions_sp()
                 
@@ -283,18 +283,18 @@ def singleplayer_quiz():
                 time = date_time.strftime("%H:%M")
                 date = date_time.strftime("%d/%m/%Y")
 
-                data = read_sp_quiz_res_temp(q_id)
+                data = SpQuizResultTemp.read(q_id)
                 list_data = []
 
                 if current_user.is_authenticated:
-                    list_data.append(player_info_json(QuizPlayerInfo(current_user.username, True, data.right_answ, data.wrong_answ)))
+                    list_data.append(QuizPlayerInfo(current_user.username, True, data.right_answ, data.wrong_answ).as_json())
                     to_write = QuizResults(date, time, False, q_id, list_data)
 
                 else:
-                    list_data.append(player_info_json(QuizPlayerInfo("AnonymousUser", False, data.right_answ, data.wrong_answ)))
+                    list_data.append(QuizPlayerInfo("[AnonymousUser]", False, data.right_answ, data.wrong_answ).as_json())
                     to_write = QuizResults(date, time, False, q_id, list_data)
 
-                delete_sp_quiz_res_temp(q_id)
+                SpQuizResultTemp.delete(q_id)
 
                 db.session.add(to_write)
                 db.session.commit()
@@ -332,7 +332,7 @@ def singleplayer_quiz():
         pop_sessions_sp()
         
         if q_id:
-            delete_sp_quiz_res_temp(q_id)
+            SpQuizResultTemp.delete(q_id)
         
         return redirect(url_for("quiz_pages.singleplayer"))
 
@@ -345,7 +345,7 @@ def reset_quiz_singleplayer():
     q_id = session.get("quiz.quiz_id")
     debug_log.debug(f"[{request.remote_addr}] Reset their singleplayer quiz. Quiz ID: [{q_id}]")
 
-    delete_sp_quiz_res_temp(q_id)
+    SpQuizResultTemp.delete(q_id)
     pop_sessions_sp()
 
     flash(gettext(u"Your quiz has been reset. You can now start a new quiz."), "success")

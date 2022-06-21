@@ -1,6 +1,6 @@
 #  Gigawhat Website Mailjet mailing API util.
 #  Copyright 2022 Gigawhat Programming Team
-#  Written by Samyar Sadat Akhavi, 2020 - 2022.
+#  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by

@@ -37,10 +37,10 @@ class QuizPlayerInfo():
         self.wrong_answ = wrong_answ
 
 
-# ---- Convert model to a JSON serializable object ----
-def player_info_json(player_info: QuizPlayerInfo) -> dict:
-    json_data = {"username": player_info.username, "with_account": player_info.with_account, "right_answ": player_info.right_answ, "wrong_answ": player_info.wrong_answ}
-    return json_data
+    # ---- Convert model to a JSON serializable object ----
+    def as_json(self) -> dict:
+        json_data = {"username": self.username, "with_account": self.with_account, "right_answ": self.right_answ, "wrong_answ": self.wrong_answ}
+        return json_data
 
 
 # -=-=-= Home page news =-=-=-
