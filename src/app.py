@@ -22,7 +22,7 @@ import werkzeug
 from flask import abort, redirect, render_template, request, session
 from config import AppConfig
 from flask_babel import get_locale
-from init import app, cache, db, babel, log, debug_log
+from init import app, cache, db, babel, log, debug_log, mcserver, mcbserver
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
 from modules.forum import forum_pages
@@ -32,7 +32,7 @@ from modules.redirects import redirects
 from modules.api import api
 from utils.models import HomeNews, MCServer, MCMod
 from utils.google_analytics import Analytics
-from utils.mc_server import Query, Status
+from utils.mc_server import JavaServer, BedrockServer
 
 
 # ------- Global variables -------
@@ -136,16 +136,61 @@ def index():
 
 @app.route("/mc-server")
 def mc_server():
+    # METHOD TESTS (TO BE REMOVED):
+    js = JavaServer(mcserver)
+    js = js.Status()
+    
+    print("=-=-=-=-=-= Java Edition Status method tests =-=-=-=-=-=")
+    print(f"Java Status favicon_data: {js.favicon_data()}")
+    print(f"Java Status max_players: {js.max_players()}")
+    print(f"Java Status motd: {js.motd()}")
+    print(f"Java Status opstat: {js.opstat()}")
+    print(f"Java Status ping: {js.ping()}")
+    print(f"Java Status players: {js.players()}")
+    print(f"Java Status players_online: {js.players_online()}")
+    print(f"Java Status raw_key: {js.raw_key('version')}")
+    print(f"Java Status version: {js.version()}")
+    print(f"Java Status raw: {js.raw()}")
+    
+    jq = JavaServer(mcserver)
+    jq = jq.Query()
+    
+    print("")
+    print("=-=-=-=-=-= Java Edition Query method tests =-=-=-=-=-=")
+    print(f"Java Query map_name: {jq.map_name()}")
+    print(f"Java Query max_players: {jq.max_players()}")
+    print(f"Java Query motd: {jq.motd()}")
+    print(f"Java Query players: {jq.players()}")
+    print(f"Java Query players_online: {jq.players_online()}")
+    print(f"Java Query raw_key: {jq.raw_key('version')}")
+    print(f"Java Query software: {jq.software()}")
+    print(f"Java Query raw: {jq.raw()}")
+    
+    bs = BedrockServer(mcbserver)
+    bs = bs.Status()
+    
+    print("")
+    print("=-=-=-=-=-= Bedrock Edition Status method tests =-=-=-=-=-=")
+    print(f"Bedrock Status gamemode: {bs.gamemode()}")
+    print(f"Bedrock Status max_players: {bs.max_players()}")
+    print(f"Bedrock Status motd: {bs.motd()}")
+    print(f"Bedrock Status opstat: {bs.opstat()}")
+    print(f"Bedrock Status ping: {bs.ping()}")
+    print(f"Bedrock Status map_name: {bs.map_name()}")
+    print(f"Bedrock Status players_online: {bs.players_online()}")
+    print(f"Bedrock Status version: {bs.version()}")
+    # END METHOD TESTS.
+    
     mods = []
     mods.append(MCMod("The Create mod", "https://example.com"))
     mods.append(MCMod("Flywheel", "https://example.com"))
     mods.append(MCMod("Securitycraft", "https://example.com"))
-    
-    players = ["samyarsadat", "rugar1245", "quacker", "doctorwho", "test1234"]
-    
+        
+    players = js.players()
+        
     servers = []
-    servers.append(MCServer("The main Gigawhat modded 'Minecraft: Java Edition' survival server", "playmc.gigawhat.net", True, "Forge", "https://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.2.html", mods, "https://example.com", 5, 10, players, "ON", "Java Edition 1.18.2"))
-    
+    servers.append(MCServer("The main Gigawhat modded 'Minecraft: Java Edition' survival server", "playmc.gigawhat.net", True, "Forge", "https://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.2.html", mods, "https://example.com", js.players_online(), js.max_players(), players, js.opstat(), f"Java Edition {js.version()['name']}"))
+        
     return render_template("mc_server.html", servers=servers)
 
 

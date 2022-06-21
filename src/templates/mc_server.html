@@ -17,7 +17,7 @@
             <path d="M1.15 9.5a7 7 0 1 0 0-3 7 7 0 0 0 0 3z"/>
         </svg>
         {% else %}
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-dot text-warning mb-1 me-2" viewBox="0 0 16 16" data-bs-toggle="tooltip" title="{{_("STARTING")}}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-dot text-danger mb-1 me-2" viewBox="0 0 16 16" data-bs-toggle="tooltip" title="{{_("ERROR")}}">
             <path d="M1.15 9.5a7 7 0 1 0 0-3 7 7 0 0 0 0 3z"/>
         </svg>
         {% endif %}
@@ -36,7 +36,7 @@
                 {% elif server.stat == "OF" %}
                 <span class="badge bg-danger rounded-pill">{{_("OFFLINE")}}</span>
                 {% else %}
-                <span class="badge bg-warning rounded-pill">{{_("STARTING")}}</span>
+                <span class="badge bg-danger rounded-pill">{{_("ERROR")}}</span>
                 {% endif %}
             </li>
 
@@ -99,14 +99,16 @@
                     <div id="panelNo2{{loop.index}}" class="accordion-collapse collapse">
                         <div class="accordion-body">
                             <ul class="list-group list-group-flush">
-                                {% for player in server.players %}
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <h5 class="font-monospace">{{player}}</h5>
-                                    <img class="pixelated" src="https://mc-heads.net/avatar/{{player}}" width="50">
-                                </li>
+                                {% if server.players %}
+                                    {% for player in server.players %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <h5 class="font-monospace">{{player}}</h5>
+                                        <img class="pixelated" src="https://mc-heads.net/avatar/{{player}}" width="50">
+                                    </li>
+                                    {% endfor %}
                                 {% else %}
-                                <h4>{{_("No one is online!")}}<h4>
-                                {% endfor %}
+                                    <h4>{{_("No one is online!")}}<h4>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

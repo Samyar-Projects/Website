@@ -65,7 +65,7 @@ def read_sp_quiz_res_temp(quiz_id: Union[int, str]) -> Union[SpQuizResultTemp, b
         return to_send
 
     except Exception:
-        log.exception(f"TemporaryDataReadException")
+        log.exception("TemporaryDataReadException")
         return False
 
 
@@ -85,7 +85,7 @@ def write_sp_quiz_res_temp(quiz_result_temp: SpQuizResultTemp) -> bool:
         return True
 
     except Exception:
-        log.exception(f"TemporaryDataWriteException")
+        log.exception("TemporaryDataWriteException")
         return False
         
 
@@ -103,6 +103,6 @@ def delete_sp_quiz_res_temp(quiz_id: Union[int, str]) -> bool:
         return True
 
     except Exception:
-        log.exception(f"TemporaryDataDeleteException")
+        log.exception("TemporaryDataDeleteException")
         return False
         

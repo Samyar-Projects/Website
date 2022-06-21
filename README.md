@@ -27,20 +27,20 @@ Live website: https://gigawhat.net/
 
 ## How to run localy :
 1. Install the dependencies that are listed in the `requirements.txt` file.
-2. Add this to your `hosts` file (replace `COMPUTERS_LOCAL_IP` with your computer's local IP address) *1:<br>
-	`COMPUTERS_LOCAL_IP` &nbsp;&nbsp;&nbsp;&nbsp; `gigawhat-local.gtw`<br>
-	`COMPUTERS_LOCAL_IP` &nbsp;&nbsp;&nbsp;&nbsp; `www.gigawhat-local.gtw`<br>
-	`COMPUTERS_LOCAL_IP` &nbsp;&nbsp;&nbsp;&nbsp; `quiz.gigawhat-local.gtw`<br>
-	`COMPUTERS_LOCAL_IP` &nbsp;&nbsp;&nbsp;&nbsp; `blog.gigawhat-local.gtw`<br>
-	`COMPUTERS_LOCAL_IP` &nbsp;&nbsp;&nbsp;&nbsp; `account.gigawhat-local.gtw`<br>
-	`COMPUTERS_LOCAL_IP` &nbsp;&nbsp;&nbsp;&nbsp; `api.gigawhat-local.gtw`<br>
-	`COMPUTERS_LOCAL_IP` &nbsp;&nbsp;&nbsp;&nbsp; `forum.gigawhat-local.gtw`
+2. Add this to your `hosts` file *1:<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `gigawhat-local.gtw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `www.gigawhat-local.gtw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `quiz.gigawhat-local.gtw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `blog.gigawhat-local.gtw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `account.gigawhat-local.gtw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `api.gigawhat-local.gtw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `forum.gigawhat-local.gtw`
 	
 3. In the `config.py` file, change `AppConfig(ProductionConfig)` to `AppConfig(LocalConfig)`
 4. In the `config.py` file, change `ANALYTICS_TAG_ID` to your own Google Analytics G- ID. *2
 5. In the `config.py` file, change `ANALYTICS_PROPERTY_ID` to your own Google Analytics property ID.
 6. Put your Google Service Account credentials JSON file in a folder called `secrets`. Create this folder in the same directory as the `app.py` file. (Rename the file to `ga_creds.json`) *3
-7. Create a `vars.env` file in the `secrets` folder that you created and add these to it (change the values to your values): *4<br>
+7. Create a `vars.env` file in the `secrets` folder that you created and add these to it (change the values to your values) *4:<br>
 	`FLASK_SECRET_KEY = "A VERY SECRET STRING"`<br>
 	`PASSWORD_ENCRYPT_SALT = "A VERY SECRET SALT"`<br>
 	`MAILJET_API_KEY = "MAILJET API KEY"`<br>

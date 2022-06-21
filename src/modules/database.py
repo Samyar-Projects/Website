@@ -68,7 +68,7 @@ def quiz_db_add():
 
 # ------- Database models -------
 
-# -=-=-= Accounts Database =-=-=-
+# -=-=-= Accounts database =-=-=-
 # ---- User roles table ----
 class RolesUsers(db.Model):
     __bind_key__ = "accounts"
@@ -111,7 +111,7 @@ class Users(db.Model, UserMixin):
     roles = db.relationship("Role", secondary="RolesUsers", backref=db.backref("users", lazy="dynamic"))
 
 
-# -=-=-= Quiz Database =-=-=-
+# -=-=-= Quiz database =-=-=-
 # ---- Quiz question table ----
 class QuizQuestions(db.Model):
     __bind_key__ = "quiz"
@@ -164,6 +164,35 @@ class QuizResults(db.Model):
         self.multiplayer = multiplayer
         self.quiz_id = quiz_id
         self.player_info = player_info
+        
+        
+# -=-=-= Minecraft server database =-=-=-
+# ---- Server table ----
+class MinecraftServer(db.Model):
+    __tablename__ = "MinecraftServer"
+
+    id = db.Column(db.Integer, primary_key=True)
+    edition = db.Column(db.String(8))
+    ip_add = db.Column(db.String(16))
+    desc = db.Column(db.String(2048))
+    modded = db.Column(db.Boolean)
+    modloader = db.Column(db.String(16))
+    mods = db.Column(db.JSON)
+    status = db.Column(db.Boolean)
+
+    def __init__(self, edition: str, ip_add: str, desc: str, modloader: str, mods, status: bool):
+        self.edition = edition
+        self.ip_add = ip_add
+        self.desc = desc
+        self.modloader = modloader
+        self.mods = mods
+        self.status = status
+        
+        if modloader and mods:
+            self.modded = True
+            
+        else:
+            self.modded = False
 
 
 # ------- Flask-Security user datastore -------

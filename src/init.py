@@ -26,7 +26,7 @@ from flask_wtf.csrf import CSRFProtect
 from mailjet_rest import Client
 from google.analytics.data_v1beta import BetaAnalyticsDataClient
 from config import AppConfig
-from mcstatus import JavaServer
+from mcstatus import JavaServer, BedrockServer
 
 
 # ------- Flask and Flask plug-in init -------
@@ -38,7 +38,8 @@ babel = Babel(app)
 csrf = CSRFProtect(app)
 mailjet = Client(auth=(AppConfig.MAILJET_API_KEY, AppConfig.MAILJET_API_SECRET), version="v3.1")
 ga = BetaAnalyticsDataClient()
-mcserver = JavaServer(AppConfig.MC_SERVER_IP, AppConfig.MC_SERVER_PORT)
+mcserver = JavaServer(AppConfig.MC_SERVER_IP, AppConfig.MC_SERVER_PORT, 1)
+mcbserver = BedrockServer.lookup("geyser.pixelblockmc.com")
 
 
 # ------- Logging init -------
