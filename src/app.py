@@ -22,7 +22,7 @@ import werkzeug
 from flask import abort, redirect, render_template, request, session
 from config import AppConfig
 from flask_babel import get_locale
-from init import app, cache, db, babel, log, debug_log, mcserver, mcbserver
+from init import app, cache, db, babel, log, debug_log, bedrock_servers, java_servers
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
 from modules.forum import forum_pages
@@ -137,7 +137,7 @@ def index():
 @app.route("/mc-server")
 def mc_server():
     # METHOD TESTS (TO BE REMOVED):
-    js = JavaServer(mcserver)
+    js = JavaServer(java_servers[0])
     js = js.Status()
     
     print("=-=-=-=-=-= Java Edition Status method tests =-=-=-=-=-=")
@@ -152,7 +152,7 @@ def mc_server():
     print(f"Java Status version: {js.version()}")
     print(f"Java Status raw: {js.raw()}")
     
-    jq = JavaServer(mcserver)
+    jq = JavaServer(java_servers[0])
     jq = jq.Query()
     
     print("")
@@ -166,7 +166,7 @@ def mc_server():
     print(f"Java Query software: {jq.software()}")
     print(f"Java Query raw: {jq.raw()}")
     
-    bs = BedrockServer(mcbserver)
+    bs = BedrockServer(bedrock_servers[0])
     bs = bs.Status()
     
     print("")

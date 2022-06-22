@@ -187,6 +187,14 @@ def singleplayer_quiz():
         q_left = int(session.get("quiz.q_left"))
         get_q = session.get("quiz.questions")
         q_id = int(session.get("quiz.quiz_id"))
+        
+        query = db.session.query(QuizQuestions).filter_by(id=get_q[q_left]).first()
+        
+        question = query.question
+        answ_a = query.answ_a
+        answ_b = query.answ_b
+        answ_c = query.answ_c
+        answ_d = query.answ_d
 
         if request.method == "POST":
             next = request.form.get("next")
@@ -195,27 +203,18 @@ def singleplayer_quiz():
                 # Check answer:
                 if not next:
                     answer = request.form.get("answ")
-                    correct_answer = quiz_query_cond(db.session.query(QuizQuestions.correct_answ).filter_by(id=get_q[q_left]).first())
-
                     debug_log.debug(f"[{request.remote_addr}] Sent answer [{answer}] for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
 
                     if answer.endswith(str(q_left + 1)):
-                        question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id=get_q[q_left]).first())
-                        answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id=get_q[q_left]).first())
-                        answ_b = quiz_query_cond(db.session.query(QuizQuestions.answ_b).filter_by(id=get_q[q_left]).first())
-                        answ_c = quiz_query_cond(db.session.query(QuizQuestions.answ_c).filter_by(id=get_q[q_left]).first())
-                        answ_d = quiz_query_cond(db.session.query(QuizQuestions.answ_d).filter_by(id=get_q[q_left]).first())
-
-                        answ = answer.split("answ_")
-                        answ = answ[1]
-                        answ = answ.split("_")
-                        answ = answ[0]
+                        answ = answer.split("answ_")[1].split("_")[0]
 
                         session["quiz.q_track"] = q_track + 1
                         q_track = int(session.get("quiz.q_track"))
 
                         session["quiz.q_left"] = q_left - 1
                         q_left = int(session.get("quiz.q_left"))
+                        
+                        correct_answer = query.correct_answ
 
                         if answ == correct_answer:
                             data = SpQuizResultTemp.read(q_id)
@@ -256,12 +255,6 @@ def singleplayer_quiz():
                 # Load next question:
                 elif next and next.endswith(str(q_track)):
                     debug_log.debug(f"[{request.remote_addr}] Requested next question for Quiz ID: [{q_id}] with q_left [{q_left}] and q_track [{q_track}]")
-
-                    question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id=get_q[q_left]).first())
-                    answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id=get_q[q_left]).first())
-                    answ_b = quiz_query_cond(db.session.query(QuizQuestions.answ_b).filter_by(id=get_q[q_left]).first())
-                    answ_c = quiz_query_cond(db.session.query(QuizQuestions.answ_c).filter_by(id=get_q[q_left]).first())
-                    answ_d = quiz_query_cond(db.session.query(QuizQuestions.answ_d).filter_by(id=get_q[q_left]).first())
 
                     session["quiz.q_track"] = q_track + 1
                     q_track = int(session.get("quiz.q_track"))
@@ -308,12 +301,6 @@ def singleplayer_quiz():
             if q_track == 0:
                 debug_log.debug(f"[{request.remote_addr}] Loaded first question with Quiz ID: [{q_id}]")
 
-                question = quiz_query_cond(db.session.query(QuizQuestions.question).filter_by(id=get_q[q_left]).first())
-                answ_a = quiz_query_cond(db.session.query(QuizQuestions.answ_a).filter_by(id=get_q[q_left]).first())
-                answ_b = quiz_query_cond(db.session.query(QuizQuestions.answ_b).filter_by(id=get_q[q_left]).first())
-                answ_c = quiz_query_cond(db.session.query(QuizQuestions.answ_c).filter_by(id=get_q[q_left]).first())
-                answ_d = quiz_query_cond(db.session.query(QuizQuestions.answ_d).filter_by(id=get_q[q_left]).first())
-
                 send_question = {"question": question, "answ_a": answ_a, "answ_b": answ_b, "answ_c": answ_c, "answ_d": answ_d}
                 info = {"q_left": q_left + 1, "t_left": QUIZ_QUESTION_TIME, "q_track": q_track}
 
@@ -357,12 +344,9 @@ def show_results(q_id):
     debug_log.debug(f"[{request.remote_addr}] Requested quiz results for Quiz ID: [{q_id}]")
 
     try:
-        p_info = db.session.query(QuizResults.player_info).filter_by(quiz_id=q_id).first()
-        is_multiplayer = quiz_query_cond(db.session.query(QuizResults.multiplayer).filter_by(quiz_id=q_id).first())
-        date = quiz_query_cond(db.session.query(QuizResults.date).filter_by(quiz_id=q_id).first())
-        time = quiz_query_cond(db.session.query(QuizResults.time).filter_by(quiz_id=q_id).first())
+        query = db.session.query(QuizResults).filter_by(quiz_id=q_id).first()
         
-        info = {"p_info": p_info[0], "date": date, "time": time, "q_id": q_id, "q_num": QUIZ_QUESTION_COUNT, "multiplayer": is_multiplayer, "show_modal": (str(get_locale()) == "tr_TR" and is_multiplayer is not True)}
+        info = {"p_info": query.player_info, "date": query.date, "time": query.time, "q_id": q_id, "q_num": QUIZ_QUESTION_COUNT, "multiplayer": query.multiplayer, "show_modal": (str(get_locale()) == "tr_TR" and query.multiplayer is not True)}
         return render_template("quiz/result.html", info=info)
 
     except TypeError:

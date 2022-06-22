@@ -27,6 +27,7 @@ from mailjet_rest import Client
 from google.analytics.data_v1beta import BetaAnalyticsDataClient
 from config import AppConfig
 from mcstatus import JavaServer, BedrockServer
+from modules.database import MinecraftServer
 
 
 # ------- Flask and Flask plug-in init -------
@@ -38,8 +39,25 @@ babel = Babel(app)
 csrf = CSRFProtect(app)
 mailjet = Client(auth=(AppConfig.MAILJET_API_KEY, AppConfig.MAILJET_API_SECRET), version="v3.1")
 ga = BetaAnalyticsDataClient()
-mcserver = JavaServer(AppConfig.MC_SERVER_IP, AppConfig.MC_SERVER_PORT, 1)
-mcbserver = BedrockServer.lookup("geyser.pixelblockmc.com")
+
+
+# -=-=-= Minecraft server init =-=-=-
+# ---- Java Edition servers ----
+java_server_query = db.session.query(MinecraftServer).filter_by(edition="Java", status=True).all()
+java_servers = []
+
+for server in java_server_query:
+    mcjserver = JavaServer(server.ip_add, server.port, 1)
+    java_servers.append(mcjserver)
+    
+    
+# ---- Java Edition servers ----
+bedrock_server_query = db.session.query(MinecraftServer).filter_by(edition="Java", status=True).all()
+bedrock_servers = []
+
+for server in bedrock_server_query:
+    mcbserver = JavaServer(server.ip_add, server.port, 1)
+    bedrock_servers.append(mcbserver)
 
 
 # ------- Logging init -------

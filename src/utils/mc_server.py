@@ -21,7 +21,6 @@ Minecraft server util.
 Gets query and status information from a Minecraft server.
 """
 
-# TODO: Logging
 
 # ------- Libraries and utils -------
 from typing import Union, Any

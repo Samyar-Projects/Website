@@ -173,16 +173,20 @@ class MinecraftServer(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     edition = db.Column(db.String(8))
+    display_ip_add = db.Column(db.String(64))
     ip_add = db.Column(db.String(16))
+    port = db.Column(db.Integer, nullable=True)
     desc = db.Column(db.String(2048))
     modded = db.Column(db.Boolean)
     modloader = db.Column(db.String(16))
     mods = db.Column(db.JSON)
     status = db.Column(db.Boolean)
 
-    def __init__(self, edition: str, ip_add: str, desc: str, modloader: str, mods, status: bool):
+    def __init__(self, edition: str, display_ip_add: str, ip_add: str, port: int, desc: str, modloader: str, mods, status: bool):
         self.edition = edition
+        self.display_ip_add = display_ip_add
         self.ip_add = ip_add
+        self.port = port
         self.desc = desc
         self.modloader = modloader
         self.mods = mods
