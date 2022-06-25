@@ -141,7 +141,7 @@
 
             if (minutes == "00" && seconds == "00")
             {
-                main.style.display = "none"
+                main.parentNode.removeChild(main);
                 submitNoAnsw();
             }
         }

@@ -39,8 +39,7 @@ class QuizPlayerInfo():
 
     # ---- Convert model to a JSON serializable object ----
     def as_json(self) -> dict:
-        json_data = {"username": self.username, "with_account": self.with_account, "right_answ": self.right_answ, "wrong_answ": self.wrong_answ}
-        return json_data
+        return {"username": self.username, "with_account": self.with_account, "right_answ": self.right_answ, "wrong_answ": self.wrong_answ}
 
 
 # -=-=-= Home page news =-=-=-
@@ -67,6 +66,11 @@ class MCMod():
     def __init__(self, title: str, link: str):
         self.title = title
         self.link = link
+        
+    
+    # ---- Convert JSON serializable object to model ----
+    def from_json(json: dict):
+        return MCMod(json["title"], json["link"])
 
 
 # -=-=-= Minecraft server =-=-=-

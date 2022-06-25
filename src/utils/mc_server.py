@@ -105,15 +105,6 @@ class JavaServer():
             
             except Exception:
                 return "ERROR"
-        
-        
-        # ------- Get information from the raw server response -------
-        def raw_key(self, key: str) -> Union[str, list, int, None]:
-            try:
-                return java_q_res.raw[key]
-            
-            except Exception:
-                return "ERROR"
             
             
         # ------- Get raw server response -------
@@ -224,15 +215,6 @@ class JavaServer():
                 
             except Exception:
                 return 0.000
-        
-
-        # ------- Get information from the raw server response -------
-        def raw_key(self, key: str) -> Union[str, list, int, None]:
-            try:
-                return java_s_res.raw[key]
-            
-            except Exception:
-                return "ERROR"
             
             
         # ------- Get raw server response -------

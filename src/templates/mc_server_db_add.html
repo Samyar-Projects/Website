@@ -1,0 +1,95 @@
+{% extends "base_templates/base.html" %}
+
+{% block title %}Add Minecraft server{% endblock %}
+
+{% block body %} 
+<div class="container pt-2">
+    <div class="p-sm-5 p-2">
+        <h2 class="fw-bold mb-0">Add Minecraft server</h2>
+    </div>
+            
+    <div class="p-sm-5 p-2 pt-sm-0">
+        <form action="/mc-server-db-add" method="POST">
+            <div class="form-floating mb-3">
+                <select name="ed" class="form-select rounded-3" id="ed">
+                    <option value="Java" selected>Java</option>
+                    <option value="Bedrock">Bedrock</option>
+                </select>
+                
+                <label for="ed">Edition</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input name="dip" type="text" class="form-control rounded-3" id="dip" required>
+                <label for="dip">Display IP</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input name="ip" type="text" class="form-control rounded-3" id="ip" required>
+                <label for="ip">IP Address</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input name="port" type="text" class="form-control rounded-3" id="port">
+                <label for="port">Port</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input name="desc" type="text" class="form-control rounded-3" id="desc" value='{"en_US": "", "tr_TR": ""}' required>
+                <label for="desc">Description</label>
+            </div>
+
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="showMod" onclick="showModSel()">
+                <label class="form-check-label" for="showMod">Modded</label>
+            </div>
+
+            <div id="mod">
+                <div class="form-floating mb-3">
+                    <select name="ml" class="form-select rounded-3" id="ml">
+                        <option value="Forge">Forge</option>
+                        <option value="Fabric">Fabric</option>
+                        <option value="None" selected>None</option>
+                    </select>
+                    
+                    <label for="ml">Modloader</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <textarea name="mods" class="form-control rounded-3" rows="4" id="mods">{"title": "", "link": ""};{"title": "", "link": ""};</textarea>
+                    <label for="mods">Mods</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input name="mzip" type="text" class="form-control rounded-3" id="mzip">
+                    <label for="mzip">Mods .zip file link</label>
+                </div>
+            </div>
+            
+            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-outline-secondary" type="submit">Add</button>
+        </form>
+    </div>
+
+    <div class="p-sm-3 p-4 m-3"></div>
+</div>
+{% endblock %}
+
+{% block end %}
+<script>
+    var mod = document.getElementById("mod");
+    mod.style.display = "none";
+
+    function showModSel() 
+    {
+        if (mod.style.display === "none") 
+        {
+            mod.style.display = "block";
+        } 
+        
+        else 
+        {
+            mod.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}

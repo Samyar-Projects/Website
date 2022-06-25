@@ -80,8 +80,7 @@ class ProductionConfig():
     LOG_LEVEL = logging.INFO
     ANALYTICS_TAG_ID = "G-3J818WNF23"
     ANALYTICS_PROPERTY_ID = "315035421"
-    MC_SERVER_IP = "51.91.164.28"
-    MC_SERVER_PORT = 25595
+    MC_SERVER_TIMEOUT = 1.0
     TEMPORARY_FILE_DIR = "data/temporary"
     RENDER_CACHE_TIMEOUT = 3*60
     SUPPORTED_LANGS = ["en_US", "tr_TR"]

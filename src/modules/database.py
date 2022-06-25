@@ -23,9 +23,11 @@ This module contains all of the database models.
 
 
 # ------- Libraries and utils -------
+import json
 from flask import Blueprint, flash, render_template, request
 from flask_security import RoleMixin, SQLAlchemySessionUserDatastore, UserMixin
 from init import db, log
+from utils.models import MCMod
 
 
 # ------- Blueprint init -------
@@ -52,18 +54,64 @@ def quiz_db_add():
             data = QuizQuestions(cat, subcat, lang, lvl, diff, q, ca, aa, ab, ac, ad, True)
             db.session.add(data)
             db.session.commit()
-
-        except Exception:
-            log.exception("AddQuizQuestionException")
-            flash("ERROR", "danger")
+            
+            flash("SUCCESS", "success")
             return render_template("quiz/db_add.html")
 
-        else:
-            flash("SUCCESS", "success")
+        except Exception as e:
+            log.exception("AddQuizQuestionException")
+            flash(e, "danger")
             return render_template("quiz/db_add.html")
 
     else:
         return render_template("quiz/db_add.html")
+    
+    
+@database.route("/mc-server-db-add", methods=["GET", "POST"])
+def mc_server_db_add():
+    if request.method == "POST":
+        try:
+            ed = request.form.get("ed")
+            d_ip = request.form.get("dip")
+            ip = request.form.get("ip")
+            port = request.form.get("port")
+            desc = request.form.get("desc")
+            modload = request.form.get("ml")
+            mods = request.form.get("mods")
+            mzip = request.form.get("mzip")
+                
+            if modload == "None" or mods == "None" or mzip == "None" or modload == None or mods == None or mzip == None or modload == "" or mods == "" or mzip == "":
+                modload = None
+                f_mods = None
+                mzip = None
+                                
+            else:
+                mods = mods.split(";")
+                f_mods = []
+                
+                for mod in mods:
+                    data = json.loads(mod)
+                    f_mods.append(data)
+                
+            if port == "None" or port == None or port == "":
+                data = MinecraftServer(ed, d_ip, ip, None, json.loads(desc), modload, mzip, f_mods, True)
+                
+            else:
+                data = MinecraftServer(ed, d_ip, ip, int(port), json.loads(desc), modload, mzip, f_mods, True)
+                
+            db.session.add(data)
+            db.session.commit() 
+            
+            flash("SUCCESS", "success")
+            return render_template("mc_server_db_add.html")
+            
+        except Exception as e:
+            log.exception("AddQuizQuestionException")
+            flash(e.with_traceback, "danger")
+            return render_template("mc_server_db_add.html")
+        
+    else:
+        return render_template("mc_server_db_add.html")
 
 
 # ------- Database models -------
@@ -176,13 +224,14 @@ class MinecraftServer(db.Model):
     display_ip_add = db.Column(db.String(64))
     ip_add = db.Column(db.String(16))
     port = db.Column(db.Integer, nullable=True)
-    desc = db.Column(db.String(2048))
+    desc = db.Column(db.JSON)
     modded = db.Column(db.Boolean)
-    modloader = db.Column(db.String(16))
-    mods = db.Column(db.JSON)
+    modloader = db.Column(db.String(16), nullable=True)
+    mods = db.Column(db.JSON, nullable=True)
+    mods_zip = db.Column(db.String(2048), nullable=True)
     status = db.Column(db.Boolean)
 
-    def __init__(self, edition: str, display_ip_add: str, ip_add: str, port: int, desc: str, modloader: str, mods, status: bool):
+    def __init__(self, edition: str, display_ip_add: str, ip_add: str, port: int, desc: dict, modloader: str, mods: list, mods_zip: str, status: bool):
         self.edition = edition
         self.display_ip_add = display_ip_add
         self.ip_add = ip_add
@@ -190,6 +239,7 @@ class MinecraftServer(db.Model):
         self.desc = desc
         self.modloader = modloader
         self.mods = mods
+        self.mods_zip = mods_zip
         self.status = status
         
         if modloader and mods:

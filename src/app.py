@@ -19,15 +19,17 @@
 # ------- Libraries, utils, and modules -------
 import jinja2
 import werkzeug
+from mc_init import init_mc
 from flask import abort, redirect, render_template, request, session
 from config import AppConfig
 from flask_babel import get_locale
-from init import app, cache, db, babel, log, debug_log, bedrock_servers, java_servers
+from init import app, cache, db, babel, log, debug_log
+from mc_init import bedrock_servers, java_servers
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
 from modules.forum import forum_pages
 from modules.account import account_pages
-from modules.database import database
+from modules.database import MinecraftServer, database
 from modules.redirects import redirects
 from modules.api import api
 from utils.models import HomeNews, MCServer, MCMod
@@ -135,62 +137,29 @@ def index():
 
 
 @app.route("/mc-server")
-def mc_server():
-    # METHOD TESTS (TO BE REMOVED):
-    js = JavaServer(java_servers[0])
-    js = js.Status()
+def mc_server(): 
+    servers = []      
+    db_java_servers = db.session.query(MinecraftServer).filter_by(edition="Java", status=True).all()
+    db_bedrock_servers = db.session.query(MinecraftServer).filter_by(edition="Bedrock", status=True).all()
     
-    print("=-=-=-=-=-= Java Edition Status method tests =-=-=-=-=-=")
-    print(f"Java Status favicon_data: {js.favicon_data()}")
-    print(f"Java Status max_players: {js.max_players()}")
-    print(f"Java Status motd: {js.motd()}")
-    print(f"Java Status opstat: {js.opstat()}")
-    print(f"Java Status ping: {js.ping()}")
-    print(f"Java Status players: {js.players()}")
-    print(f"Java Status players_online: {js.players_online()}")
-    print(f"Java Status raw_key: {js.raw_key('version')}")
-    print(f"Java Status version: {js.version()}")
-    print(f"Java Status raw: {js.raw()}")
-    
-    jq = JavaServer(java_servers[0])
-    jq = jq.Query()
-    
-    print("")
-    print("=-=-=-=-=-= Java Edition Query method tests =-=-=-=-=-=")
-    print(f"Java Query map_name: {jq.map_name()}")
-    print(f"Java Query max_players: {jq.max_players()}")
-    print(f"Java Query motd: {jq.motd()}")
-    print(f"Java Query players: {jq.players()}")
-    print(f"Java Query players_online: {jq.players_online()}")
-    print(f"Java Query raw_key: {jq.raw_key('version')}")
-    print(f"Java Query software: {jq.software()}")
-    print(f"Java Query raw: {jq.raw()}")
-    
-    bs = BedrockServer(bedrock_servers[0])
-    bs = bs.Status()
-    
-    print("")
-    print("=-=-=-=-=-= Bedrock Edition Status method tests =-=-=-=-=-=")
-    print(f"Bedrock Status gamemode: {bs.gamemode()}")
-    print(f"Bedrock Status max_players: {bs.max_players()}")
-    print(f"Bedrock Status motd: {bs.motd()}")
-    print(f"Bedrock Status opstat: {bs.opstat()}")
-    print(f"Bedrock Status ping: {bs.ping()}")
-    print(f"Bedrock Status map_name: {bs.map_name()}")
-    print(f"Bedrock Status players_online: {bs.players_online()}")
-    print(f"Bedrock Status version: {bs.version()}")
-    # END METHOD TESTS.
-    
-    mods = []
-    mods.append(MCMod("The Create mod", "https://example.com"))
-    mods.append(MCMod("Flywheel", "https://example.com"))
-    mods.append(MCMod("Securitycraft", "https://example.com"))
+    for index, db_server in enumerate(db_java_servers):
+        mcserver = JavaServer(java_servers[index])
+        status = mcserver.Status()
         
-    players = js.players()
+        mods = []
         
-    servers = []
-    servers.append(MCServer("The main Gigawhat modded 'Minecraft: Java Edition' survival server", "playmc.gigawhat.net", True, "Forge", "https://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.2.html", mods, "https://example.com", js.players_online(), js.max_players(), players, js.opstat(), f"Java Edition {js.version()['name']}"))
-        
+        if db_server.modded:
+            for mod in db_server.mods:
+                mods.append(MCMod.from_json(mod))
+                
+        servers.append(MCServer(db_server.desc, db_server.display_ip_add, db_server.modded, db_server.modloader, "example.com", mods, db_server.mods_zip, status.players_online(), status.max_players(), status.players(), status.opstat(), f"Java Edition {status.version()['name']}"))
+    
+    for index, db_server in enumerate(db_bedrock_servers):
+        mcserver = BedrockServer(bedrock_servers[index])
+        status = mcserver.Status()
+                
+        servers.append(MCServer(db_server.desc, db_server.display_ip_add, False, db_server.modloader, None, mods, None, status.players_online(), status.max_players(), None, status.opstat(), f"Bedrock Edition {status.version()['name']}"))
+    
     return render_template("mc_server.html", servers=servers)
 
 
@@ -202,4 +171,5 @@ def privacy_policy():
 # ------- Running the app -------
 if __name__ == "__main__":
     db.create_all()
+    init_mc()
     app.run()
