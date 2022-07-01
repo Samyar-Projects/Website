@@ -78,7 +78,7 @@
         <footer class="d-flex flex-wrap py-3 bg-dark {% block footer %}{% endblock %}">
             <div class="container">
                 <div class="text-center text-lg-start d-lg-inline d-block">
-                    <a href="https://www.ugurkurs.com.tr/" class="text-decoration-none">
+                    <a href="{{url_for("forum_pages.index")}}" class="text-decoration-none">
                         <img src="{{url_for("static", filename="img/logos/gigawhat-symbol-transparent.svg")}}" width="25">
                     </a>
                     {% endcache %}

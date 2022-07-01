@@ -23,6 +23,7 @@ This module contains all of the database models.
 
 
 # ------- Libraries and utils -------
+import json
 from flask import Blueprint, flash, render_template, request
 from flask_security import RoleMixin, SQLAlchemySessionUserDatastore, UserMixin
 from init import db, log
@@ -52,23 +53,70 @@ def quiz_db_add():
             data = QuizQuestions(cat, subcat, lang, lvl, diff, q, ca, aa, ab, ac, ad, True)
             db.session.add(data)
             db.session.commit()
-
-        except Exception:
-            log.exception("AddQuizQuestionException")
-            flash("ERROR", "danger")
+            
+            flash("SUCCESS", "success")
             return render_template("quiz/db_add.html")
 
-        else:
-            flash("SUCCESS", "success")
+        except Exception as e:
+            log.exception("AddQuizQuestionException")
+            flash(e, "danger")
             return render_template("quiz/db_add.html")
 
     else:
         return render_template("quiz/db_add.html")
+    
+    
+@database.route("/mc-server-db-add", methods=["GET", "POST"])
+def mc_server_db_add():
+    if request.method == "POST":
+        try:
+            ed = request.form.get("ed")
+            d_ip = request.form.get("dip")
+            ip = request.form.get("ip")
+            port = request.form.get("port")
+            desc = request.form.get("desc")
+            modload = request.form.get("ml")
+            mods = request.form.get("mods")
+            mzip = request.form.get("mzip")
+                
+            if modload == "None" or mods == "None" or mzip == "None" or modload == None or mods == None or mzip == None or modload == "" or mods == "" or mzip == "":
+                modload = None
+                f_mods = None
+                mzip = None
+                                
+            else:
+                mods = mods.split(";")
+                f_mods = []
+                
+                for mod in mods:
+                    if mod != "":
+                        data = json.loads(mod)
+                        f_mods.append(data)
+                
+            if port == "None" or port == None or port == "":
+                data = MinecraftServer(ed, d_ip, ip, None, json.loads(desc), modload, f_mods, mzip, True)
+                
+            else:
+                data = MinecraftServer(ed, d_ip, ip, int(port), json.loads(desc), modload, f_mods, mzip, True)
+                
+            db.session.add(data)
+            db.session.commit() 
+            
+            flash("SUCCESS", "success")
+            return render_template("mc_server_db_add.html")
+            
+        except Exception as e:
+            log.exception("AddQuizQuestionException")
+            flash(e.with_traceback, "danger")
+            return render_template("mc_server_db_add.html")
+        
+    else:
+        return render_template("mc_server_db_add.html")
 
 
 # ------- Database models -------
 
-# -=-=-= Accounts Database =-=-=-
+# -=-=-= Accounts database =-=-=-
 # ---- User roles table ----
 class RolesUsers(db.Model):
     __bind_key__ = "accounts"
@@ -111,7 +159,7 @@ class Users(db.Model, UserMixin):
     roles = db.relationship("Role", secondary="RolesUsers", backref=db.backref("users", lazy="dynamic"))
 
 
-# -=-=-= Quiz Database =-=-=-
+# -=-=-= Quiz database =-=-=-
 # ---- Quiz question table ----
 class QuizQuestions(db.Model):
     __bind_key__ = "quiz"
@@ -164,6 +212,41 @@ class QuizResults(db.Model):
         self.multiplayer = multiplayer
         self.quiz_id = quiz_id
         self.player_info = player_info
+        
+        
+# -=-=-= Minecraft server database =-=-=-
+# ---- Server table ----
+class MinecraftServer(db.Model):
+    __tablename__ = "MinecraftServer"
+
+    id = db.Column(db.Integer, primary_key=True)
+    edition = db.Column(db.String(8))
+    display_ip_add = db.Column(db.String(64))
+    ip_add = db.Column(db.String(16))
+    port = db.Column(db.Integer, nullable=True)
+    desc = db.Column(db.JSON)
+    modded = db.Column(db.Boolean)
+    modloader = db.Column(db.String(16), nullable=True)
+    mods = db.Column(db.JSON, nullable=True)
+    mods_zip = db.Column(db.String(2048), nullable=True)
+    status = db.Column(db.Boolean)
+
+    def __init__(self, edition: str, display_ip_add: str, ip_add: str, port: int, desc: dict, modloader: str, mods: list, mods_zip: str, status: bool):
+        self.edition = edition
+        self.display_ip_add = display_ip_add
+        self.ip_add = ip_add
+        self.port = port
+        self.desc = desc
+        self.modloader = modloader
+        self.mods = mods
+        self.mods_zip = mods_zip
+        self.status = status
+        
+        if modloader and mods:
+            self.modded = True
+            
+        else:
+            self.modded = False
 
 
 # ------- Flask-Security user datastore -------

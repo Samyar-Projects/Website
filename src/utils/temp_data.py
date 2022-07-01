@@ -48,61 +48,59 @@ class SpQuizResultTemp():
         self.right_answ = right_answ
         self.wrong_answ = wrong_answ
         self.quiz_id = quiz_id
+    
+    
+    # -=-=-= Read, write and delete =-=-=-
+    # ---- Read quiz results from temporary storage ----
+    def read(quiz_id: Union[int, str]):
+        try:
+            with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
+                data = json.load(file)
 
-
-# ------- Read, write and delete -------
-
-# -=-=-= Singleplayer quiz result storage =-=-=-
-# ---- Read quiz results from temporary storage ----
-def read_sp_quiz_res_temp(quiz_id: Union[int, str]) -> Union[SpQuizResultTemp, bool]:
-    try:
-        with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
-            data = json.load(file)
-
-        data = data[str(quiz_id)]
-        to_send = SpQuizResultTemp(data["r_answ"], data["w_answ"], str(quiz_id))
-        
-        return to_send
-
-    except Exception:
-        log.exception(f"TemporaryDataReadException")
-        return False
-
-
-# ---- Write quiz results to temporary storage ----
-def write_sp_quiz_res_temp(quiz_result_temp: SpQuizResultTemp) -> bool:
-    json_data = {quiz_result_temp.quiz_id: {"r_answ": quiz_result_temp.right_answ, "w_answ": quiz_result_temp.wrong_answ}}
-
-    try:
-        with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
-            data = json.load(file)
-
-        data.update(json_data)
-
-        with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "w") as file:
-            json.dump(data, file, indent=4)
+            data = data[str(quiz_id)]
+            to_send = SpQuizResultTemp(data["r_answ"], data["w_answ"], str(quiz_id))
             
-        return True
+            return to_send
 
-    except Exception:
-        log.exception(f"TemporaryDataWriteException")
-        return False
+        except Exception:
+            log.exception("TemporaryDataReadException")
+            return False
+    
+    
+    # ---- Write quiz results to temporary storage ----
+    def write(self) -> bool:
+        json_data = {self.quiz_id: {"r_answ": self.right_answ, "w_answ": self.wrong_answ}}
+
+        try:
+            with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
+                data = json.load(file)
+
+            data.update(json_data)
+
+            with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "w") as file:
+                json.dump(data, file, indent=4)
+                
+            return True
+
+        except Exception:
+            log.exception("TemporaryDataWriteException")
+            return False
         
 
-# ---- Delete quiz results from temporary storage ----
-def delete_sp_quiz_res_temp(quiz_id: Union[int, str]) -> bool:
-    try:
-        with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
-            data = json.load(file)
+    # ---- Delete quiz results from temporary storage ----
+    def delete(quiz_id: Union[int, str]) -> bool:
+        try:
+            with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
+                data = json.load(file)
 
-        data.pop(str(quiz_id))
+            data.pop(str(quiz_id))
 
-        with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "w") as file:
-            json.dump(data, file, indent=4)
-            
-        return True
+            with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "w") as file:
+                json.dump(data, file, indent=4)
+                
+            return True
 
-    except Exception:
-        log.exception(f"TemporaryDataDeleteException")
-        return False
+        except Exception:
+            log.exception("TemporaryDataDeleteException")
+            return False
         

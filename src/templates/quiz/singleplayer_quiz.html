@@ -3,7 +3,7 @@
 {% block title %}{{_("Singleplayer Quiz")}}{% endblock %}
 
 {% block body %}
-<div class="container mt-sm-4 mt-3">
+<div id="main" class="container mt-sm-4 mt-3">
     <h5 class="d-inline">{{_("Singleplayer Quiz")}}</h5>
 
     {% if not info.correct_answ %}
@@ -18,15 +18,15 @@
         <p class="text-success d-inline">{{info.q_left}}</p>
     </div>
 
-    <div class="py-sm-1 py-3"></div>
+    <div class="py-sm-1 py-2"></div>
  
     {% if not info.correct_answ %}
-    <div class="progress mt-4 mb-sm-2 mb-0 rounded-3" style="height: 28px;">
+    <div class="progress mt-2 mb-sm-2 mb-0 rounded-3" style="height: 28px;">
         <div id="timeBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success shadow-dark" role="progressbar"></div>
     </div>
     {% endif %}
 
-    <div class="container mt-5 rounded-3 border-2 border-info border shadow-info bg-white">
+    <div class="container mt-4 rounded-3 border-2 border-info border shadow-info bg-white">
         <div class="p-sm-3 p-2">
             {{question.question | safe}}
         </div>
@@ -99,6 +99,7 @@
         duration = {{info.t_left}};
         display = document.getElementById("timer");
         bar = document.getElementById("timeBar");
+        main = document.getElementById("main");
 
         var start = Date.now(), diff, minutes, seconds;
         
@@ -140,6 +141,7 @@
 
             if (minutes == "00" && seconds == "00")
             {
+                main.parentNode.removeChild(main);
                 submitNoAnsw();
             }
         }

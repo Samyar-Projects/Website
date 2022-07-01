@@ -19,20 +19,22 @@
 # ------- Libraries, utils, and modules -------
 import jinja2
 import werkzeug
+from mc_init import init_mc
 from flask import abort, redirect, render_template, request, session
 from config import AppConfig
 from flask_babel import get_locale
 from init import app, cache, db, babel, log, debug_log
+from mc_init import bedrock_servers, java_servers
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
 from modules.forum import forum_pages
 from modules.account import account_pages
-from modules.database import database
+from modules.database import MinecraftServer, database
 from modules.redirects import redirects
 from modules.api import api
 from utils.models import HomeNews, MCServer, MCMod
 from utils.google_analytics import Analytics
-from utils.mc_server import Query, Status
+from utils.mc_server import JavaServer, BedrockServer
 
 
 # ------- Global variables -------
@@ -135,16 +137,35 @@ def index():
 
 
 @app.route("/mc-server")
-def mc_server():
-    mods = []
-    mods.append(MCMod("The Create mod", "https://example.com"))
-    mods.append(MCMod("Flywheel", "https://example.com"))
-    mods.append(MCMod("Securitycraft", "https://example.com"))
+def mc_server(): 
+    servers = []      
+    db_java_servers = db.session.query(MinecraftServer).filter_by(edition="Java", status=True).all()
+    db_bedrock_servers = db.session.query(MinecraftServer).filter_by(edition="Bedrock", status=True).all()
     
-    players = ["samyarsadat", "rugar1245", "quacker", "doctorwho", "test1234"]
+    for index, db_server in enumerate(db_java_servers):
+        mcserver = JavaServer(java_servers[index])
+        status = mcserver.Status()
+        version = status.version()['name']
+        
+        mods = []
+        
+        if db_server.modded:
+            if db_server.modloader == "Forge":
+                modloader_link = f"https://files.minecraftforge.net/net/minecraftforge/forge/index_{version}.html"
+                
+            elif db_server.modloader == "Fabric":
+                modloader_link = "https://fabricmc.net/use/installer/"
+            
+            for mod in db_server.mods:
+                mods.append(MCMod.from_json(mod))
+                
+        servers.append(MCServer(db_server.desc, db_server.display_ip_add, db_server.modded, db_server.modloader, modloader_link, mods, db_server.mods_zip, status.players_online(), status.max_players(), status.players(), status.opstat(), f"Java Edition {version}"))
     
-    servers = []
-    servers.append(MCServer("The main Gigawhat modded 'Minecraft: Java Edition' survival server", "playmc.gigawhat.net", True, "Forge", "https://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.2.html", mods, "https://example.com", 5, 10, players, "ON", "Java Edition 1.18.2"))
+    for index, db_server in enumerate(db_bedrock_servers):
+        mcserver = BedrockServer(bedrock_servers[index])
+        status = mcserver.Status()
+                
+        servers.append(MCServer(db_server.desc, db_server.display_ip_add, False, db_server.modloader, None, mods, None, status.players_online(), status.max_players(), None, status.opstat(), f"Bedrock Edition {status.version()['name']}"))
     
     return render_template("mc_server.html", servers=servers)
 
@@ -157,4 +178,5 @@ def privacy_policy():
 # ------- Running the app -------
 if __name__ == "__main__":
     db.create_all()
+    init_mc()
     app.run()

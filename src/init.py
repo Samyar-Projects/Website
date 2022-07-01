@@ -26,7 +26,6 @@ from flask_wtf.csrf import CSRFProtect
 from mailjet_rest import Client
 from google.analytics.data_v1beta import BetaAnalyticsDataClient
 from config import AppConfig
-from mcstatus import JavaServer
 
 
 # ------- Flask and Flask plug-in init -------
@@ -38,10 +37,9 @@ babel = Babel(app)
 csrf = CSRFProtect(app)
 mailjet = Client(auth=(AppConfig.MAILJET_API_KEY, AppConfig.MAILJET_API_SECRET), version="v3.1")
 ga = BetaAnalyticsDataClient()
-mcserver = JavaServer(AppConfig.MC_SERVER_IP, AppConfig.MC_SERVER_PORT)
 
 
-# ------- Logging init -------
+# -=-=-= Logging init =-=-=-
 formatter = logging.Formatter("[%(asctime)s] [%(threadName)s/%(levelname)s] [%(module)s/%(funcName)s]: %(message)s")
 
 # ---- Get a logger with custom settings ----
