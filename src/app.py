@@ -111,6 +111,11 @@ def template_error(error):
 
 
 # ------- Before request -------
+@app.before_first_request
+def init_mc_servers():
+    init_mc()
+
+
 @app.before_request
 def remove_www():
     if "://www." in request.url.lower():
@@ -178,5 +183,4 @@ def privacy_policy():
 # ------- Running the app -------
 if __name__ == "__main__":
     db.create_all()
-    init_mc()
     app.run()
