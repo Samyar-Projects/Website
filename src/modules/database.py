@@ -27,7 +27,6 @@ import json
 from flask import Blueprint, flash, render_template, request
 from flask_security import RoleMixin, SQLAlchemySessionUserDatastore, UserMixin
 from init import db, log
-from utils.models import MCMod
 
 
 # ------- Blueprint init -------
@@ -90,14 +89,15 @@ def mc_server_db_add():
                 f_mods = []
                 
                 for mod in mods:
-                    data = json.loads(mod)
-                    f_mods.append(data)
+                    if mod != "":
+                        data = json.loads(mod)
+                        f_mods.append(data)
                 
             if port == "None" or port == None or port == "":
-                data = MinecraftServer(ed, d_ip, ip, None, json.loads(desc), modload, mzip, f_mods, True)
+                data = MinecraftServer(ed, d_ip, ip, None, json.loads(desc), modload, f_mods, mzip, True)
                 
             else:
-                data = MinecraftServer(ed, d_ip, ip, int(port), json.loads(desc), modload, mzip, f_mods, True)
+                data = MinecraftServer(ed, d_ip, ip, int(port), json.loads(desc), modload, f_mods, mzip, True)
                 
             db.session.add(data)
             db.session.commit() 

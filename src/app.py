@@ -145,14 +145,21 @@ def mc_server():
     for index, db_server in enumerate(db_java_servers):
         mcserver = JavaServer(java_servers[index])
         status = mcserver.Status()
+        version = status.version()['name']
         
         mods = []
         
         if db_server.modded:
+            if db_server.modloader == "Forge":
+                modloader_link = f"https://files.minecraftforge.net/net/minecraftforge/forge/index_{version}.html"
+                
+            elif db_server.modloader == "Fabric":
+                modloader_link = "https://fabricmc.net/use/installer/"
+            
             for mod in db_server.mods:
                 mods.append(MCMod.from_json(mod))
                 
-        servers.append(MCServer(db_server.desc, db_server.display_ip_add, db_server.modded, db_server.modloader, "example.com", mods, db_server.mods_zip, status.players_online(), status.max_players(), status.players(), status.opstat(), f"Java Edition {status.version()['name']}"))
+        servers.append(MCServer(db_server.desc, db_server.display_ip_add, db_server.modded, db_server.modloader, modloader_link, mods, db_server.mods_zip, status.players_online(), status.max_players(), status.players(), status.opstat(), f"Java Edition {version}"))
     
     for index, db_server in enumerate(db_bedrock_servers):
         mcserver = BedrockServer(bedrock_servers[index])
