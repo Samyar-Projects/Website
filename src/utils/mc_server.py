@@ -25,6 +25,7 @@ Gets query and status information from a Minecraft server.
 # ------- Libraries and utils -------
 from typing import Union, Any
 from mcstatus import JavaServer, BedrockServer
+from init import debug_log
 
 
 # =+=+= Note: All methods return 0 or ERROR in case of an exception. =+=+=
@@ -45,6 +46,7 @@ class JavaServer():
                 java_q_res = java_server.query()
                 
             except Exception:
+                debug_log.debug("MinecraftJavaServerQueryInitException", exc_info=1)
                 java_q_res = None
             
         
@@ -126,16 +128,9 @@ class JavaServer():
                 java_opstatus = "ON"
                 java_s_res = java_server.status()
                 
-            except ConnectionError:
-                java_opstatus = "OF"
-                java_s_res = None
-                
-            except OSError:
-                java_opstatus = "OF"
-                java_s_res = None
-                
             except Exception:
-                java_opstatus = "ERROR"
+                debug_log.debug("MinecraftJavaServerStatusInitException", exc_info=1)
+                java_opstatus = "OF"
                 java_s_res = None
         
         
@@ -243,16 +238,9 @@ class BedrockServer():
                 bedrock_opstatus = "ON"
                 bedrock_s_res = bedrock_server.status()
                 
-            except ConnectionError:
-                bedrock_opstatus = "OF"
-                bedrock_s_res = None
-                
-            except OSError:
-                bedrock_opstatus = "OF"
-                bedrock_s_res = None
-                
             except Exception:
-                bedrock_opstatus = "ERROR"
+                debug_log.debug("MinecraftBedrockServerStatusInitException", exc_info=1)
+                bedrock_opstatus = "OF"
                 bedrock_s_res = None
         
         

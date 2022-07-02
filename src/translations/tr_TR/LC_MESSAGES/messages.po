@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  1.0\n"
 "Report-Msgid-Bugs-To: gpt@gigawhat.net\n"
-"POT-Creation-Date: 2022-06-02 00:49+0300\n"
+"POT-Creation-Date: 2022-07-02 17:20+0300\n"
 "PO-Revision-Date: 2022-05-10 20:55+0300\n"
 "Last-Translator: Rüzgar Kaya <ruzgar@gigawhat.net>\n"
 "Language: tr_TR\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: modules/quiz.py:68
+#: modules/quiz.py:69
 msgid "Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."
 msgstr "Hile önleme sistemlerimiz hile tespit etti! Lütfen yenilemeyi veya F12'yi denemeyin."
 
-#: modules/quiz.py:109 modules/quiz.py:121
+#: modules/quiz.py:110 modules/quiz.py:122
 msgid "Invalid input"
 msgstr "Geçersiz giriş"
 
-#: modules/quiz.py:127
+#: modules/quiz.py:128
 msgid "A quiz with these criteria does not exist."
 msgstr "Bu kriterlere sahip bir quiz mevcut değil."
 
-#: modules/quiz.py:162 modules/quiz.py:328
+#: modules/quiz.py:162 modules/quiz.py:316
 msgid "The quiz system requires JavaScript to function correctly."
 msgstr "Quiz sistemi, düzgün çalışabilmek için JavaScript'e ihtiyaç duyar."
 
@@ -38,7 +38,7 @@ msgstr "Quiz sistemi, düzgün çalışabilmek için JavaScript'e ihtiyaç duyar
 msgid "You are already in a quiz. Please finish before starting a new one or click reset to reset it."
 msgstr "Zaten bir quizdesiniz. Lütfen yeni bir quiz başlatmadan önce şu anki quizinizi bitirin veya sıfırlamak için sıfırla'ya tıklayın."
 
-#: modules/quiz.py:350
+#: modules/quiz.py:338
 msgid "Your quiz has been reset. You can now start a new quiz."
 msgstr "Quiziniz sıfırlandı. Artık yeni bir quiz başlatabilirsiniz."
 
@@ -96,13 +96,69 @@ msgstr "Haberler"
 msgid "Read More"
 msgstr "Okumaya devam et"
 
-#: templates/index.html:108
+#: templates/index.html:109
 msgid "Views in the past month:"
 msgstr "Geçen ayki görüntülemeler:"
 
-#: templates/mc_server.html:3 templates/mc_server.html:6
+#: templates/mc_server.html:3 templates/mc_server.html:7
 msgid "Minecraft Server"
 msgstr "Minecraft Sunucusu"
+
+#: templates/mc_server.html:12 templates/mc_server.html:35
+msgid "ONLINE"
+msgstr "ÇEVRİMİÇİ"
+
+#: templates/mc_server.html:16 templates/mc_server.html:37
+msgid "OFFLINE"
+msgstr "ÇEVRİMDIŞI"
+
+#: templates/mc_server.html:20 templates/mc_server.html:39
+msgid "ERROR"
+msgstr "HATA"
+
+#: templates/mc_server.html:29
+msgid "Server status:"
+msgstr "Sunucu durumu:"
+
+#: templates/mc_server.html:32
+msgid "Operation status:"
+msgstr "Çalışma durumu:"
+
+#: templates/mc_server.html:44
+msgid "Players:"
+msgstr "Oyuncular:"
+
+#: templates/mc_server.html:49
+msgid "IP Address:"
+msgstr "IP Adres:"
+
+#: templates/mc_server.html:50 templates/mc_server.html:135
+msgid "Copy!"
+msgstr "Kopyala!"
+
+#: templates/mc_server.html:54
+msgid "Minecraft version:"
+msgstr "Minecraft sürümü:"
+
+#: templates/mc_server.html:60
+msgid "Mod loader:"
+msgstr "Mod yükleyici:"
+
+#: templates/mc_server.html:71
+msgid "Mods list"
+msgstr "Modlar listesi"
+
+#: templates/mc_server.html:77
+msgid "Download mods zip file (Contains all of the mods below)"
+msgstr "Modlar zip dosyasını indirin (Aşağıdaki tüm modları içerir)"
+
+#: templates/mc_server.html:97
+msgid "Online players"
+msgstr "Çevrimiçi oyuncular"
+
+#: templates/mc_server.html:132
+msgid "Copied!"
+msgstr "Kopyalandı!"
 
 #: templates/base_templates/acc_base.html:97
 #: templates/base_templates/acc_base.html:105
@@ -315,39 +371,39 @@ msgstr "Çok oyunculu quiz henüz hazır değildir!"
 msgid "Quiz Results"
 msgstr "Quiz Sonuçları"
 
-#: templates/quiz/result.html:13
+#: templates/quiz/result.html:14
 msgid "Singleplayer Quiz Results"
 msgstr "Tek oyunculu quiz sonuçları"
 
-#: templates/quiz/result.html:13
+#: templates/quiz/result.html:16
 msgid "Multiplayer Quiz Results"
 msgstr "Çok oyunculu quiz sonuçları"
 
-#: templates/quiz/result.html:27
+#: templates/quiz/result.html:32
 msgid "Player"
 msgstr "Oyuncu"
 
-#: templates/quiz/result.html:30
+#: templates/quiz/result.html:36
 msgid "Username:"
 msgstr "Kullanıcı adı:"
 
-#: templates/quiz/result.html:32
+#: templates/quiz/result.html:39
 msgid "Right Answers:"
 msgstr "Doğru Cevaplar:"
 
-#: templates/quiz/result.html:33
+#: templates/quiz/result.html:40
 msgid "Wrong Answers:"
 msgstr "Yanlış Cevaplar:"
 
-#: templates/quiz/result.html:40
+#: templates/quiz/result.html:47
 msgid "Date:"
 msgstr "Tarih:"
 
-#: templates/quiz/result.html:41
+#: templates/quiz/result.html:48
 msgid "Time:"
 msgstr "Zaman:"
 
-#: templates/quiz/result.html:44
+#: templates/quiz/result.html:51
 msgid "Quiz ID:"
 msgstr "Quiz ID:"
 
@@ -433,11 +489,11 @@ msgstr "Kalan Süre:"
 msgid "Questions Left:"
 msgstr "Kalan Soru:"
 
-#: templates/quiz/singleplayer_quiz.html:67
+#: templates/quiz/singleplayer_quiz.html:68
 msgid "Show Results"
 msgstr "Sonuçları Göster"
 
-#: templates/quiz/singleplayer_quiz.html:67
+#: templates/quiz/singleplayer_quiz.html:70
 msgid "Next Question"
 msgstr "Sonraki Soru"
 

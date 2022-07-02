@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-02 00:49+0300\n"
+"POT-Creation-Date: 2022-07-02 17:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: modules/quiz.py:68
+#: modules/quiz.py:69
 msgid "Our anti-cheat systems have detected cheating! Please don't try to refresh or F12."
 msgstr ""
 
-#: modules/quiz.py:109 modules/quiz.py:121
+#: modules/quiz.py:110 modules/quiz.py:122
 msgid "Invalid input"
 msgstr ""
 
-#: modules/quiz.py:127
+#: modules/quiz.py:128
 msgid "A quiz with these criteria does not exist."
 msgstr ""
 
-#: modules/quiz.py:162 modules/quiz.py:328
+#: modules/quiz.py:162 modules/quiz.py:316
 msgid "The quiz system requires JavaScript to function correctly."
 msgstr ""
 
@@ -37,7 +37,7 @@ msgstr ""
 msgid "You are already in a quiz. Please finish before starting a new one or click reset to reset it."
 msgstr ""
 
-#: modules/quiz.py:350
+#: modules/quiz.py:338
 msgid "Your quiz has been reset. You can now start a new quiz."
 msgstr ""
 
@@ -91,12 +91,68 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: templates/index.html:108
+#: templates/index.html:109
 msgid "Views in the past month:"
 msgstr ""
 
-#: templates/mc_server.html:3 templates/mc_server.html:6
+#: templates/mc_server.html:3 templates/mc_server.html:7
 msgid "Minecraft Server"
+msgstr ""
+
+#: templates/mc_server.html:12 templates/mc_server.html:35
+msgid "ONLINE"
+msgstr ""
+
+#: templates/mc_server.html:16 templates/mc_server.html:37
+msgid "OFFLINE"
+msgstr ""
+
+#: templates/mc_server.html:20 templates/mc_server.html:39
+msgid "ERROR"
+msgstr ""
+
+#: templates/mc_server.html:29
+msgid "Server status:"
+msgstr ""
+
+#: templates/mc_server.html:32
+msgid "Operation status:"
+msgstr ""
+
+#: templates/mc_server.html:44
+msgid "Players:"
+msgstr ""
+
+#: templates/mc_server.html:49
+msgid "IP Address:"
+msgstr ""
+
+#: templates/mc_server.html:50 templates/mc_server.html:135
+msgid "Copy!"
+msgstr ""
+
+#: templates/mc_server.html:54
+msgid "Minecraft version:"
+msgstr ""
+
+#: templates/mc_server.html:60
+msgid "Mod loader:"
+msgstr ""
+
+#: templates/mc_server.html:71
+msgid "Mods list"
+msgstr ""
+
+#: templates/mc_server.html:77
+msgid "Download mods zip file (Contains all of the mods below)"
+msgstr ""
+
+#: templates/mc_server.html:97
+msgid "Online players"
+msgstr ""
+
+#: templates/mc_server.html:132
+msgid "Copied!"
 msgstr ""
 
 #: templates/base_templates/acc_base.html:97
@@ -310,39 +366,39 @@ msgstr ""
 msgid "Quiz Results"
 msgstr ""
 
-#: templates/quiz/result.html:13
+#: templates/quiz/result.html:14
 msgid "Singleplayer Quiz Results"
 msgstr ""
 
-#: templates/quiz/result.html:13
+#: templates/quiz/result.html:16
 msgid "Multiplayer Quiz Results"
 msgstr ""
 
-#: templates/quiz/result.html:27
+#: templates/quiz/result.html:32
 msgid "Player"
 msgstr ""
 
-#: templates/quiz/result.html:30
+#: templates/quiz/result.html:36
 msgid "Username:"
 msgstr ""
 
-#: templates/quiz/result.html:32
+#: templates/quiz/result.html:39
 msgid "Right Answers:"
 msgstr ""
 
-#: templates/quiz/result.html:33
+#: templates/quiz/result.html:40
 msgid "Wrong Answers:"
 msgstr ""
 
-#: templates/quiz/result.html:40
+#: templates/quiz/result.html:47
 msgid "Date:"
 msgstr ""
 
-#: templates/quiz/result.html:41
+#: templates/quiz/result.html:48
 msgid "Time:"
 msgstr ""
 
-#: templates/quiz/result.html:44
+#: templates/quiz/result.html:51
 msgid "Quiz ID:"
 msgstr ""
 
@@ -428,11 +484,11 @@ msgstr ""
 msgid "Questions Left:"
 msgstr ""
 
-#: templates/quiz/singleplayer_quiz.html:67
+#: templates/quiz/singleplayer_quiz.html:68
 msgid "Show Results"
 msgstr ""
 
-#: templates/quiz/singleplayer_quiz.html:67
+#: templates/quiz/singleplayer_quiz.html:70
 msgid "Next Question"
 msgstr ""
 
