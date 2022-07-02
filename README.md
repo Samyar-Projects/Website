@@ -17,7 +17,7 @@
 
 ----
 ### Disclaimer: Website is still in development.
-***Note:** I am taking a break to work on my R.O.S. robot project thus development on all Gigawhat projects will be paused for a little while. None of Gigawhat's projects are canceled.
+*Note:* **I am taking a break to work on my R.O.S. robot project thus development on all Gigawhat projects will be paused for a little while. None of Gigawhat's projects are canceled.**
 
 <br>
 
