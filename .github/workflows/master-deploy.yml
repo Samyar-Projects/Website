@@ -22,6 +22,8 @@ jobs:
         local-dir: src/
         exclude: |       
           **/secrets
-          **/data/database/db.sqlite3
+          **/data/database/accounts.sqlite3
+          **/data/database/main.sqlite3
+          **/data/database/quiz.sqlite3
           **/public
           **/tmp
