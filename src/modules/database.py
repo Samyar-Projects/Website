@@ -106,7 +106,7 @@ def mc_server_db_add():
             return render_template("mc_server_db_add.html")
             
         except Exception as e:
-            log.exception("AddQuizQuestionException")
+            log.exception("AddMcServerException")
             flash(e.with_traceback, "danger")
             return render_template("mc_server_db_add.html")
         

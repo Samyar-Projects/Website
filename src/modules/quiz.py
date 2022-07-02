@@ -33,7 +33,6 @@ from typing import Union
 from flask import Blueprint, Response, abort, flash, make_response, redirect, render_template, request, url_for, session
 from flask_security import current_user
 from utils.temp_data import SpQuizResultTemp
-from utils.helpers import quiz_query_cond
 from modules.database import QuizQuestions, QuizResults
 from config import AppConfig
 from init import log, db, debug_log
