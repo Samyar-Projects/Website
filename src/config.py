@@ -1,5 +1,5 @@
-#  Gigawhat Website flask and flask plugin config file.
-#  Copyright 2022 Gigawhat Programming Team
+#  Samyar Projects Website flask and flask plugin config file.
+#  Copyright 2022 Samyar Projects
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -83,7 +83,7 @@ class ProductionConfig():
     MC_SERVER_TIMEOUT = 3.0
     TEMPORARY_FILE_DIR = "data/temporary"
     RENDER_CACHE_TIMEOUT = 3*60
-    SUPPORTED_LANGS = ["en_US", "tr_TR"]
+    SUPPORTED_LANGS = ["en_US"]
 
 
 class TestingConfig(ProductionConfig):
@@ -91,12 +91,12 @@ class TestingConfig(ProductionConfig):
 
 
 class LocalConfig(ProductionConfig):
-    SERVER_NAME = "gigawhat-local.gtw:5000"
+    SERVER_NAME = "sp-local.stw:5000"
     DEBUG = True
     RENDER_CACHE_TIMEOUT = 1
 
 
-class AppConfig(ProductionConfig):
+class AppConfig(LocalConfig):
     # ------- Flask-Security config -------
     SECURITY_CHANGE_URL = "/change-pass"
     SECURITY_RESET_URL = "/reset-pass"

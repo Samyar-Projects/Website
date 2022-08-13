@@ -1,5 +1,5 @@
-#  Gigawhat Website application init file.
-#  Copyright 2022 Gigawhat Programming Team
+#  Samyar Projects Website application init file.
+#  Copyright 2022 Samyar Projects
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -54,5 +54,5 @@ def get_logger(name, log_file, level):
     return logger
 
 
-log = get_logger("main", "GigawhatApp_MainPyLog.log", AppConfig.LOG_LEVEL)
-debug_log = get_logger("debug", "GigawhatApp_DebugPyLog.log", logging.DEBUG)
+log = get_logger("main", "SPApp_MainPyLog.log", AppConfig.LOG_LEVEL)
+debug_log = get_logger("debug", "SPApp_DebugPyLog.log", logging.DEBUG)

@@ -1,5 +1,5 @@
-#  Gigawhat Website blog module.
-#  Copyright 2022 Gigawhat Programming Team
+#  Samyar Projects Website blog module.
+#  Copyright 2022 Samyar Projects
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 """
-Blog module for the Gigawhat website.
+Blog module for the Samyar Projects Website.
 
 Notes
 -----

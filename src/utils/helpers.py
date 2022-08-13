@@ -1,5 +1,5 @@
-#  Gigawhat Website helper functions.
-#  Copyright 2022 Gigawhat Programming Team
+#  Samyar Projects Website helper functions.
+#  Copyright 2022 Samyar Projects
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -15,6 +15,6 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Helper functions file for the Gigawhat website.
+"""Helper functions file for the Samyar Projects Website.
 
 """

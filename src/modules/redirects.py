@@ -1,5 +1,5 @@
-#  Gigawhat Website blog module.
-#  Copyright 2022 Gigawhat Programming Team
+#  Samyar Projects Website blog module.
+#  Copyright 2022 Samyar Projects
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 """
-Redirect module for the Gigawhat website.
+Redirect module for the Samyar Projects Website.
 
 This module is for social and or other redirects.
 """
@@ -67,17 +67,19 @@ def signup_redirect():
 @redirects.route("/twitter")
 def twitter_redirect():
     if str(get_locale()) == "en_US":
-        return redirect("https://twitter.com/Gigawhat_net")
+        return redirect("https://twitter.com/Samyar_Projects")
     
-    return redirect("https://twitter.com/Gigawhat_net_tr")
+    return redirect("https://twitter.com/Samyar_Projects")
 
 
+"""
 @redirects.route("/instagram")
 def instagram_redirect():
     if str(get_locale()) == "en_US":
-        return redirect("https://www.instagram.com/gigawhat_net/")
+        return redirect("")
 
-    return redirect("https://www.instagram.com/gigawhat_net_tr/")
+    return redirect("")
+"""
 
 
 @redirects.route("/discord")
@@ -85,35 +87,37 @@ def discord_redirect():
     if str(get_locale()) == "en_US":
         return redirect("https://discord.gg/rMq7GujUZJ")
     
-    return redirect("https://discord.gg/bSHkhaGeuN")
+    return redirect("https://discord.gg/rMq7GujUZJ")
 
 
 @redirects.route("/youtube")
 def youtube_redirect():
     if str(get_locale()) == "en_US":
-        return redirect("https://www.youtube.com/channel/UCgjkgNz1MbhzIzhOOHfrxiw")
+        return redirect("https://www.youtube.com/channel/UCPHX8gEofqCy66qA86KE91g")
     
-    return redirect("https://www.youtube.com/channel/UCfjmMzekHS1YI2pv2tpvS2g")
+    return redirect("https://www.youtube.com/channel/UCPHX8gEofqCy66qA86KE91g")
 
 
+"""
 @redirects.route("/patreon")
 def patreon_redirect():
     return redirect("https://www.patreon.com/gigawhat")
+"""
 
 
 @redirects.route("/github")
 def github_redirect():
-    return redirect("https://github.com/Gigawhat-net")
+    return redirect("https://github.com/Samyar-Projects")
 
 
 @redirects.route("/open-source")
 def opensource_redirect():
-    return redirect("https://github.com/Gigawhat-net")
+    return redirect("https://github.com/Samyar-Projects")
 
 
 @redirects.route("/email")
 def email_redirect():
     if str(get_locale()) == "en_US":
-        return redirect("mailto:contact@gigawhat.net")
+        return redirect("mailto:samyarsadat@gigawhat.net")
     
-    return redirect("mailto:contact.tr@gigawhat.net")
+    return redirect("mailto:samyarsadat@gigawhat.net")
