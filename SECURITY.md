@@ -3,7 +3,7 @@
 ## Reporting a Vulnerability
 
 If you have found a security vulnerability, you can report it via e-mail.<br>
-E-mail: contact.gpt@gigawhat.net
+E-mail: samyarsadat@gigawhat.net
 <br>
 <br>
 ***DO NOT USE GITHUB ISSUES FOR REPORTING A VULNERABILITY.<br>

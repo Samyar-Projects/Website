@@ -1,5 +1,5 @@
-#  Gigawhat Website Google Analytics Data API util.
-#  Copyright 2022 Gigawhat Programming Team
+#  Samyar Projects Website Google Analytics Data API util.
+#  Copyright 2022 Samyar Projects
 #  Written by Samyar Sadat Akhavi, 2020 - 2022.
 #
 #  This program is free software: you can redistribute it and/or modify

@@ -1,15 +1,15 @@
-<h1 align="center">The Gigawhat website</h1>
+<h1 align="center">The Samyar Projects website</h1>
 <p align="center">
   	<a href="https://discord.gg/rMq7GujUZJ">Discord (WIP)</a>
 	  |
   	<a href="https://gigawhat.net">Website (WIP)</a>
   	<br>
 	<br>
-	<a href="https://github.com/Gigawhat-net/Gigawhat-Website/actions/workflows/codeql-analysis.yml"><img src="https://github.com/Gigawhat-net/Gigawhat-Website/actions/workflows/codeql-analysis.yml/badge.svg"></a>
+	<a href="https://github.com/Samyar-Projects/Website/actions/workflows/codeql-analysis.yml"><img src="https://github.com/Samyar-Projects/Website/actions/workflows/codeql-analysis.yml/badge.svg"></a>
 	|
-	<a href="https://github.com/Gigawhat-net/Gigawhat-Website/blob/dev/LICENSE"><img src="https://img.shields.io/github/license/Gigawhat-net/Gigawhat-Website?color=blue"></a>
+	<a href="https://github.com/Samyar-Projects/Website/blob/dev/LICENSE"><img src="https://img.shields.io/github/license/Samyar-Projects/Website?color=blue"></a>
 	|
-	<a href="https://github.com/Gigawhat-net/Gigawhat-Website/issues"><img src="https://img.shields.io/github/issues/Gigawhat-net/Gigawhat-Website"></a>
+	<a href="https://github.com/Samyar-Projects/Website/issues"><img src="https://img.shields.io/github/issues/Samyar-Projects/Website"></a>
 	|
 	<a href="https://github.com/SamKirkland/FTP-Deploy-Action"><img src="https://img.shields.io/badge/Deployed With-FTP DEPLOY ACTION-%3CCOLOR%3E?style=flat&color=d00000"></a>
 	<br><br>
@@ -17,10 +17,11 @@
 
 ----
 ### Disclaimer: Website is still in development.
+*Note:* **I am taking a break to work on my R.O.S. robot project thus development on all Samyar Projects projects will be paused for a little while. None of Samyar Projects's projects are canceled.**
 
 <br>
 
-The Gigawhat website,<br>
+The Samyar Projects website,<br>
 Written with HTML 5, CSS 3, Bootstrap 5, and Python Flask.
 
 Live website: https://gigawhat.net/
@@ -28,13 +29,13 @@ Live website: https://gigawhat.net/
 ## How to run localy :
 1. Install the dependencies that are listed in the `requirements.txt` file.
 2. Add this to your `hosts` file *1:<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `gigawhat-local.gtw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `www.gigawhat-local.gtw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `quiz.gigawhat-local.gtw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `blog.gigawhat-local.gtw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `account.gigawhat-local.gtw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `api.gigawhat-local.gtw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `forum.gigawhat-local.gtw`
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `sp-local.stw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `www.sp-local.stw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `quiz.sp-local.stw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `blog.sp-local.stw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `account.sp-local.stw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `api.sp-local.stw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `forum.sp-local.stw`
 	
 3. In the `config.py` file, change `AppConfig(ProductionConfig)` to `AppConfig(LocalConfig)`
 4. In the `config.py` file, change `ANALYTICS_TAG_ID` to your own Google Analytics G- ID. *2
@@ -47,7 +48,7 @@ Live website: https://gigawhat.net/
 	`MAILJET_API_SECRET = "MAILJET API SECRET"`<br>
 
 8. Run the application with: `python app.py`
-9. Go to: http://gigawhat-local.gtw:5000/
+9. Go to: http://sp-local.stw:5000/
 
 
 <br>
@@ -63,17 +64,14 @@ Note: Python 3.7.12 is recommended.<br>
 <br>
 
 ## Support :
-You can contact us via e-mail.<br>
-E-mail: support.gpt@gigawhat.net
 <br>
-<br>
-If you think that you have found a bug please report it <a href="https://github.com/Gigawhat-net/Gigawhat-Website/issues">here</a>.
+If you think that you have found a bug please report it <a href="https://github.com/Samyar-Projects/Website/issues">here</a>.
 
 <br>
 
 ## Contributing :
 
-Please take a look at <a href="https://github.com/Gigawhat-net/Gigawhat-Website/blob/dev/CONTRIBUTING.md">CONTRIBUTING.md</a> for contributing.
+Please take a look at <a href="https://github.com/Samyar-Projects/Website/blob/dev/CONTRIBUTING.md">CONTRIBUTING.md</a> for contributing.
 
 <br>
 
@@ -88,5 +86,5 @@ Please take a look at <a href="https://github.com/Gigawhat-net/Gigawhat-Website/
 <br>
 <br>
 
-Copyright © 2021-2022 Gigawhat Programming Team.
+Copyright © 2021-2022 Samyar Projects.
 

@@ -1,5 +1,5 @@
-#  Gigawhat Website JSON models file.
-#  Copyright 2022 Gigawhat Programming Team
+#  Samyar Projects Website JSON models file.
+#  Copyright 2022 Samyar Projects
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""JSON models for the Gigawhat website.
+"""JSON models for the Samyar Projects Website.
 
 """
 
@@ -23,7 +23,6 @@
 # ------- JSON models -------
 
 # -=-=-= Quiz player info =-=-=-
-# ---- Model class ----
 class QuizPlayerInfo():
     username: str
     with_account: bool
@@ -43,7 +42,6 @@ class QuizPlayerInfo():
 
 
 # -=-=-= Home page news =-=-=-
-# ---- Model class ----
 class HomeNews():
     title: str
     read_dur: str
@@ -58,7 +56,6 @@ class HomeNews():
         
         
 # -=-=-= Home page news =-=-=-
-# ---- Model class ----
 class MCMod():
     title: str
     link: str
@@ -74,7 +71,6 @@ class MCMod():
 
 
 # -=-=-= Minecraft server =-=-=-
-# ---- Model class ----
 class MCServer():
     desc: str
     ip: str

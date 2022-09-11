@@ -1,6 +1,6 @@
 <!-- 
-    Gigawhat Website account HTML template file.
-    Copyright 2022 Gigawhat Programming Team
+    Samyar Projects Website account HTML template file.
+    Copyright 2022 Samyar Projects
     Written by Samyar Sadat Akhavi, 2022.
 
     This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@
         {% endblock %}
 
         <!-- Page title block -->
-        <title>{% block title %}{% endblock %} | {{_("Gigawhat Account")}}</title>
+        <title>{% block title %}{% endblock %} | {{_("Samyar Projects Account")}}</title>
 
         {% cache RENDER_CACHE_TIMEOUT %}
     </head>
@@ -42,7 +42,7 @@
             <div class="container">
                 <div class="navbar-brand">
                     <a href="{{url_for("account_pages.index")}}" class="text-decoration-none">
-                        <img src="{{url_for("static", filename="img/logos/gigawhat-logo-transparent.svg")}}" width="150" alt="Gigawhat Account">
+                        <img src="{{url_for("static", filename="img/logos/sp-logo-transparent.svg")}}" class="pe-2" height="40" alt="Samyar Projects Account">
                     </a>
                     {% endcache %}
 
@@ -90,11 +90,11 @@
             <div class="container">
                 <div class="text-center text-lg-start d-lg-inline d-block">
                     <a href="{{url_for("index")}}" class="text-decoration-none">
-                        <img src="{{url_for("static", filename="img/logos/gigawhat-symbol-transparent.svg")}}" width="25">
+                        <img src="{{url_for("static", filename="img/logos/sp-symbol-transparent.svg")}}" width="25">
                     </a>
                     {% endcache %}
                         
-                    <span class="text-white ms-2">{{_("Copyright &copy; 2022 Gigawhat.")}} <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">{{_("Privacy Policy")}}</a></span>
+                    <span class="text-white ms-2">{{_("Copyright &copy; 2022 Samyar Projects.")}} <a href="{{url_for("privacy_policy")}}" class="ms-1 text-decoration-none d-none d-lg-inline h-color-white">{{_("Privacy Policy")}}</a></span>
                 </div>
             
                 <div class="float-none d-lg-inline d-block float-lg-end mt-lg-0 mt-3 text-center">

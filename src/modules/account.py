@@ -1,5 +1,5 @@
-#  Gigawhat Website user account module.
-#  Copyright 2022 Gigawhat Programming Team
+#  Samyar Projects Website user account module.
+#  Copyright 2022 Samyar Projects
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 """
-User account module for the Gigawhat website.
+User account module for the Samyar Projects Website.
 
 The user account module contains the profile, settings, and
 user-specific status pages.
