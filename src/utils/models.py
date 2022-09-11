@@ -23,7 +23,6 @@
 # ------- JSON models -------
 
 # -=-=-= Quiz player info =-=-=-
-# ---- Model class ----
 class QuizPlayerInfo():
     username: str
     with_account: bool
@@ -43,7 +42,6 @@ class QuizPlayerInfo():
 
 
 # -=-=-= Home page news =-=-=-
-# ---- Model class ----
 class HomeNews():
     title: str
     read_dur: str
@@ -58,7 +56,6 @@ class HomeNews():
         
         
 # -=-=-= Home page news =-=-=-
-# ---- Model class ----
 class MCMod():
     title: str
     link: str
@@ -74,7 +71,6 @@ class MCMod():
 
 
 # -=-=-= Minecraft server =-=-=-
-# ---- Model class ----
 class MCServer():
     desc: str
     ip: str

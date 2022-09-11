@@ -90,6 +90,14 @@ def discord_redirect():
     return redirect("https://discord.gg/rMq7GujUZJ")
 
 
+@redirects.route("/dc")
+def discord_short_redirect():
+    if str(get_locale()) == "en_US":
+        return redirect("https://discord.gg/rMq7GujUZJ")
+    
+    return redirect("https://discord.gg/rMq7GujUZJ")
+
+
 @redirects.route("/youtube")
 def youtube_redirect():
     if str(get_locale()) == "en_US":

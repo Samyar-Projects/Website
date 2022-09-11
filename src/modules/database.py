@@ -34,7 +34,7 @@ database = Blueprint("database", __name__)
 
 
 # ------- Temporary page route -------
-@database.route("/quiz-db-add", methods=["GET", "POST"])
+# @database.route("/quiz-db-add", methods=["GET", "POST"])
 def quiz_db_add():
     if request.method == "POST":
         try:
