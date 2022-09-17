@@ -24,11 +24,18 @@ Gets query and status information from a Minecraft server.
 
 # ------- Libraries and utils -------
 from typing import Union, Any
+from config import AppConfig
 from mcstatus import JavaServer, BedrockServer
 from init import debug_log
+from utils.temp_data import McServerLatestInfo
 
 
-# =+=+= Note: All methods return 0 or ERROR in case of an exception. =+=+=
+# ------- Global variables -------
+FAKE_SERVERS_ONLINE = AppConfig.FAKE_MC_SERVERS_ONLINE   # If set to True, the opstat functions will always return "ON" even if the server is offline.
+USE_CACHED_DATA = AppConfig.MC_SERVER_USE_CACHED_DATA
+
+
+# =+=+= Note: All methods return 0 or ERROR in case of an exception (Other than the version name and the max player count which are cached if "MC_SERVER_USE_CACHED_DATA" is set to True). =+=+=
 
 # ------- Minecraft Java Edition server class -------
 class JavaServer():
@@ -79,6 +86,10 @@ class JavaServer():
                 return java_q_res.players.max
             
             except Exception:
+                if USE_CACHED_DATA:
+                    data = McServerLatestInfo.read(f"{java_server.address.host}:{java_server.address.port}")
+                    return data.max_players
+                
                 return 0
             
             
@@ -88,6 +99,10 @@ class JavaServer():
                 return {"name": java_q_res.software.version, "brand": java_q_res.software.brand, "plugins": java_q_res.software.plugins}
             
             except Exception:
+                if USE_CACHED_DATA:
+                    data = McServerLatestInfo.read(f"{java_server.address.host}:{java_server.address.port}")
+                    return {"name": data.version, "brand": "ERROR", "plugins": "ERROR"}
+                
                 return {"name": "ERROR", "brand": "ERROR", "plugins": "ERROR"}
             
             
@@ -134,8 +149,16 @@ class JavaServer():
                 java_s_res = None
         
         
+        # ---- Server's operation status. This one ignores the "FAKE_MC_SERVERS_ONLINE" option (ON = Online, OF = Offline) ----
+        def opstat_ignore_fake(self) -> str:
+            return java_opstatus
+        
+        
         # ---- Server's operation status (ON = Online, OF = Offline) ----
-        def opstat(self) -> str:       
+        def opstat(self) -> str:
+            if FAKE_SERVERS_ONLINE:
+                return "ON"   
+                
             return java_opstatus
         
         
@@ -168,6 +191,10 @@ class JavaServer():
                 return java_s_res.players.max
             
             except Exception:
+                if USE_CACHED_DATA:
+                    data = McServerLatestInfo.read(f"{java_server.address.host}:{java_server.address.port}")
+                    return data.max_players
+                
                 return 0
             
         
@@ -177,6 +204,10 @@ class JavaServer():
                 return {"name": java_s_res.version.name, "protocol": java_s_res.version.protocol}
             
             except Exception:
+                if USE_CACHED_DATA:
+                    data = McServerLatestInfo.read(f"{java_server.address.host}:{java_server.address.port}")
+                    return {"name": data.version, "protocol": "ERROR"}
+                
                 return {"name": "ERROR", "protocol": "ERROR"}
             
             
@@ -243,9 +274,17 @@ class BedrockServer():
                 bedrock_opstatus = "OF"
                 bedrock_s_res = None
         
+
+        # ---- Server's operation status. This one ignores the "FAKE_MC_SERVERS_ONLINE" option (ON = Online, OF = Offline) ----
+        def opstat_ignore_fake(self) -> str:
+            return bedrock_opstatus
+        
         
         # ---- Server's operation status (ON = Online, OF = Offline) ----
-        def opstat(self) -> str:       
+        def opstat(self) -> str:
+            if FAKE_SERVERS_ONLINE:
+                return "ON"  
+                   
             return bedrock_opstatus
             
 
@@ -264,6 +303,10 @@ class BedrockServer():
                 return bedrock_s_res.players_max
             
             except Exception:
+                if USE_CACHED_DATA:
+                    data = McServerLatestInfo.read(f"{bedrock_server.address.host}:{bedrock_server.address.port}")
+                    return data.max_players
+                
                 return 0
     
         
@@ -273,6 +316,10 @@ class BedrockServer():
                 return {"name": bedrock_s_res.version.version, "protocol": bedrock_s_res.version.protocol, "brand": bedrock_s_res.version.brand}
             
             except Exception:
+                if USE_CACHED_DATA:
+                    data = McServerLatestInfo.read(f"{bedrock_server.host}:{bedrock_server.port}")
+                    return {"name": data.version, "protocol": "ERROR", "brand": "ERROR"}
+                
                 return {"name": "ERROR", "protocol": "ERROR", "brand": "ERROR"}
             
             

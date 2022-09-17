@@ -81,9 +81,13 @@ class ProductionConfig():
     ANALYTICS_TAG_ID = "G-3J818WNF23"
     ANALYTICS_PROPERTY_ID = "315035421"
     MC_SERVER_TIMEOUT = 3.0
-    TEMPORARY_FILE_DIR = "data/temporary"
+    TEMPORARY_FILE_DIR = "data/temporary/"
+    MC_SERVER_LATEST_INFO_TEMP_FILE = "mc_server_latest_info.json"
+    MC_SERVER_USE_CACHED_DATA = True
+    SP_QUIZ_TEMP_DATA_FILE = "sp_quiz_result.json"
     RENDER_CACHE_TIMEOUT = 3*60
     SUPPORTED_LANGS = ["en_US"]
+    FAKE_MC_SERVERS_ONLINE = True  # TEMPORARY - There is a bug with the mcstatus library and it doesn't work on the production server.
 
 
 class TestingConfig(ProductionConfig):
@@ -96,7 +100,7 @@ class LocalConfig(ProductionConfig):
     RENDER_CACHE_TIMEOUT = 1
 
 
-class AppConfig(LocalConfig):
+class AppConfig(ProductionConfig):
     # ------- Flask-Security config -------
     SECURITY_CHANGE_URL = "/change-pass"
     SECURITY_RESET_URL = "/reset-pass"
