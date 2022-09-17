@@ -17,7 +17,9 @@
 
 
 # ------- Libraries, utils, and modules -------
+from os import stat
 import jinja2
+from utils.temp_data import McServerLatestInfo
 import werkzeug
 from mc_init import init_mc
 from flask import abort, redirect, render_template, request, session
@@ -114,7 +116,7 @@ def template_error(error):
 @app.before_first_request
 def init_mc_servers():
     init_mc()
-
+    
 
 @app.before_request
 def remove_www():
@@ -148,7 +150,8 @@ def mc_server():
     db_bedrock_servers = db.session.query(MinecraftServer).filter_by(edition="Bedrock", status=True).all()
     
     for index, db_server in enumerate(db_java_servers):
-        mcserver = JavaServer(java_servers[index])
+        server_from_list = java_servers[index]
+        mcserver = JavaServer(server_from_list)
         status = mcserver.Status()
         version = status.version()['name']
         
@@ -163,14 +166,22 @@ def mc_server():
             
             for mod in db_server.mods:
                 mods.append(MCMod.from_json(mod))
+            
+        if status.opstat_ignore_fake() == "ON":
+            McServerLatestInfo(version, status.max_players(), f"{server_from_list.address.host}:{server_from_list.address.port}").write()
                 
         servers.append(MCServer(db_server.desc, db_server.display_ip_add, db_server.modded, db_server.modloader, modloader_link, mods, db_server.mods_zip, status.players_online(), status.max_players(), status.players(), status.opstat(), f"Java Edition {version}"))
     
     for index, db_server in enumerate(db_bedrock_servers):
-        mcserver = BedrockServer(bedrock_servers[index])
+        server_from_list = bedrock_servers[index]
+        mcserver = BedrockServer(server_from_list)
         status = mcserver.Status()
+        version = status.version()['name']
                 
-        servers.append(MCServer(db_server.desc, db_server.display_ip_add, False, db_server.modloader, None, mods, None, status.players_online(), status.max_players(), None, status.opstat(), f"Bedrock Edition {status.version()['name']}"))
+        if status.opstat_ignore_fake() == "ON":
+            McServerLatestInfo(version, status.max_players(), f"{server_from_list.address.host}:{server_from_list.address.port}").write()
+                
+        servers.append(MCServer(db_server.desc, db_server.display_ip_add, False, db_server.modloader, None, mods, None, status.players_online(), status.max_players(), None, status.opstat(), f"Bedrock Edition {version}"))
     
     return render_template("mc_server.html", servers=servers)
 

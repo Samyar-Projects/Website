@@ -21,6 +21,7 @@ from config import AppConfig
 from modules.database import MinecraftServer
 from mcstatus import JavaServer, BedrockServer
 from init import db
+from utils.temp_data import McServerLatestInfo
 
 
 # ------- Global variables -------
@@ -39,7 +40,11 @@ def init_mc():
         
         else:
             mcjserver = JavaServer.lookup(server.ip_add, AppConfig.MC_SERVER_TIMEOUT)
-            
+        
+        # --- Add a temporary data entry if the server doesn't have an entry to prevent errors ---
+        if not McServerLatestInfo.read(f"{server.ip_add}:{mcjserver.address.port}"):
+            McServerLatestInfo("1.18.2", 20, f"{server.ip_add}:{mcjserver.address.port}").write()
+        
         java_servers.append(mcjserver)
 
 
@@ -52,5 +57,9 @@ def init_mc():
             
         else:
             mcbserver = BedrockServer.lookup(server.ip_add, AppConfig.MC_SERVER_TIMEOUT)
+            
+        # --- Add a temporary data entry if the server doesn't have an entry to prevent errors ---
+        if not McServerLatestInfo.read(f"{server.ip_add}:{mcbserver.address.port}"):
+            McServerLatestInfo("1.18.2", 20, f"{server.ip_add}:{mcbserver.address.port}").write()
             
         bedrock_servers.append(mcbserver)

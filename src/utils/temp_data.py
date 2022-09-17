@@ -34,6 +34,8 @@ from typing import Union
 
 # ------- Global variables -------
 TEMPORARY_FILE_DIR = AppConfig.TEMPORARY_FILE_DIR
+MC_LATEST_INFO_FILE = TEMPORARY_FILE_DIR + AppConfig.MC_SERVER_LATEST_INFO_TEMP_FILE
+SP_QUIZ_TEMP_FILE = TEMPORARY_FILE_DIR + AppConfig.SP_QUIZ_TEMP_DATA_FILE
 
 
 # ------- Storage models -------
@@ -54,7 +56,7 @@ class SpQuizResultTemp():
     # ---- Read quiz results from temporary storage ----
     def read(quiz_id: Union[int, str]):
         try:
-            with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
+            with open(SP_QUIZ_TEMP_FILE, "r") as file:
                 data = json.load(file)
 
             data = data[str(quiz_id)]
@@ -72,12 +74,12 @@ class SpQuizResultTemp():
         json_data = {self.quiz_id: {"r_answ": self.right_answ, "w_answ": self.wrong_answ}}
 
         try:
-            with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
+            with open(SP_QUIZ_TEMP_FILE, "r") as file:
                 data = json.load(file)
 
             data.update(json_data)
 
-            with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "w") as file:
+            with open(SP_QUIZ_TEMP_FILE, "w") as file:
                 json.dump(data, file, indent=4)
                 
             return True
@@ -90,12 +92,12 @@ class SpQuizResultTemp():
     # ---- Delete quiz results from temporary storage ----
     def delete(quiz_id: Union[int, str]) -> bool:
         try:
-            with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "r") as file:
+            with open(SP_QUIZ_TEMP_FILE, "r") as file:
                 data = json.load(file)
 
             data.pop(str(quiz_id))
 
-            with open(f"{TEMPORARY_FILE_DIR}/sp_quiz_result_temp.json", "w") as file:
+            with open(SP_QUIZ_TEMP_FILE, "w") as file:
                 json.dump(data, file, indent=4)
                 
             return True
@@ -104,3 +106,69 @@ class SpQuizResultTemp():
             log.exception("TemporaryDataDeleteException")
             return False
         
+        
+# ---- Minecraft server latest known info storage ----
+class McServerLatestInfo():
+    version: int
+    max_players: int
+    ip: str
+
+    def __init__(self, version, max_players, ip):
+        self.version = version
+        self.max_players = max_players
+        self.ip = ip
+    
+    
+    # -=-=-= Read, write and delete =-=-=-
+    # ---- Read latest known server info from temporary storage ----
+    def read(ip: str):
+        try:
+            with open(MC_LATEST_INFO_FILE, "r") as file:
+                data = json.load(file)
+
+            data = data[ip]
+            to_send = McServerLatestInfo(data["version"], data["max_players"], ip)
+            
+            return to_send
+
+        except Exception:
+            log.exception("TemporaryDataReadException")
+            return False
+    
+    
+    # ---- Write latest known server info to temporary storage ----
+    def write(self) -> bool:
+        json_data = {self.ip: {"version": self.version, "max_players": self.max_players}}
+
+        try:
+            with open(MC_LATEST_INFO_FILE, "r") as file:
+                data = json.load(file)
+
+            data.update(json_data)
+
+            with open(MC_LATEST_INFO_FILE, "w") as file:
+                json.dump(data, file, indent=4)
+                
+            return True
+
+        except Exception:
+            log.exception("TemporaryDataWriteException")
+            return False
+        
+
+    # ---- Delete latest known server info from temporary storage ----
+    def delete(ip: str) -> bool:
+        try:
+            with open(MC_LATEST_INFO_FILE, "r") as file:
+                data = json.load(file)
+
+            data.pop(ip)
+
+            with open(MC_LATEST_INFO_FILE, "w") as file:
+                json.dump(data, file, indent=4)
+                
+            return True
+
+        except Exception:
+            log.exception("TemporaryDataDeleteException")
+            return False
