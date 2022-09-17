@@ -129,3 +129,11 @@ def email_redirect():
         return redirect("mailto:samyarsadat@gigawhat.net")
     
     return redirect("mailto:samyarsadat@gigawhat.net")
+
+
+@redirects.route("/ban-appeals")
+def ban_appeal_form_redirect():
+    if str(get_locale()) == "en_US":
+        return redirect("https://dyno.gg/form/9e854815")
+    
+    return redirect("https://dyno.gg/form/9e854815")
