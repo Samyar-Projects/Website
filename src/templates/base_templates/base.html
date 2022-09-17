@@ -62,9 +62,11 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{_("Servers")}}</a>
 
-                            <ul class="dropdown-menu bg-black dropdown-menu-dark w-25">
+                            <ul class="dropdown-menu dropdown-menu-dark w-50">
                                 <li><a href="{{url_for("mc_server")}}" class="dropdown-item text-success fw-bold">{{_("Minecraft")}}</a></li>
                                 <li><a href="{{url_for("redirects.discord_redirect")}}" class="dropdown-item text-primary fw-bold">{{_("Discord")}}</a></li>
+                                <li><hr class="dropdown-divider text-light"></li>
+                                <li><a href="{{url_for("redirects.ban_appeal_form_redirect")}}" class="dropdown-item text-danger fw-bold pe-5">{{_("Ban appeals")}}</a></li>
                             </ul>
                         </li>
                         <li class="nav-item"><a href="{{url_for("quiz_pages.index")}}" class="nav-link">{{_("Quiz")}}</a></li>
