@@ -66,7 +66,7 @@ def quiz_db_add():
         return render_template("quiz/db_add.html")
     
     
-@database.route("/mc-server-db-add", methods=["GET", "POST"])
+# @database.route("/mc-server-db-add", methods=["GET", "POST"])
 def mc_server_db_add():
     if request.method == "POST":
         try:

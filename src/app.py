@@ -186,6 +186,11 @@ def mc_server():
     return render_template("mc_server.html", servers=servers)
 
 
+@app.route("/ban-appeals")
+def ban_appeals():
+    return render_template("ban_appeals.html")
+
+
 @app.route("/privacy-policy")
 def privacy_policy():
     return render_template("privacy_policy.html")
