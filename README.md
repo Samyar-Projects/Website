@@ -1,6 +1,6 @@
 <h1 align="center">The Samyar Projects website</h1>
 <p align="center">
-  	<a href="https://discord.gg/rMq7GujUZJ">Discord (WIP)</a>
+  	<a href="https://discord.gg/rMq7GujUZJ">Discord</a>
 	  |
   	<a href="https://gigawhat.net">Website (WIP)</a>
   	<br>
