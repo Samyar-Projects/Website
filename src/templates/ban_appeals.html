@@ -1,0 +1,27 @@
+{% extends "base_templates/base.html" %}
+
+{% block title %}{{_("Ban Appeals")}}{% endblock %}
+
+{% block body %}
+<div class="lead">
+    <h1 class="text-center pt-4 mt-2">{{_("Ban Appeal Forms")}}</h1>
+
+    <div class="container">
+        <p class="text-center">
+            {{_("For Discord server ban appeals, select Discord Server.")}}<br>
+            {{_("For Minecraft server ban appeals, select Minecraft Server.")}}
+        </p>
+    </div>
+
+    <div class="album py-4">
+        <div class="container">
+            <div class="d-grid gap-2 px-5">
+                <a href="{{url_for("redirects.discord_ban_appeal_redirect")}}" class="btn btn-lg btn-outline-primary" role="button">{{_("Discord Server")}}</a>
+                <a href="{{url_for("redirects.mc_ban_appeal_redirect")}}" class="btn btn-lg btn-outline-success" role="button">{{_("Minecraft Server")}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}fixed-bottom{% endblock %}

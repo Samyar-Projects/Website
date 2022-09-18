@@ -131,9 +131,25 @@ def email_redirect():
     return redirect("mailto:samyarsadat@gigawhat.net")
 
 
-@redirects.route("/ban-appeals")
-def ban_appeal_form_redirect():
+@redirects.route("/mc-ban-appeal")
+def mc_ban_appeal_redirect():
+    if str(get_locale()) == "en_US":
+        return redirect("https://dyno.gg/form/3b2bc888")
+    
+    return redirect("https://dyno.gg/form/3b2bc888")
+
+
+@redirects.route("/discord-ban-appeal")
+def discord_ban_appeal_redirect():
     if str(get_locale()) == "en_US":
         return redirect("https://dyno.gg/form/9e854815")
     
     return redirect("https://dyno.gg/form/9e854815")
+
+
+@redirects.route("/server-suggestions")
+def server_suggestions_redirect():
+    if str(get_locale()) == "en_US":
+        return redirect("https://dyno.gg/form/e499415")
+    
+    return redirect("https://dyno.gg/form/e499415")
