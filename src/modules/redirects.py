@@ -156,10 +156,10 @@ def server_suggestions_redirect():
 
 
 @redirects.route("/mc-server/resource-pack")
-def opensource_redirect():
+def mc_server_rp_redirect():
     return redirect("https://drive.google.com/u/0/uc?id=1WxN6cg3uNPsm0zk9UDio-aqdU0JkkFWF&export=download")
 
 
 @redirects.route("/mc-server/mods-zip")
-def opensource_redirect():
+def mc_server_mods_redirect():
     return redirect("https://drive.google.com/u/0/uc?id=1viKt0jjMnrhDymg0FPHix9vt-6R91Cuq&export=download")
