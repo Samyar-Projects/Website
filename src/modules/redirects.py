@@ -23,7 +23,7 @@ This module is for social and or other redirects.
 
 
 # ------- Libraries and utils -------
-from flask import Blueprint, redirect, send_file, url_for
+from flask import Blueprint, redirect, send_from_directory, url_for
 from flask_babel import get_locale
 from flask_security import url_for_security
 
@@ -157,9 +157,9 @@ def server_suggestions_redirect():
 
 @redirects.route("/mc-server/resource-pack")
 def mc_server_rp_redirect():
-    return send_file(url_for("static", filename="files/zip/VanillaTweaks_r329778.zip"), as_attachment=True)
+    return send_from_directory(redirects.static_folder, "files/zip/VanillaTweaks_r329778.zip", as_attachment=True)
 
 
 @redirects.route("/mc-server/mods-zip")
 def mc_server_mods_redirect():
-    return send_file(url_for("static", filename="files/zip/MC_Server_mods.zip"), as_attachment=True)
+    return send_from_directory(redirects.static_folder, "files/zip/MC_Server_mods.zip", as_attachment=True)
