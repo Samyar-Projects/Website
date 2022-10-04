@@ -29,7 +29,7 @@ from flask_security import url_for_security
 
 
 # ------- Blueprint init -------
-redirects = Blueprint("redirects", __name__)
+redirects = Blueprint("redirects", __name__, static_folder="../static")
 
 
 # ------- Page redirects -------
