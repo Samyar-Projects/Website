@@ -170,7 +170,7 @@ def mc_server():
         if status.opstat_ignore_fake() == "ON":
             McServerLatestInfo(version, status.max_players(), f"{server_from_list.address.host}:{server_from_list.address.port}").write()
                 
-        servers.append(MCServer(db_server.desc, db_server.display_ip_add, db_server.modded, db_server.modloader, modloader_link, mods, db_server.mods_zip, status.players_online(), status.max_players(), status.players(), status.opstat(), f"Java Edition {version}"))
+        servers.append(MCServer(db_server.desc, db_server.display_ip_add, db_server.modded, db_server.modloader, modloader_link, mods, "db_server.mods_zip", status.players_online(), status.max_players(), status.players(), status.opstat(), f"Java Edition {version}"))
     
     for index, db_server in enumerate(db_bedrock_servers):
         server_from_list = bedrock_servers[index]
