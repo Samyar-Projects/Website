@@ -66,9 +66,11 @@ Note: Python 3.7.12 is recommended.<br>
 ## Support :
 If you think that you have found a bug please report it <a href="https://github.com/Samyar-Projects/Website/issues">here</a>.
 <br>
+<br>
 
 ## Contributing :
 Please take a look at <a href="https://github.com/Samyar-Projects/Website/blob/dev/CONTRIBUTING.md">CONTRIBUTING.md</a> for contributing.
+<br>
 <br>
 
 ## Credits :
