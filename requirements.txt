@@ -8,7 +8,7 @@ Flask-SQLAlchemy==2.5.1
 Flask-Babel==2.0.0
 email-validator==1.2.1
 bcrypt==3.2.2
-cryptography==37.0.2
+cryptography==39.0.1
 PyQRCode==1.2.1
 phonenumberslite==8.12.46
 zxcvbn==4.4.28
