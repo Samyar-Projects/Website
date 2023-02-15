@@ -1,5 +1,5 @@
 #  Samyar Projects Website database module.
-#  Copyright 2022 Samyar Projects
+#  Copyright 2021-2023 Samyar Sadat Akhavi
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -64,73 +64,21 @@ def quiz_db_add():
 
     else:
         return render_template("quiz/db_add.html")
-    
-    
-# @database.route("/mc-server-db-add", methods=["GET", "POST"])
-def mc_server_db_add():
-    if request.method == "POST":
-        try:
-            ed = request.form.get("ed")
-            d_ip = request.form.get("dip")
-            ip = request.form.get("ip")
-            port = request.form.get("port")
-            desc = request.form.get("desc")
-            modload = request.form.get("ml")
-            mods = request.form.get("mods")
-            mzip = request.form.get("mzip")
-                
-            if modload == "None" or mods == "None" or mzip == "None" or modload == None or mods == None or mzip == None or modload == "" or mods == "" or mzip == "":
-                modload = None
-                f_mods = None
-                mzip = None
-                                
-            else:
-                mods = mods.split(";")
-                f_mods = []
-                
-                for mod in mods:
-                    if mod != "":
-                        data = json.loads(mod)
-                        f_mods.append(data)
-                
-            if port == "None" or port == None or port == "":
-                data = MinecraftServer(ed, d_ip, ip, None, json.loads(desc), modload, f_mods, mzip, True)
-                
-            else:
-                data = MinecraftServer(ed, d_ip, ip, int(port), json.loads(desc), modload, f_mods, mzip, True)
-                
-            db.session.add(data)
-            db.session.commit() 
-            
-            flash("SUCCESS", "success")
-            return render_template("mc_server_db_add.html")
-            
-        except Exception as e:
-            log.exception("AddMcServerException")
-            flash(e.with_traceback, "danger")
-            return render_template("mc_server_db_add.html")
-        
-    else:
-        return render_template("mc_server_db_add.html")
 
 
 # ------- Database models -------
 
 # -=-=-= Accounts database =-=-=-
 # ---- User roles table ----
-class RolesUsers(db.Model):
-    __bind_key__ = "accounts"
-    __tablename__ = "RolesUsers"
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column("user_id", db.Integer, db.ForeignKey("Users.id"))
-    role_id = db.Column("role_id", db.Integer, db.ForeignKey("Role.id"))
+roles_users = db.Table("roles_users",
+                       db.Column("user_id", db.Integer(), db.ForeignKey("user.id")),
+                       db.Column("role_id", db.Integer(), db.ForeignKey("role.id")), 
+                       bind_key="accounts")
 
 
 # ---- Roles table ----
 class Role(db.Model, RoleMixin):
     __bind_key__ = "accounts"
-    __tablename__ = "Role"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True)
@@ -138,9 +86,8 @@ class Role(db.Model, RoleMixin):
 
 
 # ---- User table ----
-class Users(db.Model, UserMixin):
+class User(db.Model, UserMixin):
     __bind_key__ = "accounts"
-    __tablename__ = "Users"
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True)
@@ -155,21 +102,21 @@ class Users(db.Model, UserMixin):
     active = db.Column(db.Boolean)
     fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False)
     confirmed_at = db.Column(db.DateTime)
-
-    roles = db.relationship("Role", secondary="RolesUsers", backref=db.backref("users", lazy="dynamic"))
+    roles = db.relationship("Role", secondary=roles_users, backref=db.backref("users", lazy="dynamic"))
+    tf_phone_number = db.Column(db.String(128), nullable=True)
+    tf_primary_method = db.Column(db.String(64), nullable=True)
+    tf_totp_secret = db.Column(db.String(255), nullable=True)
 
 
 # -=-=-= Quiz database =-=-=-
 # ---- Quiz question table ----
 class QuizQuestions(db.Model):
     __bind_key__ = "quiz"
-    __tablename__ = "QuizQuestions"
 
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(30))
     subcategory = db.Column(db.String(50))
     lang = db.Column(db.String(5))
-    level = db.Column(db.Integer)
     difficulty = db.Column(db.String(15))
     question = db.Column(db.String(16384), unique=True)
     correct_answ = db.Column(db.String(1))
@@ -179,11 +126,10 @@ class QuizQuestions(db.Model):
     answ_d = db.Column(db.String(2048))
     status = db.Column(db.Boolean)
 
-    def __init__(self, category: str, subcategory: str, lang: str, level: int, difficulty: str, question: str, correct_answ: str, answ_a: str, answ_b: str, answ_c: str, answ_d: str, status: bool):
+    def __init__(self, category: str, subcategory: str, lang: str, difficulty: str, question: str, correct_answ: str, answ_a: str, answ_b: str, answ_c: str, answ_d: str, status: bool):
         self.category = category
         self.subcategory = subcategory
         self.lang = lang
-        self.level = level
         self.difficulty = difficulty
         self.question = question
         self.correct_answ = correct_answ
@@ -197,7 +143,6 @@ class QuizQuestions(db.Model):
 # ---- Quiz result table ----
 class QuizResults(db.Model):
     __bind_key__ = "quiz"
-    __tablename__ = "QuizResults"
 
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String(10))
@@ -212,42 +157,7 @@ class QuizResults(db.Model):
         self.multiplayer = multiplayer
         self.quiz_id = quiz_id
         self.player_info = player_info
-        
-        
-# -=-=-= Minecraft server database =-=-=-
-# ---- Server table ----
-class MinecraftServer(db.Model):
-    __tablename__ = "MinecraftServer"
-
-    id = db.Column(db.Integer, primary_key=True)
-    edition = db.Column(db.String(8))
-    display_ip_add = db.Column(db.String(64))
-    ip_add = db.Column(db.String(16))
-    port = db.Column(db.Integer, nullable=True)
-    desc = db.Column(db.JSON)
-    modded = db.Column(db.Boolean)
-    modloader = db.Column(db.String(16), nullable=True)
-    mods = db.Column(db.JSON, nullable=True)
-    mods_zip = db.Column(db.String(2048), nullable=True)
-    status = db.Column(db.Boolean)
-
-    def __init__(self, edition: str, display_ip_add: str, ip_add: str, port: int, desc: dict, modloader: str, mods: list, mods_zip: str, status: bool):
-        self.edition = edition
-        self.display_ip_add = display_ip_add
-        self.ip_add = ip_add
-        self.port = port
-        self.desc = desc
-        self.modloader = modloader
-        self.mods = mods
-        self.mods_zip = mods_zip
-        self.status = status
-        
-        if modloader and mods:
-            self.modded = True
-            
-        else:
-            self.modded = False
 
 
 # ------- Flask-Security user datastore -------
-user_datastore = SQLAlchemySessionUserDatastore(db.session, Users, Role)
+user_datastore = SQLAlchemySessionUserDatastore(db.session, User, Role)

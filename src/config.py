@@ -1,5 +1,5 @@
 #  Samyar Projects Website flask and flask plugin config file.
-#  Copyright 2022 Samyar Projects
+#  Copyright 2021-2023 Samyar Sadat Akhavi
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -28,6 +28,11 @@ load_dotenv("secrets/vars.env")
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "secrets/ga_creds.json"
 
 
+# ------- Global variables -------
+WORKING_DIR = os.path.abspath(os.path.dirname(__file__))
+INSTANCE_DIR = os.path.join(WORKING_DIR, "instance")
+
+
 # ------- Config classes -------
 class ProductionConfig():
     # ------- Flask config -------
@@ -48,12 +53,15 @@ class ProductionConfig():
     }
     
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_pre_ping": True
+    }
 
     # ------- Flask-Security config -------
     SECURITY_PASSWORD_SALT = os.getenv("PASSWORD_ENCRYPT_SALT")
     SECURITY_PASSWORD_COMPLEXITY_CHECKER = "zxcvbn"
     SECURITY_REGISTERABLE = True
-    SECURITY_PASSWORD_BREACHED_COUNT = 4
+    SECURITY_PASSWORD_BREACHED_COUNT = 3
     SECURITY_REDIRECT_ALLOW_SUBDOMAINS = True
     SECURITY_CSRF_IGNORE_UNAUTH_ENDPOINTS = False
     SECURITY_I18N_DIRNAME = ["translations", pkg_resources.resource_filename("flask_security", "translations")]
@@ -74,20 +82,16 @@ class ProductionConfig():
     WTF_CSRF_CHECK_DEFAULT = False
 
     # ------- Module configs -------
-    QUIZ_QUESTION_COUNT = 15
+    QUIZ_QUESTION_COUNT = 10
     QUIZ_QUESTION_TIME = 60
-    LOG_FILE_PATH = "../logs/"
+    LOG_FILE_PATH = os.path.join(INSTANCE_DIR, "logs")
     LOG_LEVEL = logging.INFO
     ANALYTICS_TAG_ID = "G-3J818WNF23"
     ANALYTICS_PROPERTY_ID = "315035421"
-    MC_SERVER_TIMEOUT = 3.0
-    TEMPORARY_FILE_DIR = "data/temporary/"
-    MC_SERVER_LATEST_INFO_TEMP_FILE = "mc_server_latest_info.json"
-    MC_SERVER_USE_CACHED_DATA = True
+    TEMPORARY_FILE_DIR = os.path.join(INSTANCE_DIR, "data/temporary")
     SP_QUIZ_TEMP_DATA_FILE = "sp_quiz_result.json"
     RENDER_CACHE_TIMEOUT = 3*60
     SUPPORTED_LANGS = ["en_US"]
-    FAKE_MC_SERVERS_ONLINE = True  # TEMPORARY - There is a bug with the mcstatus library and it doesn't work on the production server.
 
 
 class TestingConfig(ProductionConfig):
@@ -114,6 +118,18 @@ class AppConfig(ProductionConfig):
     SECURITY_POST_CONFIRM_VIEW = "index"
     SECURITY_POST_RESET_VIEW = "login"
     SECURITY_POST_CHANGE_VIEW = "index"
+    
+    # ------- Redirect module URL config -------
+    TWITTER_URL = {"en_US": "https://twitter.com/Samyar_Projects"}
+    INSTAGRAM_URL = {"en_US": ""}
+    DISCORD_URL = {"en_US": "https://discord.gg/rMq7GujUZJ"}
+    YOUTUBE_URL = {"en_US": "https://www.youtube.com/@samyarprojects"}
+    PATREON_URL = {"en_US": ""}
+    GITHUB_URL = {"en_US": "https://github.com/Samyar-Projects"}
+    EMAIL_URL = {"en_US": "mailto:samyarsadat@gigawhat.net"}
+    FORUM_BAN_APPEAL_URL = {"en_US": "https://dyno.gg/form/3b2bc888"}
+    DISCORD_BAN_APPEAL_URL = {"en_US": "https://dyno.gg/form/9e854815"}
+    SERVER_SUGGESTIONS_URL = {"en_US": "https://dyno.gg/form/e499415"}
     
     # ------- Flask-Security message overrides -------
     SECURITY_MSG_ALREADY_CONFIRMED = ("Your email has already been confirmed.", "info")

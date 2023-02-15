@@ -1,5 +1,5 @@
 #  Samyar Projects Website user account module.
-#  Copyright 2022 Samyar Projects
+#  Copyright 2021-2023 Samyar Sadat Akhavi
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ This module is not complete.
 
 
 # ------- Libraries and utils -------
-from flask import Blueprint, redirect, url_for
+from flask import Blueprint, redirect, url_for, render_template
 from flask_security import Security
 from init import app
 from modules.database import user_datastore
@@ -50,3 +50,13 @@ account_pages = Blueprint("account_pages", __name__, template_folder="../templat
 @account_pages.route("/")
 def index():
     return redirect(url_for("index"))
+
+
+@account_pages.route("/account/settings")
+def account_settings():
+    return render_template("account/acc_settings.html")
+
+
+@account_pages.route("/account/profile")
+def account_profile():
+    return render_template("account/acc_profile.html")

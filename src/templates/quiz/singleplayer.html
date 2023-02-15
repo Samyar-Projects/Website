@@ -7,36 +7,27 @@
 
 <div class="px-sm-5 py-sm-4 py-3 px-3 container">
     <form action="{{url_for("quiz_pages.singleplayer")}}" method="POST">
-        <div class="form-floating mb-3">
+        <!-- <div class="form-floating mb-3">
             <select name="category-select" class="form-select rounded-3" id="category-select">
-                <!--<optgroup label="{{_("General knowledge")}}">
+                <optgroup label="{{_("General knowledge")}}">
                     <option value="gk-10">10</option>
                     <option value="gk-20">20</option>
-                </optgroup>-->
-                
-                <optgroup label="{{_("School subjects")}}">
-                    <option value="ss-math" selected>{{_("Mathematics")}}</option>
-                    <option value="ss-sci">{{_("Science")}}</option>
                 </optgroup>
+                
+                <option value="elec" selected>{{_("Electronics")}}</option>
+                <option value="html">{{_("Programming")}}</option>
             </select>
             
             <label for="category-select">{{_("Category")}}</label>
-        </div>
+        </div> -->
 
-        <div id="subcat" class="form-floating mb-3 d-none">
+        <div id="subcat" class="form-floating mb-3">
             <select name="subcategory-select" class="form-select rounded-3" id="subcategory-select">
-                <option value="None" selected>{{_("None")}}</option>
+                <option value="elec" selected>{{_("Electronics")}}</option>
+                <option value="html" selected>{{_("HTML 5")}}</option>
             </select>
             
-            <label for="subcategory-select">{{_("Subcategory")}}</label>
-        </div>
-
-        <div id="level" class="form-floating mb-3">
-            <select name="level-select" class="form-select rounded-3" id="level-select">
-                <option value="7" selected>{{_("7th Grade")}}</option>
-            </select>
-            
-            <label for="level-select">{{_("Level")}}</label>
+            <label for="subcategory-select">{{_("Category")}}</label>
         </div>
 
         <div class="form-floating mb-4">
@@ -58,33 +49,6 @@
     </form>
     {% endif %}
 
-    <p class="text-secondary mt-3 mb-5">{{_("Note: The quiz consists of %(q_num)s questions, and there is a time limit of %(time)s minute for every question.", q_num=info.q_num, time=info.q_time)}}</p>
+    <p class="text-secondary mt-3 mb-5">{{_("Note: The quiz consists of %(q_num)s questions, and there is a time limit of %(time)s minute(s) for every question.", q_num=info.q_num, time=info.q_time)}}</p>
 </div>
-{% endblock %}
-
-{% block end %}
-<script>
-    var level = document.getElementById("level");
-    var subcat = document.getElementById("subcat");
-    var selector = document.getElementById("category-select");
-
-    function changed(event)
-    {
-        var optgroup = document.querySelector('select[name="category-select"] option:checked').parentElement.label
-
-        if (optgroup == "{{_("School subjects")}}")
-        {
-            level.style.display = "block";
-            subcat.style.display = "none";
-        }
-
-        else if (optgroup == "{{_("General knowledge")}}")
-        {
-            subcat.style.display = "block";
-            level.style.display = "none";
-        }
-    }
-
-    selector.addEventListener("change", changed)
-</script>
 {% endblock %}

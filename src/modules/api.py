@@ -1,5 +1,5 @@
 #  Samyar Projects Website API module.
-#  Copyright 2022 Samyar Projects
+#  Copyright 2021-2023 Samyar Sadat Akhavi
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -35,4 +35,4 @@ api = Blueprint("api", __name__, template_folder="../templates", static_folder="
 # ------- Page routes -------
 @api.route("/")
 def index():
-    return {"status": 200, "data": "Work in progress!"}
+    return {"status": 200, "data": "Work in progress!"}, 200
