@@ -60,31 +60,27 @@ Live website: https://gigawhat.net/
 <br>
 *4: To get the Mailjet credentials: Create a Mailjet account, go to 'Account Settings > API Key Management' then create an API key.<br>
 <br>
-Note: Python 3.7.12 is recommended.<br>
+Note: Python 3.8.12 is recommended.<br>
 <br>
 
 ## Support :
-<br>
 If you think that you have found a bug please report it <a href="https://github.com/Samyar-Projects/Website/issues">here</a>.
-
+<br>
 <br>
 
 ## Contributing :
-
 Please take a look at <a href="https://github.com/Samyar-Projects/Website/blob/dev/CONTRIBUTING.md">CONTRIBUTING.md</a> for contributing.
-
+<br>
 <br>
 
 ## Credits :
 
-| Role           | Name                                                             |
-| -------------- | ---------------------------------------------------------------- |
-| Lead Developer | <a href="https://github.com/samyarsadat">Samyar Sadat Akhavi</a> |
-| Translation    | Rüzgar Kaya                                                      |
-| Assets         | Rüzgar Kaya                                                      |
+| Role           | Name                                                                          |
+| -------------- | ----------------------------------------------------------------------------- |
+| Lead Developer | <a href="https://github.com/samyarsadat">Samyar Sadat Akhavi</a>              |
+| Assets         | Rüzgar Kaya, <a href="https://github.com/samyarsadat">Samyar Sadat Akhavi</a> |
 
 <br>
 <br>
 
-Copyright © 2021-2022 Samyar Projects.
-
+Copyright © 2021-2023 Samyar Sadat Akhavi.

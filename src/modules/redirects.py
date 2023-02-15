@@ -1,5 +1,5 @@
 #  Samyar Projects Website blog module.
-#  Copyright 2022 Samyar Projects
+#  Copyright 2021-2023 Samyar Sadat Akhavi
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -26,6 +26,8 @@ This module is for social and or other redirects.
 from flask import Blueprint, redirect, send_from_directory, url_for
 from flask_babel import get_locale
 from flask_security import url_for_security
+from config import AppConfig
+from init import debug_log, log
 
 
 # ------- Blueprint init -------
@@ -54,112 +56,135 @@ def login_redirect():
 
 
 @redirects.route("/register")
-def register_redirect():
-    return redirect(url_for_security("register"))
-
-
 @redirects.route("/signup")
-def signup_redirect():
+def register_redirect():
     return redirect(url_for_security("register"))
 
 
 # ------- Social redirects -------
 @redirects.route("/twitter")
 def twitter_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("https://twitter.com/Samyar_Projects")
+    url = AppConfig.TWITTER_URL[str(get_locale())]
     
-    return redirect("https://twitter.com/Samyar_Projects")
+    if url:
+        return redirect(url)
+
+    log.error(f"[{request.remote_addr}] Failed to load URL for [TWITTER_URL] redirect with language [{str(get_locale())}]")
+    debug_log.debug(f"[{request.remote_addr}] Failed to load URL for [TWITTER_URL] redirect with language [{str(get_locale())}]")
+    abort(404)
 
 
 """
 @redirects.route("/instagram")
 def instagram_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("")
+    url = AppConfig.INSTAGRAM_URL[str(get_locale())]
+    
+    if url:
+        return redirect(url)
 
-    return redirect("")
+    log.error(f"[{request.remote_addr}] Failed to load URL for [INSTAGRAM_URL] redirect with language [{str(get_locale())}]")
+    debug_log.debug(f"[{request.remote_addr}] Failed to load URL for [INSTAGRAM_URL] redirect with language [{str(get_locale())}]")
+    abort(404)
 """
 
 
+@redirects.route("/dc")
 @redirects.route("/discord")
 def discord_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("https://discord.gg/rMq7GujUZJ")
+    url = AppConfig.DISCORD_URL[str(get_locale())]
     
-    return redirect("https://discord.gg/rMq7GujUZJ")
+    if url:
+        return redirect(url)
+
+    log.error(f"[{request.remote_addr}] Failed to load URL for [DISCORD_URL] redirect with language [{str(get_locale())}]")
+    debug_log.debug(f"[{request.remote_addr}] Failed to load URL for [DISCORD_URL] redirect with language [{str(get_locale())}]")
+    abort(404)
 
 
-@redirects.route("/dc")
-def discord_short_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("https://discord.gg/rMq7GujUZJ")
-    
-    return redirect("https://discord.gg/rMq7GujUZJ")
-
-
+@redirects.route("/yt")
 @redirects.route("/youtube")
 def youtube_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("https://www.youtube.com/channel/UCPHX8gEofqCy66qA86KE91g")
+    url = AppConfig.YOUTUBE_URL[str(get_locale())]
     
-    return redirect("https://www.youtube.com/channel/UCPHX8gEofqCy66qA86KE91g")
+    if url:
+        return redirect(url)
+
+    log.error(f"[{request.remote_addr}] Failed to load URL for [YOUTUBE_URL] redirect with language [{str(get_locale())}]")
+    debug_log.debug(f"[{request.remote_addr}] Failed to load URL for [YOUTUBE_URL] redirect with language [{str(get_locale())}]")
+    abort(404)
 
 
 """
 @redirects.route("/patreon")
 def patreon_redirect():
-    return redirect("https://www.patreon.com/gigawhat")
+    url = AppConfig.PATREON_URL[str(get_locale())]
+    
+    if url:
+        return redirect(url)
+
+    log.error(f"[{request.remote_addr}] Failed to load URL for [PATREON_URL] redirect with language [{str(get_locale())}]")
+    debug_log.debug(f"[{request.remote_addr}] Failed to load URL for [PATREON_URL] redirect with language [{str(get_locale())}]")
+    abort(404)
 """
 
 
+@redirects.route("/open-source")
 @redirects.route("/github")
 def github_redirect():
-    return redirect("https://github.com/Samyar-Projects")
+    url = AppConfig.GITHUB_URL[str(get_locale())]
+    
+    if url:
+        return redirect(url)
+
+    log.error(f"[{request.remote_addr}] Failed to load URL for [GITHUB_URL] redirect with language [{str(get_locale())}]")
+    debug_log.debug(f"[{request.remote_addr}] Failed to load URL for [GITHUB_URL] redirect with language [{str(get_locale())}]")
+    abort(404)
 
 
-@redirects.route("/open-source")
-def opensource_redirect():
-    return redirect("https://github.com/Samyar-Projects")
-
-
+@redirects.route("/mail")
 @redirects.route("/email")
 def email_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("mailto:samyarsadat@gigawhat.net")
+    url = AppConfig.EMAIL_URL[str(get_locale())]
     
-    return redirect("mailto:samyarsadat@gigawhat.net")
+    if url:
+        return redirect(url)
+
+    log.error(f"[{request.remote_addr}] Failed to load URL for [EMAIL_URL] redirect with language [{str(get_locale())}]")
+    debug_log.debug(f"[{request.remote_addr}] Failed to load URL for [EMAIL_URL] redirect with language [{str(get_locale())}]")
+    abort(404)
 
 
-@redirects.route("/mc-ban-appeal")
-def mc_ban_appeal_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("https://dyno.gg/form/3b2bc888")
+@redirects.route("/spforum-ban-appeal")
+def spforum_ban_appeal_redirect():
+    url = AppConfig.FORUM_BAN_APPEAL_URL[str(get_locale())]
     
-    return redirect("https://dyno.gg/form/3b2bc888")
+    if url:
+        return redirect(url)
+
+    log.error(f"[{request.remote_addr}] Failed to load URL for [FORUM_BAN_APPEAL_URL] redirect with language [{str(get_locale())}]")
+    debug_log.debug(f"[{request.remote_addr}] Failed to load URL for [FORUM_BAN_APPEAL_URL] redirect with language [{str(get_locale())}]")
+    abort(404)
 
 
 @redirects.route("/discord-ban-appeal")
 def discord_ban_appeal_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("https://dyno.gg/form/9e854815")
+    url = AppConfig.DISCORD_BAN_APPEAL_URL[str(get_locale())]
     
-    return redirect("https://dyno.gg/form/9e854815")
+    if url:
+        return redirect(url)
+
+    log.error(f"[{request.remote_addr}] Failed to load URL for [DISCORD_BAN_APPEAL_URL] redirect with language [{str(get_locale())}]")
+    debug_log.debug(f"[{request.remote_addr}] Failed to load URL for [DISCORD_BAN_APPEAL_URL] redirect with language [{str(get_locale())}]")
+    abort(404)
 
 
 @redirects.route("/server-suggestions")
 def server_suggestions_redirect():
-    if str(get_locale()) == "en_US":
-        return redirect("https://dyno.gg/form/e499415")
+    url = AppConfig.SERVER_SUGGESTIONS_URL[str(get_locale())]
     
-    return redirect("https://dyno.gg/form/e499415")
+    if url:
+        return redirect(url)
 
-
-@redirects.route("/mc-server/resource-pack")
-def mc_server_rp_redirect():
-    return send_from_directory(redirects.static_folder, "files/zip/VanillaTweaks_r329778.zip", as_attachment=True)
-
-
-@redirects.route("/mc-server/mods-zip")
-def mc_server_mods_redirect():
-    return send_from_directory(redirects.static_folder, "files/zip/MC_Server_mods.zip", as_attachment=True)
+    log.error(f"[{request.remote_addr}] Failed to load URL for [SERVER_SUGGESTIONS_URL] redirect with language [{str(get_locale())}]")
+    debug_log.debug(f"[{request.remote_addr}] Failed to load URL for [SERVER_SUGGESTIONS_URL] redirect with language [{str(get_locale())}]")
+    abort(404)

@@ -1,5 +1,5 @@
 #  Samyar Projects Website main application file.
-#  Copyright 2022 Samyar Projects
+#  Copyright 2021-2023 Samyar Sadat Akhavi
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -17,26 +17,22 @@
 
 
 # ------- Libraries, utils, and modules -------
-from os import stat
 import jinja2
-from utils.temp_data import McServerLatestInfo
 import werkzeug
-from mc_init import init_mc
+from datetime import timedelta, datetime
 from flask import abort, redirect, render_template, request, session
 from config import AppConfig
 from flask_babel import get_locale
 from init import app, cache, db, babel, log, debug_log
-from mc_init import bedrock_servers, java_servers
 from modules.quiz import quiz_pages
 from modules.blog import blog_pages
 from modules.forum import forum_pages
 from modules.account import account_pages
-from modules.database import MinecraftServer, database
+from modules.database import database
 from modules.redirects import redirects
 from modules.api import api
-from utils.models import HomeNews, MCServer, MCMod
+from utils.models import HomeNews
 from utils.google_analytics import Analytics
-from utils.mc_server import JavaServer, BedrockServer
 
 
 # ------- Global variables -------
@@ -113,11 +109,6 @@ def template_error(error):
 
 
 # ------- Before request -------
-@app.before_first_request
-def init_mc_servers():
-    init_mc()
-    
-
 @app.before_request
 def remove_www():
     if "://www." in request.url.lower():
@@ -130,7 +121,7 @@ def remove_www():
 @app.before_request
 def log_request():
     log.info(f"[{request.remote_addr}] Sent a [{request.method}] request to [{request.url}]")
-
+    
 
 # ------- Page routes -------
 @app.route("/")
@@ -139,51 +130,18 @@ def index():
     posts.append(HomeNews("Placeholder post 1", "1980 mins", "img/carousel/placeholder.png", "#"))
     posts.append(HomeNews("Placeholder post 2", "2001 mins", "img/carousel/placeholder.png", "#"))
     posts.append(HomeNews("Placeholder post 3", "1963 mins", "img/carousel/placeholder.png", "#"))
-
-    return render_template("index.html", page_views=Analytics.pageviews_this_month(), posts=posts)
-
-
-@app.route("/mc-server")
-def mc_server(): 
-    servers = []      
-    db_java_servers = db.session.query(MinecraftServer).filter_by(edition="Java", status=True).all()
-    db_bedrock_servers = db.session.query(MinecraftServer).filter_by(edition="Bedrock", status=True).all()
     
-    for index, db_server in enumerate(db_java_servers):
-        server_from_list = java_servers[index]
-        mcserver = JavaServer(server_from_list)
-        status = mcserver.Status()
-        version = status.version()['name']
-        
-        mods = []
-        
-        if db_server.modded:
-            if db_server.modloader == "Forge":
-                modloader_link = f"https://files.minecraftforge.net/net/minecraftforge/forge/index_{version}.html"
-                
-            elif db_server.modloader == "Fabric":
-                modloader_link = "https://fabricmc.net/use/installer/"
-            
-            for mod in db_server.mods:
-                mods.append(MCMod.from_json(mod))
-            
-        if status.opstat_ignore_fake() == "ON":
-            McServerLatestInfo(version, status.max_players(), f"{server_from_list.address.host}:{server_from_list.address.port}").write()
-                
-        servers.append(MCServer(db_server.desc, db_server.display_ip_add, db_server.modded, db_server.modloader, modloader_link, mods, db_server.mods_zip, status.players_online(), status.max_players(), status.players(), status.opstat(), f"Java Edition {version}"))
-    
-    for index, db_server in enumerate(db_bedrock_servers):
-        server_from_list = bedrock_servers[index]
-        mcserver = BedrockServer(server_from_list)
-        status = mcserver.Status()
-        version = status.version()['name']
-                
-        if status.opstat_ignore_fake() == "ON":
-            McServerLatestInfo(version, status.max_players(), f"{server_from_list.address.host}:{server_from_list.address.port}").write()
-                
-        servers.append(MCServer(db_server.desc, db_server.display_ip_add, False, db_server.modloader, None, mods, None, status.players_online(), status.max_players(), None, status.opstat(), f"Bedrock Edition {version}"))
-    
-    return render_template("mc_server.html", servers=servers)
+    # Calculate dyn_exp and dyn_age:
+    today = datetime.now()
+    dyn_age = round((today - datetime(2009, 2, 23, 7, 53, 0)).days / 365, 2)
+    dyn_exp = round((today - datetime(2018, 1, 1)).days / 365, 1)
+
+    return render_template("index.html", page_views=Analytics.pageviews_this_month(), posts=posts, dyn_age=dyn_age, dyn_exp=dyn_exp)
+
+
+@app.route("/projects")
+def projects_index():
+    return render_template("projects_index.html")
 
 
 @app.route("/ban-appeals")
@@ -198,5 +156,8 @@ def privacy_policy():
 
 # ------- Running the app -------
 if __name__ == "__main__":
-    db.create_all()
+    with app.app_context():
+        db.init_app(app)
+        db.create_all()
+        
     app.run()

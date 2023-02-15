@@ -1,0 +1,22 @@
+<!-- Main navigation -->
+<div class="collapse navbar-collapse" id="navmenu">
+    <ul class="navbar-nav ms-auto me-4">
+        <li class="nav-item"><a href="{{url_for("index")}}" class="nav-link">{{_("Home")}}</a></li>
+        <!-- <li class="nav-item"><a href="{{url_for("index")}}#about" class="nav-link">{{_("About")}}</a></li> -->
+        <li class="nav-item"><a href="{{url_for("projects_index")}}" class="nav-link">{{_("Projects")}}</a></li>
+        <li class="nav-item"><a href="{{url_for("blog_pages.index")}}" class="nav-link">{{_("Blog")}}</a></li>
+        <li class="nav-item"><a href="{{url_for("forum_pages.index")}}" class="nav-link">{{_("Forum")}}</a></li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{_("Servers")}}</a>
+
+            <ul class="dropdown-menu dropdown-menu-dark w-25">
+                <li><a href="{{url_for("redirects.discord_redirect")}}" class="dropdown-item text-primary fw-bold">{{_("Discord")}}</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a href="{{url_for("ban_appeals")}}" class="dropdown-item text-danger fw-bold pe-5">{{_("Ban appeals")}}</a></li>
+            </ul>
+        </li>
+        <!-- <li class="nav-item"><a href="{{url_for("quiz_pages.index")}}" class="nav-link">{{_("Quiz")}}</a></li> -->
+    </ul>
+    
+    {% include "base_templates/template_modules/user_dropdown.html" %}
+</div>

@@ -2,12 +2,11 @@
 
 ## Reporting a Vulnerability
 
-If you have found a security vulnerability, you can report it via e-mail.<br>
-E-mail: samyarsadat@gigawhat.net
+If you have found a security vulnerability, you can report it <a href="https://github.com/Samyar-Projects/Website/security/advisories">here</a><br>
 <br>
 <br>
 ***DO NOT USE GITHUB ISSUES FOR REPORTING A VULNERABILITY.<br>
-CONTACT US VIA E-MAIL OR DIRECT MESSAGE Samyar Sadat Akhavi#1980 on Discord.***
+REPORT IT <a href="https://github.com/Samyar-Projects/Website/security/advisories">HERE</a>.***
 
 After a vulnerability is reported, it will be verified.<br>
 After verification is complete, work on a patch will start immediately.

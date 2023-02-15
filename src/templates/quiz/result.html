@@ -53,30 +53,6 @@
         </div>
     </div>
 </div>
-
-{% if info.p_info[0].right_answ == 0 and info.show_modal %}
-<div class="modal fade" id="modal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Akademik Başarı Yükseltme</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            
-            <div class="modal-body">
-                Sizin 0 doğru cevabınız var. Biz, sizin akademik başarınızı yükseltmek amaçlı Uğur Kurs'a üye olmanızı öneriyoruz.<br>
-                <br>
-                #NotSponsored
-            </div>
-            
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İSTEMİYORUM!</button>
-                <a href="https://www.ugurkurs.com.tr/" role="button" class="btn btn-primary">Uğur Kurs'a git</a>
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
 {% endblock %}
 
 {% block end %}
@@ -127,18 +103,4 @@
         {% endfor %}
     };
 </script>
-
-{% if info.p_info[0].right_answ == 0 and info.show_modal %}
-<!-- Jquery -->
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-
-<script>
-    function show()
-    {
-        $("#modal").modal("show");  
-    }
-
-    $(document).ready(show);
-</script>
-{% endif %}
 {% endblock %}

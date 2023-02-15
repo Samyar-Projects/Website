@@ -1,6 +1,6 @@
 src/__pycache__
 src/modules/__pycache__
 src/utils/__pycache__
-src/CACHE
 src/secrets
-logs
+src/instance/logs/*.log
+Old Website Code

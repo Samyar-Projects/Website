@@ -1,0 +1,39 @@
+<!-- Temporary "Not ready" modal -->
+<div class="modal fade" id="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Website not finished!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            
+            <div class="modal-body">
+                This website is not finished and is still under development!<br>
+				You can report issues and contribute to the code here:<br>
+				<a href="https://github.com/Samyar-Projects/Website">https://github.com/Samyar-Projects/Website</a><br>
+                <br>
+                This modal won't be shown again on this subdomain.
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Jquery -->
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+<script>
+    function show()
+    {
+        $("#modal").modal("show");  
+    }
+
+	if (getCookie("notFinishedModalShown") === "")
+	{
+		$(document).ready(show);
+		setCookie("notFinishedModalShown", "True", 45, "");
+	}
+</script>

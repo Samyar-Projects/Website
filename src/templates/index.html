@@ -15,9 +15,9 @@
 			<img src="{{url_for("static", filename="img/carousel/placeholder2.png")}}">
 
 			<div class="carousel-caption">
-				<h1>{{_("Lorem ipsum dolor sit amet")}}</h1>
-				<p>{{_("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque.")}}</p>
-				<p><a class="btn btn-md btn-outline-light" href="#">{{_("Learn more")}}</a></p>
+				<h1>{{_("Samyar Projects Forum")}}</h1>
+				<p>{{_("Discuss several topics with other members of the forum.")}}</p>
+				<p><a class="btn btn-md btn-outline-light" href="{{url_for("forum_pages.index")}}">{{_("Go To SP Forum")}}</a></p>
 			</div>
 	    </div>
 	    
@@ -25,9 +25,9 @@
 			<img src="{{url_for("static", filename="img/carousel/placeholder2.png")}}">
 
 			<div class="carousel-caption">
-				<h1>{{_("Lorem ipsum dolor sit amet")}}</h1>
-				<p>{{_("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque.")}}</p>
-				<p><a class="btn btn-md btn-outline-light" href="#">{{_("Learn more")}}</a></p>
+				<h1>{{_("Samyar Projects Blog")}}</h1>
+				<p>{{_("Learn about the latest changes and project updates.")}}</p>
+				<p><a class="btn btn-md btn-outline-light" href="{{url_for("blog_pages.index")}}">{{_("Go To SP Blog")}}</a></p>
 			</div>
 	    </div>
 	    
@@ -35,9 +35,9 @@
 			<img src="{{url_for("static", filename="img/carousel/placeholder2.png")}}">
 
 			<div class="carousel-caption">
-				<h1>{{_("Lorem ipsum dolor sit amet")}}</h1>
-				<p>{{_("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque.")}}</p>
-				<p><a class="btn btn-md btn-outline-light" href="#">{{_("Learn more")}}</a></p>
+				<h1>{{_("View All Projects")}}</h1>
+				<p>{{_("View detailed build guides for finished projects or information and updates for ongoing projects.")}}</p>
+				<p><a class="btn btn-md btn-outline-light" href="{{url_for("projects_index")}}">{{_("View Projects")}}</a></p>
 			</div>
 	    </div>
 	</div>
@@ -57,17 +57,19 @@
 	<div class="album py-5">
 		<div class="container">
 			<div class="row row-cols-1 row-cols-sm-2 g-3">
-				<div class="col">
-					<img class="card-img rounded-3 shadow w-100" src="{{url_for("static", filename="img/carousel/placeholder.png")}}">
+				<div class="col pe-lg-3">
+					<img class="card-img rounded-3 shadow w-100" src="{{url_for("static", filename="img/general/website_banner_1.png")}}">
 				</div>
 	
 				<div class="col">
 					<div class="card-body">
 						<p class="card-text">
-							{{_("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue vitae est consequat dapibus quis eget neque. 
-							Donec mauris urna, suscipit in dignissim non, dignissim ut enim. Pellentesque eget consequat magna. Nam feugiat imperdiet velit, 
-							non imperdiet ante accumsan a. Nam enim erat, congue nec fringilla ut, rhoncus in mauris. Praesent fringilla nunc ac bibendum porttitor. 
-							Quisque ultricies cursus eros vitae sodales.")}}
+							{{_("Hello there, I'm Samyar. I'm %(dyn_age)s years old and I make electronics, robotics, 
+								and programming projects. This website is where I post all of my projects. I started 
+								programming and working with electronics about %(dyn_exp)s years ago. Since then, 
+								I have worked on (and built) quite a few projects however, most of them aren't on 
+								this website as this website is for my new and future projects. I wrote this website 
+								myself and you can find the source code on GitHub: https://github.com/Samyar-Projects/Website", dyn_age=dyn_age, dyn_exp=dyn_exp)}}
 						</p>
 					</div>
 				</div>
@@ -76,9 +78,9 @@
 	</div>
 </div>
 
-<h1 class="text-center pt-4">{{_("News")}}</h1>
+<h1 class="text-center pt-5">{{_("Latest Posts")}}</h1>
 
-<div class="album pb-sm-5 pt-5 pb-4">
+<div class="album pb-sm-5 pt-4 pb-4">
 	<div class="container">
 		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 			{% for post in posts %}

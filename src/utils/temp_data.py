@@ -1,5 +1,5 @@
 #  Samyar Projects Website temporary data storage module.
-#  Copyright 2022 Samyar Projects
+#  Copyright 2021-2023 Samyar Sadat Akhavi
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -27,6 +27,7 @@ storage models.
 
 # ------- Libraries and utils -------
 import json
+import os
 from config import AppConfig
 from init import log
 from typing import Union
@@ -34,8 +35,7 @@ from typing import Union
 
 # ------- Global variables -------
 TEMPORARY_FILE_DIR = AppConfig.TEMPORARY_FILE_DIR
-MC_LATEST_INFO_FILE = TEMPORARY_FILE_DIR + AppConfig.MC_SERVER_LATEST_INFO_TEMP_FILE
-SP_QUIZ_TEMP_FILE = TEMPORARY_FILE_DIR + AppConfig.SP_QUIZ_TEMP_DATA_FILE
+SP_QUIZ_TEMP_FILE = os.path.join(TEMPORARY_FILE_DIR, AppConfig.SP_QUIZ_TEMP_DATA_FILE)
 
 
 # ------- Storage models -------
@@ -98,73 +98,6 @@ class SpQuizResultTemp():
             data.pop(str(quiz_id))
 
             with open(SP_QUIZ_TEMP_FILE, "w") as file:
-                json.dump(data, file, indent=4)
-                
-            return True
-
-        except Exception:
-            log.exception("TemporaryDataDeleteException")
-            return False
-        
-        
-# ---- Minecraft server latest known info storage ----
-class McServerLatestInfo():
-    version: int
-    max_players: int
-    ip: str
-
-    def __init__(self, version, max_players, ip):
-        self.version = version
-        self.max_players = max_players
-        self.ip = ip
-    
-    
-    # -=-=-= Read, write and delete =-=-=-
-    # ---- Read latest known server info from temporary storage ----
-    def read(ip: str):
-        try:
-            with open(MC_LATEST_INFO_FILE, "r") as file:
-                data = json.load(file)
-
-            data = data[ip]
-            to_send = McServerLatestInfo(data["version"], data["max_players"], ip)
-            
-            return to_send
-
-        except Exception:
-            log.exception("TemporaryDataReadException")
-            return False
-    
-    
-    # ---- Write latest known server info to temporary storage ----
-    def write(self) -> bool:
-        json_data = {self.ip: {"version": self.version, "max_players": self.max_players}}
-
-        try:
-            with open(MC_LATEST_INFO_FILE, "r") as file:
-                data = json.load(file)
-
-            data.update(json_data)
-
-            with open(MC_LATEST_INFO_FILE, "w") as file:
-                json.dump(data, file, indent=4)
-                
-            return True
-
-        except Exception:
-            log.exception("TemporaryDataWriteException")
-            return False
-        
-
-    # ---- Delete latest known server info from temporary storage ----
-    def delete(ip: str) -> bool:
-        try:
-            with open(MC_LATEST_INFO_FILE, "r") as file:
-                data = json.load(file)
-
-            data.pop(ip)
-
-            with open(MC_LATEST_INFO_FILE, "w") as file:
                 json.dump(data, file, indent=4)
                 
             return True

@@ -1,5 +1,5 @@
 #  Samyar Projects Website quiz module.
-#  Copyright 2022 Samyar Projects
+#  Copyright 2021-2023 Samyar Sadat Akhavi
 #  Written by Samyar Sadat Akhavi, 2022.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -97,29 +97,16 @@ def singleplayer():
             category = request.form.get("category-select")
             subcategory = request.form.get("subcategory-select")
             difficulty = request.form.get("difficulty-select")
-            level = request.form.get("level-select")
-            
-            cat_optgroup = category.split("-")
-            category = cat_optgroup[1]
-            cat_optgroup = cat_optgroup[0]
 
-            if not category or not difficulty or not level or not subcategory:
+            # if not category or not difficulty or not subcategory:
+            if not difficulty or not subcategory:
                 debug_log.debug(f"[{request.remote_addr}] Sent invalid quiz start request.")
 
                 flash(gettext(u"Invalid input"), "danger")
                 return response_js_false(redirect(url_for("quiz_pages.singleplayer")))
 
-            if cat_optgroup == "gk":
-                questions = db.session.query(QuizQuestions.id).filter_by(lang=lang, category=category, subcategory=subcategory, difficulty=difficulty, status=True).all()
-                
-            elif cat_optgroup == "ss":
-                questions = db.session.query(QuizQuestions.id).filter_by(lang=lang, category=category, difficulty=difficulty, level=int(level), status=True).all()
-                
-            else:
-                debug_log.debug(f"[{request.remote_addr}] Sent invalid quiz category optgroup")
-
-                flash(gettext(u"Invalid input"), "danger")
-                return response_js_false(redirect(url_for("quiz_pages.singleplayer")))
+            # questions = db.session.query(QuizQuestions.id).filter_by(lang=lang, category=category, subcategory=subcategory, difficulty=difficulty, status=True).all()
+            questions = db.session.query(QuizQuestions.id).filter_by(lang=lang, subcategory=subcategory, difficulty=difficulty, status=True).all()
 
             if len(questions) < QUIZ_QUESTION_COUNT:
                 debug_log.debug(f"[{request.remote_addr}] Tried to start a quiz that does not exist.")
@@ -345,7 +332,7 @@ def show_results(q_id):
     try:
         query = db.session.query(QuizResults).filter_by(quiz_id=q_id).first()
         
-        info = {"p_info": query.player_info, "date": query.date, "time": query.time, "q_id": q_id, "q_num": QUIZ_QUESTION_COUNT, "multiplayer": query.multiplayer, "show_modal": (str(get_locale()) == "tr_TR" and query.multiplayer is not True)}
+        info = {"p_info": query.player_info, "date": query.date, "time": query.time, "q_id": q_id, "q_num": QUIZ_QUESTION_COUNT, "multiplayer": query.multiplayer}
         return render_template("quiz/result.html", info=info)
 
     except TypeError:
