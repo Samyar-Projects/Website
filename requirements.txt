@@ -1,6 +1,6 @@
 grpcio==1.50.0
 cffi==1.15.1
-Flask==2.2.2
+Flask==2.3.2
 Flask-Security-Too==5.0.2
 Flask-Caching==2.0.1
 python-dotenv==0.21.0
