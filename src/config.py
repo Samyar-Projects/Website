@@ -99,12 +99,12 @@ class TestingConfig(ProductionConfig):
 
 
 class LocalConfig(ProductionConfig):
-    SERVER_NAME = "sp-local.stw:5000"
+    SERVER_NAME = "sp-local.ltw:5000"
     DEBUG = True
     RENDER_CACHE_TIMEOUT = 1
 
 
-class AppConfig(ProductionConfig):
+class AppConfig(LocalConfig):
     # ------- Flask-Security config -------
     SECURITY_CHANGE_URL = "/change-pass"
     SECURITY_RESET_URL = "/reset-pass"
