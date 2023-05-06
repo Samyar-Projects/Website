@@ -29,13 +29,13 @@ Live website: https://gigawhat.net/
 ## How to run localy :
 1. Install the dependencies that are listed in the `requirements.txt` file.
 2. Add this to your `hosts` file *1:<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `sp-local.stw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `www.sp-local.stw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `quiz.sp-local.stw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `blog.sp-local.stw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `account.sp-local.stw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `api.sp-local.stw`<br>
-	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `forum.sp-local.stw`
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `sp-local.ltw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `www.sp-local.ltw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `quiz.sp-local.ltw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `blog.sp-local.ltw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `account.sp-local.ltw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `api.sp-local.ltw`<br>
+	`127.0.0.1` &nbsp;&nbsp;&nbsp;&nbsp; `forum.sp-local.ltw`
 	
 3. In the `config.py` file, change `AppConfig(ProductionConfig)` to `AppConfig(LocalConfig)`
 4. In the `config.py` file, change `ANALYTICS_TAG_ID` to your own Google Analytics G- ID. *2
@@ -48,7 +48,7 @@ Live website: https://gigawhat.net/
 	`MAILJET_API_SECRET = "MAILJET API SECRET"`<br>
 
 8. Run the application with: `python app.py`
-9. Go to: http://sp-local.stw:5000/
+9. Go to: http://sp-local.ltw:5000/
 
 
 <br>
