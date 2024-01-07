@@ -83,4 +83,4 @@ Please take a look at <a href="https://github.com/Samyar-Projects/Website/blob/d
 <br>
 <br>
 
-Copyright © 2021-2023 Samyar Sadat Akhavi.
+Copyright © 2021-2024 Samyar Sadat Akhavi.
